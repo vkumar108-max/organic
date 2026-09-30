@@ -27,6 +27,91 @@
 		hero.addEventListener( 'pointerleave', function () { layers.forEach( function ( l ) { l.style.translate = ''; } ); } );
 	}() );
 
+	/* ---------------- Hero 3D coverflow slider ---------------- */
+	( function () {
+		var root = $( '[data-hs]' );
+		if ( ! root ) { return; }
+		var slides = $$( '.vr-hs-slide', root ), n = slides.length;
+		if ( n < 2 ) { return; }
+		var panels = $$( '[data-panel]', d ), dots = $$( '[data-hs-dot]', d ), playBtn = $( '[data-hs-play]', d );
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		var active = 0, timer = null, userPaused = reduce, hovering = false, drag = null, moved = false;
+		var half = Math.floor( n / 2 );
+
+		function render() {
+			slides.forEach( function ( s, i ) {
+				var o = ( ( i - active + n + half ) % n ) - half, a = Math.abs( o );
+				s.style.setProperty( '--o', o ); s.style.setProperty( '--a', a );
+				s.classList.toggle( 'is-active', i === active );
+				s.setAttribute( 'data-far', a > 2 ? 'true' : 'false' );
+				s.setAttribute( 'aria-hidden', i === active ? 'false' : 'true' );
+				var link = $( 'a', s ); if ( link ) { link.tabIndex = i === active ? 0 : -1; }
+			} );
+			panels.forEach( function ( p, i ) { p.hidden = i !== active; } );
+			dots.forEach( function ( dt, i ) { dt.setAttribute( 'aria-current', i === active ? 'true' : 'false' ); } );
+		}
+		function go( i ) { active = ( i + n ) % n; render(); }
+		function stopAuto() { clearInterval( timer ); timer = null; }
+		function startAuto() { stopAuto(); if ( ! userPaused && ! hovering && ! reduce ) { timer = setInterval( function () { go( active + 1 ); }, 4500 ); } }
+
+		root.classList.add( 'is-ready' );
+		$$( '[data-hs-prev],[data-hs-next]', root ).forEach( function ( b ) { b.hidden = false; } );
+		render();
+
+		$( '[data-hs-prev]', root ).addEventListener( 'click', function () { go( active - 1 ); startAuto(); } );
+		$( '[data-hs-next]', root ).addEventListener( 'click', function () { go( active + 1 ); startAuto(); } );
+		dots.forEach( function ( dt ) { dt.addEventListener( 'click', function () { go( parseInt( dt.getAttribute( 'data-hs-dot' ), 10 ) ); startAuto(); } ); } );
+		root.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'ArrowRight' ) { e.preventDefault(); go( active + 1 ); startAuto(); }
+			if ( e.key === 'ArrowLeft' ) { e.preventDefault(); go( active - 1 ); startAuto(); }
+		} );
+
+		// Click a side card to bring it forward; the active card follows its link.
+		root.addEventListener( 'click', function ( e ) {
+			if ( moved ) { e.preventDefault(); moved = false; return; }
+			var s = e.target.closest( '.vr-hs-slide' );
+			if ( s && ! s.classList.contains( 'is-active' ) ) { e.preventDefault(); go( slides.indexOf( s ) ); startAuto(); }
+		} );
+
+		// Drag / swipe.
+		root.addEventListener( 'pointerdown', function ( e ) { if ( e.button > 0 ) { return; } drag = { x: e.clientX }; moved = false; } );
+		window.addEventListener( 'pointermove', function ( e ) {
+			if ( ! drag ) { return; }
+			var dx = e.clientX - drag.x;
+			if ( Math.abs( dx ) > 8 ) { root.classList.add( 'is-dragging' ); }
+			if ( Math.abs( dx ) > 48 ) { moved = true; go( active + ( dx < 0 ? 1 : -1 ) ); drag.x = e.clientX; startAuto(); }
+		} );
+		window.addEventListener( 'pointerup', function () { drag = null; root.classList.remove( 'is-dragging' ); setTimeout( function () { moved = false; }, 0 ); } );
+
+		// 3D tilt on the active card (fine pointers only).
+		if ( window.matchMedia( '(pointer: fine)' ).matches && ! reduce ) {
+			root.addEventListener( 'pointermove', function ( e ) {
+				var s = $( '.vr-hs-slide.is-active', root ); if ( ! s || drag ) { return; }
+				var r = s.getBoundingClientRect(), x = ( e.clientX - r.left ) / r.width - 0.5, y = ( e.clientY - r.top ) / r.height - 0.5;
+				if ( Math.abs( x ) > 0.9 || Math.abs( y ) > 0.9 ) { return; }
+				s.style.setProperty( '--ry', ( x * 16 ).toFixed( 1 ) + 'deg' ); s.style.setProperty( '--rx', ( -y * 12 ).toFixed( 1 ) + 'deg' );
+			} );
+			root.addEventListener( 'pointerleave', function () { slides.forEach( function ( s ) { s.style.removeProperty( '--rx' ); s.style.removeProperty( '--ry' ); } ); } );
+		}
+
+		// Autoplay with a visible pause control (WCAG 2.2.2); paused on hover/focus and when reduced motion is set.
+		root.addEventListener( 'mouseenter', function () { hovering = true; stopAuto(); } );
+		root.addEventListener( 'mouseleave', function () { hovering = false; startAuto(); } );
+		root.addEventListener( 'focusin', function () { hovering = true; stopAuto(); } );
+		root.addEventListener( 'focusout', function () { hovering = false; startAuto(); } );
+		if ( playBtn ) {
+			playBtn.hidden = reduce;
+			playBtn.addEventListener( 'click', function () {
+				userPaused = ! userPaused;
+				playBtn.setAttribute( 'aria-pressed', userPaused ? 'true' : 'false' );
+				playBtn.setAttribute( 'aria-label', userPaused ? 'Resume automatic sliding' : 'Pause automatic sliding' );
+				$( '[data-hs-play-icon]', playBtn ).textContent = userPaused ? '▶' : '❚❚';
+				startAuto();
+			} );
+		}
+		startAuto();
+	}() );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );

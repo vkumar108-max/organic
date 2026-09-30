@@ -106,12 +106,14 @@ function vr_tone_for_slug( string $slug ): string {
 		'combos'           => 'combo',
 		'tablet'           => 'tablet',
 		'dry-vegetable'    => 'dry',
+		'dry-vegetables'   => 'dry',
+		'tablets'          => 'tablet',
 	);
 	return $map[ $slug ] ?? 'leaf';
 }
 
 function vr_product_tone( int $product_id ): string {
-	$known = array( 'fruit-powder', 'leaf-powder', 'vegetable-powder', 'combos', 'tablet', 'dry-vegetable' );
+	$known = array( 'fruit-powder', 'leaf-powder', 'vegetable-powder', 'combos', 'tablet', 'tablets', 'dry-vegetable', 'dry-vegetables' );
 	$terms = get_the_terms( $product_id, 'product_cat' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
 		foreach ( $terms as $term ) {
@@ -216,4 +218,30 @@ function vr_card_price_html( WC_Product $product ): string {
 		$html .= ' <span class="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-bold text-brand-800">' . $pct . '% OFF</span>';
 	}
 	return $html;
+}
+
+/**
+ * Categories for the hero slider: the slugs/names listed in Customizer (default: the five
+ * storefront categories), falling back to the first top-level categories. Max 5.
+ *
+ * @return WP_Term[]
+ */
+function vr_hero_categories(): array {
+	if ( ! taxonomy_exists( 'product_cat' ) ) {
+		return array();
+	}
+	$wanted = array_filter( array_map( 'trim', explode( ',', (string) vr_opt( 'hero_cats', 'fruit-powder, leaf-powder, vegetable-powder, dry-vegetables, tablets' ) ) ) );
+	$out    = array();
+	foreach ( $wanted as $token ) {
+		$term = get_term_by( 'slug', sanitize_title( $token ), 'product_cat' ) ?: get_term_by( 'name', $token, 'product_cat' );
+		if ( $term && ! is_wp_error( $term ) && ! isset( $out[ $term->term_id ] ) ) {
+			$out[ $term->term_id ] = $term;
+		}
+	}
+	if ( count( $out ) < 2 ) {
+		foreach ( vr_top_categories() as $term ) {
+			$out[ $term->term_id ] = $term;
+		}
+	}
+	return array_slice( array_values( $out ), 0, 5 );
 }

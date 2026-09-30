@@ -23,29 +23,6 @@ $vr_reviews = get_comments( array( 'type' => 'review', 'status' => 'approve', 'n
 $vr_posts   = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'ignore_sticky_posts' => true, 'no_found_rows' => true ) );
 ?>
 
-<?php
-// Hero stage: real product photos when they exist (featured / best sellers), generated artwork otherwise.
-$vr_hero_products = array();
-if ( $vr_woo ) {
-	foreach ( array_merge( vr_get_products( array( 'featured' => true, 'limit' => 3 ) ), $vr_best ) as $vr_hp ) {
-		if ( ! isset( $vr_hero_products[ $vr_hp->get_id() ] ) && $vr_hp->get_image_id() ) {
-			$vr_hero_products[ $vr_hp->get_id() ] = $vr_hp;
-		}
-		if ( count( $vr_hero_products ) >= 3 ) {
-			break;
-		}
-	}
-	$vr_hero_products = array_values( $vr_hero_products );
-}
-$vr_tones = array( 'leaf', 'fruit', 'vegetable' );
-$vr_slot  = static function ( int $i ) use ( $vr_hero_products, $vr_tones ): string {
-	if ( isset( $vr_hero_products[ $i ] ) ) {
-		return vr_product_thumb( $vr_hero_products[ $i ], 'large' );
-	}
-	return vr_art( $vr_tones[ $i ], '', $i );
-};
-$vr_chip_cats = array_slice( $vr_cats, 0, 3 );
-?>
 <section aria-labelledby="hero-title" class="vr-hero relative isolate overflow-hidden bg-gradient-to-br from-brand-50 via-white to-sand-50" data-parallax>
 	<div class="vr-blob vr-blob--a" aria-hidden="true" data-depth="-14"></div>
 	<div class="vr-blob vr-blob--b" aria-hidden="true" data-depth="10"></div>
@@ -77,51 +54,11 @@ $vr_chip_cats = array_slice( $vr_cats, 0, 3 );
 			</ul>
 		</div>
 
-		<div class="vr-stage relative mx-auto w-full max-w-md lg:max-w-none" <?php echo $vr_hero_products ? '' : 'aria-hidden="true"'; ?>>
+		<div class="vr-stage relative mx-auto w-full max-w-xl lg:max-w-none">
 			<div class="vr-arch-ring" aria-hidden="true" data-depth="-8"></div>
-			<div class="vr-float relative mx-auto w-[78%] sm:w-[70%]" data-depth="6">
-				<div class="vr-arch relative aspect-[4/5] overflow-hidden bg-brand-100 shadow-lift ring-8 ring-white">
-					<?php if ( isset( $vr_hero_products[0] ) ) : ?>
-						<a href="<?php echo esc_url( get_permalink( $vr_hero_products[0]->get_id() ) ); ?>" class="block h-full w-full transition duration-700 hover:scale-105"><?php echo $vr_slot( 0 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-					<?php else : echo $vr_slot( 0 ); // phpcs:ignore WordPress.Security.EscapeOutput
-					endif; ?>
-				</div>
-				<?php if ( isset( $vr_hero_products[0] ) ) : ?>
-					<a href="<?php echo esc_url( get_permalink( $vr_hero_products[0]->get_id() ) ); ?>" class="vr-glass absolute -bottom-4 left-1/2 flex w-[88%] -translate-x-1/2 items-center justify-between gap-3 rounded-2xl px-4 py-3 shadow-lift">
-						<span class="min-w-0"><span class="block truncate text-sm font-semibold"><?php echo esc_html( $vr_hero_products[0]->get_name() ); ?></span><span class="text-xs text-ink-soft"><?php echo vr_card_price_html( $vr_hero_products[0] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span></span>
-						<span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-600 text-white"><?php vr_e_icon( 'arrowRight', 16 ); ?></span>
-					</a>
-				<?php endif; ?>
-			</div>
-
-			<div class="vr-float vr-float--2 absolute -right-1 top-2 w-[34%] rotate-6 sm:right-0" data-depth="16"><div class="aspect-square overflow-hidden rounded-3xl bg-white shadow-lift ring-4 ring-white"><?php echo $vr_slot( 1 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div></div>
-			<div class="vr-float vr-float--3 absolute -left-1 bottom-10 w-[32%] -rotate-6 sm:left-0" data-depth="-16"><div class="aspect-square overflow-hidden rounded-3xl bg-white shadow-lift ring-4 ring-white"><?php echo $vr_slot( 2 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div></div>
-
-			<svg class="vr-spin absolute -left-2 top-0 h-24 w-24 sm:h-28 sm:w-28" viewBox="0 0 120 120" aria-hidden="true" data-depth="10">
-				<defs><path id="vr-circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
-				<circle cx="60" cy="60" r="58" fill="#fff" opacity=".9"/>
-				<text font-size="10" font-weight="700" fill="#245c2f"><textPath href="#vr-circle" textLength="284" lengthAdjust="spacing"><?php esc_html_e( 'FRUIT • LEAF • VEGETABLE • ', 'verdant-roots' ); ?></textPath></text>
-				<path d="M44 74c0-15 9-24 28-24 0 16-10 25-26 25" fill="#2d7439"/>
-			</svg>
-
-			<?php foreach ( $vr_chip_cats as $vr_ci => $vr_cc ) :
-				$vr_pos = array( 'right-[-2%] top-[46%]', 'left-[-3%] top-[38%]', 'right-[8%] bottom-[-2%]' )[ $vr_ci ]; ?>
-				<a href="<?php echo esc_url( get_term_link( $vr_cc ) ); ?>" class="vr-chip vr-float vr-float--<?php echo (int) ( $vr_ci + 2 ); ?> absolute <?php echo esc_attr( $vr_pos ); ?> hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-lift ring-1 ring-line hover:text-brand-700 sm:inline-flex" data-depth="<?php echo (int) ( 22 - $vr_ci * 9 ); ?>"><span class="h-2 w-2 rounded-full bg-clay-500"></span><?php echo esc_html( $vr_cc->name ); ?></a>
-			<?php endforeach; ?>
+			<?php get_template_part( 'template-parts/hero-slider' ); ?>
 		</div>
 	</div>
-
-	<?php if ( $vr_cats ) : ?>
-		<div class="border-y border-brand-200/70 bg-brand-800 py-3 text-brand-50" role="region" aria-label="<?php esc_attr_e( 'Product categories', 'verdant-roots' ); ?>">
-			<div class="vr-marquee overflow-hidden">
-				<ul class="vr-marquee-track flex w-max items-center gap-10 whitespace-nowrap font-display text-lg">
-					<?php for ( $vr_rep = 0; $vr_rep < 4; $vr_rep++ ) : foreach ( $vr_cats as $vr_mc ) : ?>
-						<li <?php echo $vr_rep > 0 ? 'aria-hidden="true"' : ''; ?> class="flex items-center gap-10"><a href="<?php echo esc_url( get_term_link( $vr_mc ) ); ?>" <?php echo $vr_rep > 0 ? 'tabindex="-1"' : ''; ?> class="hover:text-white hover:underline"><?php echo esc_html( $vr_mc->name ); ?></a><?php vr_e_icon( 'leaf', 18, 'text-brand-300' ); ?></li>
-					<?php endforeach; endfor; ?>
-				</ul>
-			</div>
-		</div>
-	<?php endif; ?>
 </section>
 
 <?php if ( $vr_cats ) : ?>
