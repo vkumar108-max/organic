@@ -1,0 +1,155 @@
+Type,SKU,Name,Published,Is featured?,Visibility in catalog,Short description,Description,In stock?,Stock,Regular price,Sale price,Categories,Tags,Images,Parent,Attribute 1 name,Attribute 1 value(s),Attribute 1 visible,Attribute 1 global,Attribute 1 default,Attribute 2 name,Attribute 2 value(s),Attribute 2 visible,Attribute 2 global,Meta: _vr_highlights,Meta: _vr_storage
+variable,VR-001,Mango Powder,-1,1,visible,"Tangy mango powder for drinks, chutneys and desserts.","Tangy mango powder for drinks, chutneys and desserts. This is a demo listing — replace this text with your verified product description.",1,,,,Fruit Powder,"sample-edit-me, best-seller",,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-001-1,Mango Powder - 100 g,1,,visible,,,1,40,250,199,,,,VR-001,Size,100 g,,1,,,,,,,
+variation,VR-001-2,Mango Powder - 250 g,1,,visible,,,1,32,550,437,,,,VR-001,Size,250 g,,1,,,,,,,
+variation,VR-001-3,Mango Powder - 500 g,1,,visible,,,1,24,1000,795,,,,VR-001,Size,500 g,,1,,,,,,,
+variable,VR-002,Banana Powder,-1,0,visible,"Smooth banana powder for shakes, porridge and baking.","Smooth banana powder for shakes, porridge and baking. This is a demo listing — replace this text with your verified product description.",1,,,,Fruit Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-002-1,Banana Powder - 100 g,1,,visible,,,1,40,230,179,,,,VR-002,Size,100 g,,1,,,,,,,
+variation,VR-002-2,Banana Powder - 250 g,1,,visible,,,1,32,500,393,,,,VR-002,Size,250 g,,1,,,,,,,
+variation,VR-002-3,Banana Powder - 500 g,1,,visible,,,1,24,900,715,,,,VR-002,Size,500 g,,1,,,,,,,
+variable,VR-003,Apple Powder,-1,0,visible,"Lightly sweet apple powder for oats, cakes and drinks.","Lightly sweet apple powder for oats, cakes and drinks. This is a demo listing — replace this text with your verified product description.",1,,,,Fruit Powder,"sample-edit-me, best-seller",,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-003-1,Apple Powder - 100 g,1,,visible,,,1,40,280,219,,,,VR-003,Size,100 g,,1,,,,,,,
+variation,VR-003-2,Apple Powder - 250 g,1,,visible,,,1,32,610,481,,,,VR-003,Size,250 g,,1,,,,,,,
+variation,VR-003-3,Apple Powder - 500 g,1,,visible,,,1,24,1100,875,,,,VR-003,Size,500 g,,1,,,,,,,
+variable,VR-004,Papaya Powder,-1,0,visible,Papaya powder to stir into smoothies and yoghurt.,Papaya powder to stir into smoothies and yoghurt. This is a demo listing — replace this text with your verified product description.,1,,,,Fruit Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-004-1,Papaya Powder - 100 g,1,,visible,,,1,40,240,189,,,,VR-004,Size,100 g,,1,,,,,,,
+variation,VR-004-2,Papaya Powder - 250 g,1,,visible,,,1,32,520,415,,,,VR-004,Size,250 g,,1,,,,,,,
+variation,VR-004-3,Papaya Powder - 500 g,1,,visible,,,1,24,950,755,,,,VR-004,Size,500 g,,1,,,,,,,
+variable,VR-005,Pomegranate Powder,-1,0,visible,"Tart pomegranate powder for chaat, drinks and marinades.","Tart pomegranate powder for chaat, drinks and marinades. This is a demo listing — replace this text with your verified product description.",1,,,,Fruit Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-005-1,Pomegranate Powder - 100 g,1,,visible,,,1,40,320,249,,,,VR-005,Size,100 g,,1,,,,,,,
+variation,VR-005-2,Pomegranate Powder - 250 g,1,,visible,,,1,32,690,547,,,,VR-005,Size,250 g,,1,,,,,,,
+variation,VR-005-3,Pomegranate Powder - 500 g,1,,visible,,,1,24,1250,995,,,,VR-005,Size,500 g,,1,,,,,,,
+variable,VR-006,Strawberry Powder,-1,0,visible,"Colourful strawberry powder for icing, shakes and bakes.","Colourful strawberry powder for icing, shakes and bakes. This is a demo listing — replace this text with your verified product description.",1,,,,Fruit Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-006-1,Strawberry Powder - 100 g,1,,visible,,,1,40,380,299,,,,VR-006,Size,100 g,,1,,,,,,,
+variation,VR-006-2,Strawberry Powder - 250 g,1,,visible,,,1,32,830,657,,,,VR-006,Size,250 g,,1,,,,,,,
+variation,VR-006-3,Strawberry Powder - 500 g,1,,visible,,,1,24,1500,1195,,,,VR-006,Size,500 g,,1,,,,,,,
+variable,VR-007,Amla Powder,-1,0,visible,Tangy amla (gooseberry) powder for cooking and drinks.,Tangy amla (gooseberry) powder for cooking and drinks. This is a demo listing — replace this text with your verified product description.,1,,,,Fruit Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-007-1,Amla Powder - 100 g,1,,visible,,,1,40,220,169,,,,VR-007,Size,100 g,,1,,,,,,,
+variation,VR-007-2,Amla Powder - 250 g,1,,visible,,,1,32,470,371,,,,VR-007,Size,250 g,,1,,,,,,,
+variation,VR-007-3,Amla Powder - 500 g,1,,visible,,,1,24,850,675,,,,VR-007,Size,500 g,,1,,,,,,,
+variable,VR-008,Lemon Powder,-1,0,visible,"Citrusy lemon powder for drinks, salads and seasoning.","Citrusy lemon powder for drinks, salads and seasoning. This is a demo listing — replace this text with your verified product description.",1,,,,Fruit Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-008-1,Lemon Powder - 100 g,1,,visible,,,1,40,200,159,,,,VR-008,Size,100 g,,1,,,,,,,
+variation,VR-008-2,Lemon Powder - 250 g,1,,visible,,,1,32,440,349,,,,VR-008,Size,250 g,,1,,,,,,,
+variation,VR-008-3,Lemon Powder - 500 g,1,,visible,,,1,24,800,635,,,,VR-008,Size,500 g,,1,,,,,,,
+variable,VR-009,Moringa Leaf Powder,-1,1,visible,"Fine moringa leaf powder for teas, rotis and smoothies.","Fine moringa leaf powder for teas, rotis and smoothies. This is a demo listing — replace this text with your verified product description.",1,,,,Leaf Powder,"sample-edit-me, best-seller",,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-009-1,Moringa Leaf Powder - 100 g,1,,visible,,,1,40,240,189,,,,VR-009,Size,100 g,,1,,,,,,,
+variation,VR-009-2,Moringa Leaf Powder - 250 g,1,,visible,,,1,32,520,415,,,,VR-009,Size,250 g,,1,,,,,,,
+variation,VR-009-3,Moringa Leaf Powder - 500 g,1,,visible,,,1,24,950,755,,,,VR-009,Size,500 g,,1,,,,,,,
+variable,VR-010,Curry Leaf Powder,-1,0,visible,"Aromatic curry leaf powder for rice, podi and seasoning.","Aromatic curry leaf powder for rice, podi and seasoning. This is a demo listing — replace this text with your verified product description.",1,,,,Leaf Powder,"sample-edit-me, best-seller",,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-010-1,Curry Leaf Powder - 100 g,1,,visible,,,1,40,190,149,,,,VR-010,Size,100 g,,1,,,,,,,
+variation,VR-010-2,Curry Leaf Powder - 250 g,1,,visible,,,1,32,410,327,,,,VR-010,Size,250 g,,1,,,,,,,
+variation,VR-010-3,Curry Leaf Powder - 500 g,1,,visible,,,1,24,750,595,,,,VR-010,Size,500 g,,1,,,,,,,
+variable,VR-011,Tulsi Leaf Powder,-1,0,visible,Tulsi (holy basil) leaf powder for herbal-style tea.,Tulsi (holy basil) leaf powder for herbal-style tea. This is a demo listing — replace this text with your verified product description.,1,,,,Leaf Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-011-1,Tulsi Leaf Powder - 100 g,1,,visible,,,1,40,200,159,,,,VR-011,Size,100 g,,1,,,,,,,
+variation,VR-011-2,Tulsi Leaf Powder - 250 g,1,,visible,,,1,32,440,349,,,,VR-011,Size,250 g,,1,,,,,,,
+variation,VR-011-3,Tulsi Leaf Powder - 500 g,1,,visible,,,1,24,800,635,,,,VR-011,Size,500 g,,1,,,,,,,
+variable,VR-012,Mint Leaf Powder,-1,0,visible,"Cooling mint leaf powder for raita, chutney and drinks.","Cooling mint leaf powder for raita, chutney and drinks. This is a demo listing — replace this text with your verified product description.",1,,,,Leaf Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-012-1,Mint Leaf Powder - 100 g,1,,visible,,,1,40,180,139,,,,VR-012,Size,100 g,,1,,,,,,,
+variation,VR-012-2,Mint Leaf Powder - 250 g,1,,visible,,,1,32,390,305,,,,VR-012,Size,250 g,,1,,,,,,,
+variation,VR-012-3,Mint Leaf Powder - 500 g,1,,visible,,,1,24,700,555,,,,VR-012,Size,500 g,,1,,,,,,,
+variable,VR-013,Neem Leaf Powder,-1,0,visible,Traditional neem leaf powder. See label for guidance.,Traditional neem leaf powder. See label for guidance. This is a demo listing — replace this text with your verified product description.,1,,,,Leaf Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-013-1,Neem Leaf Powder - 100 g,1,,visible,,,1,40,190,149,,,,VR-013,Size,100 g,,1,,,,,,,
+variation,VR-013-2,Neem Leaf Powder - 250 g,1,,visible,,,1,32,410,327,,,,VR-013,Size,250 g,,1,,,,,,,
+variation,VR-013-3,Neem Leaf Powder - 500 g,1,,visible,,,0,0,750,595,,,,VR-013,Size,500 g,,1,,,,,,,
+variable,VR-014,Hibiscus Leaf Powder,-1,0,visible,Tart hibiscus powder for iced teas and drinks.,Tart hibiscus powder for iced teas and drinks. This is a demo listing — replace this text with your verified product description.,1,,,,Leaf Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-014-1,Hibiscus Leaf Powder - 100 g,1,,visible,,,1,40,230,179,,,,VR-014,Size,100 g,,1,,,,,,,
+variation,VR-014-2,Hibiscus Leaf Powder - 250 g,1,,visible,,,1,32,500,393,,,,VR-014,Size,250 g,,1,,,,,,,
+variation,VR-014-3,Hibiscus Leaf Powder - 500 g,1,,visible,,,1,24,900,715,,,,VR-014,Size,500 g,,1,,,,,,,
+variable,VR-015,Beetroot Powder,-1,1,visible,"Deep-coloured beetroot powder for batters, drinks and dips.","Deep-coloured beetroot powder for batters, drinks and dips. This is a demo listing — replace this text with your verified product description.",1,,,,Vegetable Powder,"sample-edit-me, best-seller",,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-015-1,Beetroot Powder - 100 g,1,,visible,,,1,40,230,179,,,,VR-015,Size,100 g,,1,,,,,,,
+variation,VR-015-2,Beetroot Powder - 250 g,1,,visible,,,1,32,500,393,,,,VR-015,Size,250 g,,1,,,,,,,
+variation,VR-015-3,Beetroot Powder - 500 g,1,,visible,,,1,24,900,715,,,,VR-015,Size,500 g,,1,,,,,,,
+variable,VR-016,Spinach Powder,-1,0,visible,"Green spinach powder for rotis, pasta dough and soups.","Green spinach powder for rotis, pasta dough and soups. This is a demo listing — replace this text with your verified product description.",1,,,,Vegetable Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-016-1,Spinach Powder - 100 g,1,,visible,,,1,40,220,169,,,,VR-016,Size,100 g,,1,,,,,,,
+variation,VR-016-2,Spinach Powder - 250 g,1,,visible,,,1,32,470,371,,,,VR-016,Size,250 g,,1,,,,,,,
+variation,VR-016-3,Spinach Powder - 500 g,1,,visible,,,1,24,850,675,,,,VR-016,Size,500 g,,1,,,,,,,
+variable,VR-017,Carrot Powder,-1,0,visible,"Sweet carrot powder for halwa, soups and baby-food recipes.","Sweet carrot powder for halwa, soups and baby-food recipes. This is a demo listing — replace this text with your verified product description.",1,,,,Vegetable Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-017-1,Carrot Powder - 100 g,1,,visible,,,1,40,200,159,,,,VR-017,Size,100 g,,1,,,,,,,
+variation,VR-017-2,Carrot Powder - 250 g,1,,visible,,,1,32,440,349,,,,VR-017,Size,250 g,,1,,,,,,,
+variation,VR-017-3,Carrot Powder - 500 g,1,,visible,,,1,24,800,635,,,,VR-017,Size,500 g,,1,,,,,,,
+variable,VR-018,Tomato Powder,-1,0,visible,"Concentrated tomato powder for gravies, soups and sauces.","Concentrated tomato powder for gravies, soups and sauces. This is a demo listing — replace this text with your verified product description.",1,,,,Vegetable Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-018-1,Tomato Powder - 100 g,1,,visible,,,1,40,190,149,,,,VR-018,Size,100 g,,1,,,,,,,
+variation,VR-018-2,Tomato Powder - 250 g,1,,visible,,,1,32,410,327,,,,VR-018,Size,250 g,,1,,,,,,,
+variation,VR-018-3,Tomato Powder - 500 g,1,,visible,,,1,24,750,595,,,,VR-018,Size,500 g,,1,,,,,,,
+variable,VR-019,Pumpkin Powder,-1,0,visible,"Mild pumpkin powder for soups, porridge and doughs.","Mild pumpkin powder for soups, porridge and doughs. This is a demo listing — replace this text with your verified product description.",1,,,,Vegetable Powder,sample-edit-me,,,Size,"100 g, 250 g, 500 g",1,1,100 g,Product type,Powder,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-019-1,Pumpkin Powder - 100 g,1,,visible,,,1,40,220,169,,,,VR-019,Size,100 g,,1,,,,,,,
+variation,VR-019-2,Pumpkin Powder - 250 g,1,,visible,,,1,32,470,371,,,,VR-019,Size,250 g,,1,,,,,,,
+variation,VR-019-3,Pumpkin Powder - 500 g,1,,visible,,,1,24,850,675,,,,VR-019,Size,500 g,,1,,,,,,,
+variable,VR-024,Moringa Tablets,-1,0,visible,Moringa in convenient tablet form. Read the label before use.,Moringa in convenient tablet form. Read the label before use. This is a demo listing — replace this text with your verified product description.,1,,,,Tablets,"sample-edit-me, best-seller",,,Size,"60 tablets, 120 tablets",1,1,60 tablets,Product type,Tablet,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-024-1,Moringa Tablets - 60 tablets,1,,visible,,,1,40,320,249,,,,VR-024,Size,60 tablets,,1,,,,,,,
+variation,VR-024-2,Moringa Tablets - 120 tablets,1,,visible,,,1,32,560,447,,,,VR-024,Size,120 tablets,,1,,,,,,,
+variable,VR-025,Amla Tablets,-1,0,visible,"Amla tablets, packed for easy use. Read the label before use.","Amla tablets, packed for easy use. Read the label before use. This is a demo listing — replace this text with your verified product description.",1,,,,Tablets,sample-edit-me,,,Size,"60 tablets, 120 tablets",1,1,60 tablets,Product type,Tablet,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-025-1,Amla Tablets - 60 tablets,1,,visible,,,1,40,290,229,,,,VR-025,Size,60 tablets,,1,,,,,,,
+variation,VR-025-2,Amla Tablets - 120 tablets,1,,visible,,,1,32,520,411,,,,VR-025,Size,120 tablets,,1,,,,,,,
+variable,VR-026,Tulsi Tablets,-1,0,visible,"Tulsi tablets, packed for easy use. Read the label before use.","Tulsi tablets, packed for easy use. Read the label before use. This is a demo listing — replace this text with your verified product description.",1,,,,Tablets,sample-edit-me,,,Size,"60 tablets, 120 tablets",1,1,60 tablets,Product type,Tablet,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-026-1,Tulsi Tablets - 60 tablets,1,,visible,,,1,40,280,219,,,,VR-026,Size,60 tablets,,1,,,,,,,
+variation,VR-026-2,Tulsi Tablets - 120 tablets,1,,visible,,,1,32,500,393,,,,VR-026,Size,120 tablets,,1,,,,,,,
+variable,VR-027,Dry Okra (Bhindi),-1,0,visible,Crisp dried okra for stir-fries and traditional curries.,Crisp dried okra for stir-fries and traditional curries. This is a demo listing — replace this text with your verified product description.,1,,,,Dry Vegetables,"sample-edit-me, best-seller",,,Size,"100 g, 250 g",1,1,100 g,Product type,Dry vegetable,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-027-1,Dry Okra (Bhindi) - 100 g,1,,visible,,,1,40,250,199,,,,VR-027,Size,100 g,,1,,,,,,,
+variation,VR-027-2,Dry Okra (Bhindi) - 250 g,1,,visible,,,1,32,580,457,,,,VR-027,Size,250 g,,1,,,,,,,
+variable,VR-028,Dry Cluster Beans,-1,0,visible,Sun-dried cluster beans for traditional recipes.,Sun-dried cluster beans for traditional recipes. This is a demo listing — replace this text with your verified product description.,1,,,,Dry Vegetables,sample-edit-me,,,Size,"100 g, 250 g",1,1,100 g,Product type,Dry vegetable,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-028-1,Dry Cluster Beans - 100 g,1,,visible,,,1,40,230,179,,,,VR-028,Size,100 g,,1,,,,,,,
+variation,VR-028-2,Dry Cluster Beans - 250 g,1,,visible,,,1,32,520,411,,,,VR-028,Size,250 g,,1,,,,,,,
+variable,VR-029,Dehydrated Onion Flakes,-1,0,visible,"Onion flakes for quick gravies, rice and seasoning.","Onion flakes for quick gravies, rice and seasoning. This is a demo listing — replace this text with your verified product description.",1,,,,Dry Vegetables,sample-edit-me,,,Size,"100 g, 250 g",1,1,100 g,Product type,Dry vegetable,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-029-1,Dehydrated Onion Flakes - 100 g,1,,visible,,,1,40,170,129,,,,VR-029,Size,100 g,,1,,,,,,,
+variation,VR-029-2,Dehydrated Onion Flakes - 250 g,1,,visible,,,1,32,370,296,,,,VR-029,Size,250 g,,1,,,,,,,
+variable,VR-030,Dry Bitter Gourd Slices,-1,0,visible,Sun-dried karela slices for fry and curry recipes.,Sun-dried karela slices for fry and curry recipes. This is a demo listing — replace this text with your verified product description.,1,,,,Dry Vegetables,sample-edit-me,,,Size,"100 g, 250 g",1,1,100 g,Product type,Dry vegetable,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-030-1,Dry Bitter Gourd Slices - 100 g,1,,visible,,,1,40,220,169,,,,VR-030,Size,100 g,,1,,,,,,,
+variation,VR-030-2,Dry Bitter Gourd Slices - 250 g,1,,visible,,,1,32,490,388,,,,VR-030,Size,250 g,,1,,,,,,,
+variable,VR-031,Dry Ridge Gourd,-1,0,visible,Dried ridge gourd for traditional home-style dishes.,Dried ridge gourd for traditional home-style dishes. This is a demo listing — replace this text with your verified product description.,1,,,,Dry Vegetables,sample-edit-me,,,Size,"100 g, 250 g",1,1,100 g,Product type,Dry vegetable,1,1,"Packed in a resealable pouch (confirm packaging details)
+Available in multiple pack sizes
+Full ingredient list on the pack label","Store in a cool, dry place in an airtight container, away from direct sunlight and moisture. (Confirm with your packaging details.)"
+variation,VR-031-1,Dry Ridge Gourd - 100 g,1,,visible,,,1,40,200,159,,,,VR-031,Size,100 g,,1,,,,,,,
+variation,VR-031-2,Dry Ridge Gourd - 250 g,1,,visible,,,1,32,460,365,,,,VR-031,Size,250 g,,1,,,,,,,

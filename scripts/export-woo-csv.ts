@@ -26,19 +26,24 @@ const cell = (value: unknown) => {
 };
 const row = (record: Record<string, unknown>) => headers.map((header) => cell(record[header])).join(",");
 
-const rows: string[] = [headers.join(",")];
 const dates: Record<string, number> = {};
+
+interface Options { published: number; skipCombos: boolean; categoryNames: Record<string, string>; tags: string[] }
+
+function build({ published, skipCombos, categoryNames, tags: extraTags }: Options): string[] {
+const rows: string[] = [headers.join(",")];
 const NOW = Date.UTC(2026, 8, 1);
 
 for (const product of demoProducts) {
-  const tags = ["demo", ...(product.bestSeller ? ["best-seller"] : [])].join(", ");
+  if (skipCombos && product.category === "combos") continue;
+  const tags = [...extraTags, ...(product.bestSeller ? ["best-seller"] : [])].join(", ");
   const base = {
-    Published: 1,
+    Published: published,
     "Is featured?": product.featured ? 1 : 0,
     "Visibility in catalog": "visible",
     "Short description": product.shortDescription,
     Description: product.description,
-    Categories: catName.get(product.category),
+    Categories: categoryNames[catName.get(product.category)!] ?? catName.get(product.category),
     Tags: tags,
     "Attribute 2 name": "Product type",
     "Attribute 2 value(s)": typeLabel[product.productType],
@@ -68,7 +73,12 @@ for (const product of demoProducts) {
   }
 }
 
-writeFileSync("wp-theme/verdant-roots/demo/sample-products.csv", rows.join("\n") + "\n");
+return rows;
+}
+
+writeFileSync("wp-theme/verdant-roots/demo/sample-products.csv", build({ published: 1, skipCombos: false, categoryNames: {}, tags: ["demo"] }).join("\n") + "\n");
+// Draft starter list for prakritidhara.store: their 5 categories, nothing goes live until edited + published.
+writeFileSync("wp-theme/verdant-roots/demo/prakritidhara-draft-products.csv", build({ published: -1, skipCombos: true, categoryNames: { "Dry Vegetable": "Dry Vegetables", Tablet: "Tablets" }, tags: ["sample-edit-me"] }).join("\n") + "\n");
 writeFileSync("wp-theme/verdant-roots/demo/categories.json", JSON.stringify(demoCategories.map(({ name, slug, description, sortOrder }) => ({ name, slug, description, sortOrder })), null, 2));
 writeFileSync("wp-theme/verdant-roots/demo/product-ages.json", JSON.stringify(dates, null, 2));
-console.log(`${demoProducts.length} products → wp-theme/verdant-roots/demo/sample-products.csv`);
+console.log("csv files written");
