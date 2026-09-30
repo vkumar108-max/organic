@@ -134,6 +134,7 @@ add_filter(
 add_filter(
 	'woocommerce_catalog_orderby',
 	static fn() => array(
+		'menu_order' => __( 'Recommended', 'verdant-roots' ),
 		'popularity' => __( 'Popular', 'verdant-roots' ),
 		'date'       => __( 'Newest', 'verdant-roots' ),
 		'price'      => __( 'Price: Low to High', 'verdant-roots' ),
@@ -141,7 +142,7 @@ add_filter(
 		'rating'     => __( 'Rating', 'verdant-roots' ),
 	)
 );
-add_filter( 'woocommerce_default_catalog_orderby', static fn() => 'popularity' );
+// Default ordering stays WooCommerce's own (menu_order). Popularity/price sorts rely on the product lookup table.
 
 /** Free-shipping progress above cart totals. */
 add_action(

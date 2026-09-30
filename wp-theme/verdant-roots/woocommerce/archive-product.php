@@ -15,7 +15,7 @@ $vr_search   = is_search();
 $vr_title    = $vr_search ? sprintf( /* translators: %s query */ __( 'Results for “%s”', 'verdant-roots' ), get_search_query() ) : ( $vr_term ? $vr_term->name : woocommerce_page_title( false ) );
 $vr_total    = (int) wc_get_loop_prop( 'total', 0 );
 $vr_faqs     = $vr_is_cat ? vr_parse_pairs( (string) get_term_meta( $vr_term->term_id, 'vr_faqs', true ) ) : array();
-$vr_orderby  = isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : apply_filters( 'woocommerce_default_catalog_orderby', 'popularity' ); // phpcs:ignore WordPress.Security.NonceVerification
+$vr_orderby  = isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : apply_filters( 'woocommerce_default_catalog_orderby', 'menu_order' ); // phpcs:ignore WordPress.Security.NonceVerification
 $vr_options  = apply_filters( 'woocommerce_catalog_orderby', array() );
 ?>
 <div class="container-page pb-10">
