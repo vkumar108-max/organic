@@ -79,5 +79,6 @@ $vr_cols    = array(
 <?php get_template_part( 'template-parts/mobile-bottom-nav' ); ?>
 <div class="vr-toasts" aria-live="polite" role="status"></div>
 <?php wp_footer(); ?>
+<!-- Verdant Roots theme <?php echo esc_html( VR_VERSION ); ?> -->
 </body>
 </html>

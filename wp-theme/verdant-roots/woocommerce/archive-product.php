@@ -67,6 +67,25 @@ $vr_options  = apply_filters( 'woocommerce_catalog_orderby', array() );
 				</ul>
 				<?php woocommerce_pagination(); ?>
 			<?php else : ?>
+				<?php
+				// Shown to shop managers only: explains an empty shop instead of guessing.
+				if ( current_user_can( 'manage_woocommerce' ) && ! $vr_search ) :
+					$vr_counts  = wp_count_posts( 'product' );
+					$vr_hidden  = new WP_Query( array( 'post_type' => 'product', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => 1, 'tax_query' => array( array( 'taxonomy' => 'product_visibility', 'field' => 'name', 'terms' => array( 'exclude-from-catalog' ) ) ) ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+					$vr_instock = 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' );
+					$vr_filters = array_intersect_key( $_GET, array_flip( array( 'min_price', 'max_price', 'rating_filter', 'instock', 'product_cat' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
+					?>
+					<div class="mb-6 rounded-lg border border-dashed border-clay-500/50 bg-sand-50 p-4 text-sm text-clay-600">
+						<p class="font-semibold"><?php esc_html_e( 'Shop manager note (visitors do not see this)', 'verdant-roots' ); ?></p>
+						<ul class="mt-2 list-disc space-y-1 pl-5">
+							<li><?php echo esc_html( sprintf( 'Theme %s · published products: %d · draft: %d · private: %d', VR_VERSION, (int) $vr_counts->publish, (int) $vr_counts->draft, (int) $vr_counts->private ) ); ?></li>
+							<li><?php echo esc_html( sprintf( 'Published products hidden from the catalogue (Catalog visibility): %d', (int) $vr_hidden->found_posts ) ); ?></li>
+							<li><?php echo $vr_instock ? esc_html__( '"Hide out of stock items" is ON — out-of-stock products will not show (WooCommerce → Settings → Products → Inventory).', 'verdant-roots' ) : esc_html__( '"Hide out of stock items" is off.', 'verdant-roots' ); ?></li>
+							<li><?php echo $vr_filters ? esc_html__( 'A filter is active in the URL — use "Clear all".', 'verdant-roots' ) : esc_html__( 'No filters are active.', 'verdant-roots' ); ?></li>
+							<li><?php esc_html_e( 'If products exist but are not listed: WooCommerce → Status → Tools → "Regenerate product lookup tables", then purge your cache plugin.', 'verdant-roots' ); ?></li>
+						</ul>
+					</div>
+				<?php endif; ?>
 				<div class="mx-auto flex max-w-md flex-col items-center px-4 py-14 text-center">
 					<div class="mb-5 grid h-16 w-16 place-items-center rounded-full bg-brand-100 text-brand-700"><?php vr_e_icon( 'search', 30 ); ?></div>
 					<h2 class="text-2xl font-semibold"><?php echo $vr_search ? esc_html( sprintf( /* translators: %s query */ __( 'No results for “%s”', 'verdant-roots' ), get_search_query() ) ) : esc_html__( 'No products match these filters', 'verdant-roots' ); ?></h2>
