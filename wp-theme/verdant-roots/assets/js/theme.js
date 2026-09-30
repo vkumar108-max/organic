@@ -11,6 +11,22 @@
 	var $$ = function ( s, c ) { return Array.prototype.slice.call( ( c || d ).querySelectorAll( s ) ); };
 	var esc = function ( s ) { var e = d.createElement( 'div' ); e.textContent = s; return e.innerHTML; };
 
+	/* ---------------- Hero pointer parallax (fine pointers only, never with reduced motion) ---------------- */
+	( function () {
+		var hero = $( '[data-parallax]' );
+		if ( ! hero || ! window.matchMedia( '(pointer: fine)' ).matches || window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) { return; }
+		var layers = $$( '[data-depth]', hero ), raf = 0;
+		hero.addEventListener( 'pointermove', function ( e ) {
+			var r = hero.getBoundingClientRect(), x = ( e.clientX - r.left ) / r.width - 0.5, y = ( e.clientY - r.top ) / r.height - 0.5;
+			if ( raf ) { return; }
+			raf = requestAnimationFrame( function () {
+				raf = 0;
+				layers.forEach( function ( l ) { var d = parseFloat( l.getAttribute( 'data-depth' ) ) || 0; l.style.translate = ( x * d ).toFixed( 1 ) + 'px ' + ( y * d ).toFixed( 1 ) + 'px'; } );
+			} );
+		} );
+		hero.addEventListener( 'pointerleave', function () { layers.forEach( function ( l ) { l.style.translate = ''; } ); } );
+	}() );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );

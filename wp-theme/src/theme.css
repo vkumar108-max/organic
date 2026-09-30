@@ -279,3 +279,47 @@
   .woocommerce-breadcrumb, nav.woocommerce-breadcrumb { margin: 0; } nav[aria-label="Breadcrumb"] li:not(:last-child)::after { content: "›"; margin-left: .25rem; color: var(--color-ink-soft); }
   nav[aria-label="Breadcrumb"] a:hover { color: var(--color-brand-700); text-decoration: underline; } nav[aria-label="Breadcrumb"] li:last-child { font-weight: 500; color: var(--color-ink); }
 }
+
+/* ------------------------------------------------------------------
+   Hero motion (respects prefers-reduced-motion — see bottom)
+------------------------------------------------------------------- */
+@layer components {
+  .vr-hero { --hero-ease: cubic-bezier(.22,1,.36,1); }
+  .vr-blob { position: absolute; z-index: -10; border-radius: 9999px; filter: blur(48px); opacity: .55; pointer-events: none; }
+  .vr-blob--a { width: 26rem; height: 26rem; left: -8rem; top: -6rem; background: var(--color-brand-200); animation: vr-drift 16s ease-in-out infinite alternate; }
+  .vr-blob--b { width: 24rem; height: 24rem; right: -6rem; bottom: -4rem; background: var(--color-sand-200); animation: vr-drift 20s ease-in-out infinite alternate-reverse; }
+  .vr-arch { border-radius: 999px 999px 1.75rem 1.75rem; }
+  .vr-arch-ring { position: absolute; inset: 4% 6% auto 6%; height: 92%; border-radius: 999px 999px 2rem 2rem; border: 2px dashed var(--color-brand-300); opacity: .7; transform: scale(1.08); pointer-events: none; }
+  .vr-glass { background: rgb(255 255 255 / .82); backdrop-filter: blur(10px); border: 1px solid rgb(255 255 255 / .7); }
+  .vr-float { animation: vr-float 6s ease-in-out infinite; }
+  .vr-float--2 { animation-duration: 7.5s; animation-delay: -2s; }
+  .vr-float--3 { animation-duration: 8.5s; animation-delay: -4s; }
+  .vr-float--4 { animation-duration: 9.5s; animation-delay: -1s; }
+  .vr-spin { animation: vr-spin 22s linear infinite; }
+  .vr-pulse { box-shadow: 0 0 0 0 rgb(63 143 74 / .5); animation: vr-pulse 2.2s infinite; }
+  .vr-rise > * { opacity: 0; animation: vr-rise .7s var(--hero-ease) forwards; }
+  .vr-rise > *:nth-child(1) { animation-delay: .05s; } .vr-rise > *:nth-child(2) { animation-delay: .15s; } .vr-rise > *:nth-child(3) { animation-delay: .25s; }
+  .vr-rise > *:nth-child(4) { animation-delay: .35s; } .vr-rise > *:nth-child(5) { animation-delay: .45s; }
+  .vr-stage { animation: vr-pop .9s var(--hero-ease) both .1s; }
+  .vr-draw path { stroke-dasharray: 260; stroke-dashoffset: 260; animation: vr-draw 1.1s ease-out .7s forwards; }
+  .vr-shine { position: relative; overflow: hidden; }
+  .vr-shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .35) 50%, transparent 70%); transform: translateX(-120%); animation: vr-shine 4.5s ease-in-out 1.5s infinite; }
+  .vr-chip { transition: transform .2s; } .vr-chip:hover { transform: translateY(-2px) scale(1.04); }
+  .vr-marquee-track { animation: vr-marquee 38s linear infinite; }
+  .vr-marquee:hover .vr-marquee-track { animation-play-state: paused; }
+  [data-depth] { will-change: translate; }
+}
+@keyframes vr-float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+@keyframes vr-drift { from { transform: translate(0,0) scale(1) } to { transform: translate(40px, 30px) scale(1.12) } }
+@keyframes vr-spin { to { transform: rotate(360deg) } }
+@keyframes vr-pulse { 70% { box-shadow: 0 0 0 9px rgb(63 143 74 / 0) } 100% { box-shadow: 0 0 0 0 rgb(63 143 74 / 0) } }
+@keyframes vr-rise { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: none } }
+@keyframes vr-pop { from { opacity: 0; transform: scale(.94) translateY(10px) } to { opacity: 1; transform: none } }
+@keyframes vr-draw { to { stroke-dashoffset: 0 } }
+@keyframes vr-shine { 0%, 60% { transform: translateX(-120%) } 100% { transform: translateX(120%) } }
+@keyframes vr-marquee { to { transform: translateX(-25%) } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .vr-rise > *, .vr-stage { opacity: 1; } .vr-draw path { stroke-dashoffset: 0; }
+  .vr-marquee { overflow-x: auto; } [data-depth] { translate: none !important; }
+}

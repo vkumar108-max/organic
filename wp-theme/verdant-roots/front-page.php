@@ -23,29 +23,105 @@ $vr_reviews = get_comments( array( 'type' => 'review', 'status' => 'approve', 'n
 $vr_posts   = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3, 'ignore_sticky_posts' => true, 'no_found_rows' => true ) );
 ?>
 
-<section aria-labelledby="hero-title" class="relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-sand-50">
-	<div class="container-page grid items-center gap-8 py-10 md:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:py-20">
-		<div class="animate-fade-up">
-			<p class="mb-3 inline-flex items-center gap-2 rounded-full bg-brand-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-brand-800"><span class="h-1.5 w-1.5 rounded-full bg-brand-600"></span> <?php echo esc_html( get_bloginfo( 'name' ) ); ?></p>
-			<h1 id="hero-title" class="text-[2.2rem] font-semibold leading-[1.1] sm:text-5xl lg:text-6xl"><?php echo esc_html( vr_opt( 'hero_title', 'Natural Goodness, Made Simple' ) ); ?></h1>
-			<p class="mt-4 max-w-xl text-lg text-ink-soft"><?php echo esc_html( vr_opt( 'hero_text', 'Discover quality fruit, leaf and vegetable products for everyday living.' ) ); ?></p>
-			<div class="mt-7 flex flex-wrap gap-3">
-				<a class="vr-btn vr-btn--lg" href="<?php echo esc_url( $vr_woo ? wc_get_page_permalink( 'shop' ) : '#' ); ?>"><?php esc_html_e( 'Shop Now', 'verdant-roots' ); ?></a>
+<?php
+// Hero stage: real product photos when they exist (featured / best sellers), generated artwork otherwise.
+$vr_hero_products = array();
+if ( $vr_woo ) {
+	foreach ( array_merge( vr_get_products( array( 'featured' => true, 'limit' => 3 ) ), $vr_best ) as $vr_hp ) {
+		if ( ! isset( $vr_hero_products[ $vr_hp->get_id() ] ) && $vr_hp->get_image_id() ) {
+			$vr_hero_products[ $vr_hp->get_id() ] = $vr_hp;
+		}
+		if ( count( $vr_hero_products ) >= 3 ) {
+			break;
+		}
+	}
+	$vr_hero_products = array_values( $vr_hero_products );
+}
+$vr_tones = array( 'leaf', 'fruit', 'vegetable' );
+$vr_slot  = static function ( int $i ) use ( $vr_hero_products, $vr_tones ): string {
+	if ( isset( $vr_hero_products[ $i ] ) ) {
+		return vr_product_thumb( $vr_hero_products[ $i ], 'large' );
+	}
+	return vr_art( $vr_tones[ $i ], '', $i );
+};
+$vr_chip_cats = array_slice( $vr_cats, 0, 3 );
+?>
+<section aria-labelledby="hero-title" class="vr-hero relative isolate overflow-hidden bg-gradient-to-br from-brand-50 via-white to-sand-50" data-parallax>
+	<div class="vr-blob vr-blob--a" aria-hidden="true" data-depth="-14"></div>
+	<div class="vr-blob vr-blob--b" aria-hidden="true" data-depth="10"></div>
+	<svg class="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-[.05]" aria-hidden="true"><defs><pattern id="vr-leaves" width="70" height="70" patternUnits="userSpaceOnUse" patternTransform="rotate(20)"><path d="M12 42c0-14 8-22 26-22 0 15-9 24-23 24" fill="#2d7439"/></pattern></defs><rect width="100%" height="100%" fill="url(#vr-leaves)"/></svg>
+
+	<div class="container-page grid items-center gap-10 py-10 md:py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:py-24">
+		<div class="vr-rise">
+			<p class="mb-4 inline-flex items-center gap-2 rounded-full bg-white/80 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-brand-800 shadow-sm ring-1 ring-brand-200 backdrop-blur"><span class="vr-pulse h-2 w-2 rounded-full bg-brand-500"></span> <?php echo esc_html( get_bloginfo( 'name' ) ); ?></p>
+			<h1 id="hero-title" class="text-[2.3rem] font-semibold leading-[1.08] sm:text-5xl lg:text-[3.75rem]">
+				<?php
+				$vr_title = (string) vr_opt( 'hero_title', 'Natural Goodness, Made Simple' );
+				$vr_parts = explode( ',', $vr_title, 2 );
+				if ( 2 === count( $vr_parts ) ) {
+					echo esc_html( trim( $vr_parts[0] ) ) . ', <span class="relative inline-block text-brand-600">' . esc_html( trim( $vr_parts[1] ) ) . '<svg class="vr-draw absolute -bottom-2 left-0 h-3 w-full text-clay-500/70" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8c30-8 60-8 95-3s65 4 101-2" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/></svg></span>'; // phpcs:ignore WordPress.Security.EscapeOutput -- parts escaped above, markup is static.
+				} else {
+					echo esc_html( $vr_title );
+				}
+				?>
+			</h1>
+			<p class="mt-5 max-w-xl text-lg text-ink-soft"><?php echo esc_html( vr_opt( 'hero_text', 'Discover quality fruit, leaf and vegetable products for everyday living.' ) ); ?></p>
+			<div class="mt-8 flex flex-wrap gap-3">
+				<a class="vr-btn vr-btn--lg vr-shine" href="<?php echo esc_url( $vr_woo ? wc_get_page_permalink( 'shop' ) : '#' ); ?>"><?php esc_html_e( 'Shop Now', 'verdant-roots' ); ?> <?php vr_e_icon( 'arrowRight', 18 ); ?></a>
 				<a class="vr-btn vr-btn--outline vr-btn--lg" href="<?php echo esc_url( vr_page_url( 'categories' ) ); ?>"><?php esc_html_e( 'Explore Categories', 'verdant-roots' ); ?></a>
 			</div>
-			<ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-soft">
-				<li>✓ <?php esc_html_e( 'Simple ingredients lists', 'verdant-roots' ); ?></li><li>✓ <?php esc_html_e( 'Multiple pack sizes', 'verdant-roots' ); ?></li><li>✓ <?php esc_html_e( 'Secure checkout', 'verdant-roots' ); ?></li>
+			<ul class="mt-9 grid max-w-md grid-cols-3 gap-3 text-sm">
+				<?php foreach ( array( array( 'leaf', __( 'Simple ingredient lists', 'verdant-roots' ) ), array( 'package', __( 'Multiple pack sizes', 'verdant-roots' ) ), array( 'lock', __( 'Secure checkout', 'verdant-roots' ) ) ) as [ $vr_i, $vr_t ] ) : ?>
+					<li class="flex flex-col gap-2 rounded-2xl bg-white/70 p-3 ring-1 ring-line backdrop-blur"><span class="grid h-9 w-9 place-items-center rounded-full bg-brand-100 text-brand-700"><?php vr_e_icon( $vr_i, 18 ); ?></span><span class="text-ink-soft"><?php echo esc_html( $vr_t ); ?></span></li>
+				<?php endforeach; ?>
 			</ul>
 		</div>
-		<div class="relative mx-auto w-full max-w-md lg:max-w-none" aria-hidden="true">
-			<div class="absolute -inset-4 rounded-[2.5rem] bg-brand-100/60 blur-2xl"></div>
-			<div class="relative grid grid-cols-6 grid-rows-6 gap-3">
-				<div class="col-span-4 row-span-6 overflow-hidden rounded-3xl shadow-lift"><?php echo vr_art( 'leaf', '', 0, 'block aspect-[4/5] h-full w-full' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-				<div class="col-span-2 row-span-3 overflow-hidden rounded-2xl shadow-card"><?php echo vr_art( 'fruit', '', 1 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
-				<div class="col-span-2 row-span-3 overflow-hidden rounded-2xl shadow-card"><?php echo vr_art( 'vegetable', '', 3 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+
+		<div class="vr-stage relative mx-auto w-full max-w-md lg:max-w-none" <?php echo $vr_hero_products ? '' : 'aria-hidden="true"'; ?>>
+			<div class="vr-arch-ring" aria-hidden="true" data-depth="-8"></div>
+			<div class="vr-float relative mx-auto w-[78%] sm:w-[70%]" data-depth="6">
+				<div class="vr-arch relative aspect-[4/5] overflow-hidden bg-brand-100 shadow-lift ring-8 ring-white">
+					<?php if ( isset( $vr_hero_products[0] ) ) : ?>
+						<a href="<?php echo esc_url( get_permalink( $vr_hero_products[0]->get_id() ) ); ?>" class="block h-full w-full transition duration-700 hover:scale-105"><?php echo $vr_slot( 0 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+					<?php else : echo $vr_slot( 0 ); // phpcs:ignore WordPress.Security.EscapeOutput
+					endif; ?>
+				</div>
+				<?php if ( isset( $vr_hero_products[0] ) ) : ?>
+					<a href="<?php echo esc_url( get_permalink( $vr_hero_products[0]->get_id() ) ); ?>" class="vr-glass absolute -bottom-4 left-1/2 flex w-[88%] -translate-x-1/2 items-center justify-between gap-3 rounded-2xl px-4 py-3 shadow-lift">
+						<span class="min-w-0"><span class="block truncate text-sm font-semibold"><?php echo esc_html( $vr_hero_products[0]->get_name() ); ?></span><span class="text-xs text-ink-soft"><?php echo vr_card_price_html( $vr_hero_products[0] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span></span>
+						<span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-600 text-white"><?php vr_e_icon( 'arrowRight', 16 ); ?></span>
+					</a>
+				<?php endif; ?>
 			</div>
+
+			<div class="vr-float vr-float--2 absolute -right-1 top-2 w-[34%] rotate-6 sm:right-0" data-depth="16"><div class="aspect-square overflow-hidden rounded-3xl bg-white shadow-lift ring-4 ring-white"><?php echo $vr_slot( 1 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div></div>
+			<div class="vr-float vr-float--3 absolute -left-1 bottom-10 w-[32%] -rotate-6 sm:left-0" data-depth="-16"><div class="aspect-square overflow-hidden rounded-3xl bg-white shadow-lift ring-4 ring-white"><?php echo $vr_slot( 2 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></div></div>
+
+			<svg class="vr-spin absolute -left-2 top-0 h-24 w-24 sm:h-28 sm:w-28" viewBox="0 0 120 120" aria-hidden="true" data-depth="10">
+				<defs><path id="vr-circle" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+				<circle cx="60" cy="60" r="58" fill="#fff" opacity=".9"/>
+				<text font-size="10" font-weight="700" fill="#245c2f"><textPath href="#vr-circle" textLength="284" lengthAdjust="spacing"><?php esc_html_e( 'FRUIT • LEAF • VEGETABLE • ', 'verdant-roots' ); ?></textPath></text>
+				<path d="M44 74c0-15 9-24 28-24 0 16-10 25-26 25" fill="#2d7439"/>
+			</svg>
+
+			<?php foreach ( $vr_chip_cats as $vr_ci => $vr_cc ) :
+				$vr_pos = array( 'right-[-2%] top-[46%]', 'left-[-3%] top-[38%]', 'right-[8%] bottom-[-2%]' )[ $vr_ci ]; ?>
+				<a href="<?php echo esc_url( get_term_link( $vr_cc ) ); ?>" class="vr-chip vr-float vr-float--<?php echo (int) ( $vr_ci + 2 ); ?> absolute <?php echo esc_attr( $vr_pos ); ?> hidden items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-lift ring-1 ring-line hover:text-brand-700 sm:inline-flex" data-depth="<?php echo (int) ( 22 - $vr_ci * 9 ); ?>"><span class="h-2 w-2 rounded-full bg-clay-500"></span><?php echo esc_html( $vr_cc->name ); ?></a>
+			<?php endforeach; ?>
 		</div>
 	</div>
+
+	<?php if ( $vr_cats ) : ?>
+		<div class="border-y border-brand-200/70 bg-brand-800 py-3 text-brand-50" role="region" aria-label="<?php esc_attr_e( 'Product categories', 'verdant-roots' ); ?>">
+			<div class="vr-marquee overflow-hidden">
+				<ul class="vr-marquee-track flex w-max items-center gap-10 whitespace-nowrap font-display text-lg">
+					<?php for ( $vr_rep = 0; $vr_rep < 4; $vr_rep++ ) : foreach ( $vr_cats as $vr_mc ) : ?>
+						<li <?php echo $vr_rep > 0 ? 'aria-hidden="true"' : ''; ?> class="flex items-center gap-10"><a href="<?php echo esc_url( get_term_link( $vr_mc ) ); ?>" <?php echo $vr_rep > 0 ? 'tabindex="-1"' : ''; ?> class="hover:text-white hover:underline"><?php echo esc_html( $vr_mc->name ); ?></a><?php vr_e_icon( 'leaf', 18, 'text-brand-300' ); ?></li>
+					<?php endforeach; endfor; ?>
+				</ul>
+			</div>
+		</div>
+	<?php endif; ?>
 </section>
 
 <?php if ( $vr_cats ) : ?>
