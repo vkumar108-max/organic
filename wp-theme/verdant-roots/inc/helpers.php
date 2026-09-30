@@ -106,12 +106,15 @@ function vr_tone_for_slug( string $slug ): string {
 		'combos'           => 'combo',
 		'tablet'           => 'tablet',
 		'dry-vegetable'    => 'dry',
+		'dry-vegetables'   => 'dry',
+		'tablets'          => 'tablet',
+		'makhana'          => 'makhana',
 	);
 	return $map[ $slug ] ?? 'leaf';
 }
 
 function vr_product_tone( int $product_id ): string {
-	$known = array( 'fruit-powder', 'leaf-powder', 'vegetable-powder', 'combos', 'tablet', 'dry-vegetable' );
+	$known = array( 'fruit-powder', 'leaf-powder', 'vegetable-powder', 'combos', 'tablet', 'tablets', 'dry-vegetable', 'dry-vegetables', 'makhana' );
 	$terms = get_the_terms( $product_id, 'product_cat' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
 		foreach ( $terms as $term ) {
