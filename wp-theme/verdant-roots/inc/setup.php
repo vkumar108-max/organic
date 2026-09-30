@@ -201,13 +201,3 @@ add_action(
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 	}
 );
-
-/** <model-viewer> is an ES module; only loaded when a showcase product has a .glb model. */
-add_filter(
-	'script_loader_tag',
-	static function ( $tag, $handle, $src ) {
-		return 'vr-model-viewer' === $handle ? '<script type="module" src="' . esc_url( $src ) . '"></script>' . "\n" : $tag;
-	},
-	10,
-	3
-);

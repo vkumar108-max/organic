@@ -15,7 +15,6 @@ function vr_product_field_defs(): array {
 		'_vr_usage'       => array( __( 'How to use', 'verdant-roots' ), 3 ),
 		'_vr_nutrition'   => array( __( 'Nutritional information — one row per line: Nutrient | Per serving', 'verdant-roots' ), 4 ),
 		'_vr_storage'     => array( __( 'Storage information', 'verdant-roots' ), 3 ),
-		'_vr_model_glb'   => array( __( '3D model file URL (.glb) — optional; shows a rotatable 3D model in the home showcase slider', 'verdant-roots' ), 1 ),
 		'_vr_faqs'        => array( __( 'FAQs — one per line: Question | Answer', 'verdant-roots' ), 4 ),
 	);
 }
