@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:theme": "tailwindcss -i wp-theme/src/theme.css -o wp-theme/verdant-roots/assets/css/main.css --minify",
+    "dev:theme": "tailwindcss -i wp-theme/src/theme.css -o wp-theme/verdant-roots/assets/css/main.css --watch"
   },
   "dependencies": {
     "next": "^16.3.7",
@@ -17,6 +19,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",

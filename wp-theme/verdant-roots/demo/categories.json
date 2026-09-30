@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Fruit Powder",
+    "slug": "fruit-powder",
+    "description": "Finely milled fruit powders that are easy to stir into smoothies, curd, oats, baked goods and desserts. Check each product page for the ingredient list and pack size.",
+    "sortOrder": 1
+  },
+  {
+    "name": "Leaf Powder",
+    "slug": "leaf-powder",
+    "description": "Leaf powders made from dried, milled leaves, used in teas, chutneys, rotis and seasoning blends. Product pages list pack sizes and usage suggestions.",
+    "sortOrder": 2
+  },
+  {
+    "name": "Vegetable Powder",
+    "slug": "vegetable-powder",
+    "description": "Dehydrated, ground vegetables that blend into soups, doughs, sauces and batters. A convenient pantry staple when fresh produce is not at hand.",
+    "sortOrder": 3
+  },
+  {
+    "name": "Combos",
+    "slug": "combos",
+    "description": "Hand-picked bundles of our most-loved products. Combos are priced lower than buying each item separately, making them a convenient way to try more.",
+    "sortOrder": 4
+  },
+  {
+    "name": "Tablet",
+    "slug": "tablet",
+    "description": "Tablet-format products packed for convenience. Always read the label, ingredient list and usage guidance on the pack. Consult a qualified professional if you have any medical condition.",
+    "sortOrder": 5
+  },
+  {
+    "name": "Dry Vegetable",
+    "slug": "dry-vegetable",
+    "description": "Dried vegetables that keep well and rehydrate easily for curries, stir-fries and traditional recipes. Soak or cook directly, as described on each product page.",
+    "sortOrder": 6
+  }
+]
