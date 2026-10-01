@@ -1,0 +1,15 @@
+/*
+Theme Name:   Verdant Roots (Astra Child)
+Theme URI:    https://example.com/verdant-roots
+Description:  Child theme of Astra for the Verdant Roots store. All customisation lives here so Astra can be updated safely.
+Author:       Verdant Roots
+Template:     astra
+Version:      0.1.0
+Requires at least: 6.4
+Requires PHP: 8.0
+License:      GPL-2.0-or-later
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  verdant-roots-child
+*/
+
+/* Component styles are added to assets/css/ per development step. */
