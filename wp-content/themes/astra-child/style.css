@@ -1,0 +1,153 @@
+/*
+Theme Name:   Verdant Roots (Astra Child)
+Theme URI:    https://example.com/verdant-roots
+Description:  Child theme of Astra for the Verdant Roots store. All customisation lives here so Astra can be updated safely.
+Author:       Verdant Roots
+Template:     astra
+Version:      0.1.0
+Requires at least: 6.4
+Requires PHP: 8.0
+License:      GPL-2.0-or-later
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  verdant-roots-child
+*/
+
+/*--------------------------------------------------------------
+# Design system tokens (Step 3)
+#
+# Single source of truth for colours, type, spacing and effects.
+# Every later component uses these variables, never raw values.
+# Change a value here to re-skin the whole site.
+#
+# Breakpoints cannot be CSS variables; use these in media queries:
+#   sm 576px | md 768px | lg 1024px | xl 1280px
+--------------------------------------------------------------*/
+
+:root {
+
+	/* Brand colours. Contrast ratios are against white unless noted. */
+	--vr-color-primary: #2e6b3f; /* 6.4:1 */
+	--vr-color-primary-dark: #1f4a2b; /* 10.1:1 */
+	--vr-color-primary-tint: #e8f3ea; /* Backgrounds; primary text on it is 5.6:1. */
+	--vr-color-accent: #e9a23b; /* Dark ink text on it is 6.9:1. */
+	--vr-color-accent-dark: #c9822b; /* Dark ink text on it is 4.8:1. */
+
+	/* Neutrals. */
+	--vr-color-ink: #1c2a21; /* 15.0:1 */
+	--vr-color-ink-soft: #4a5a4f; /* 7.3:1 */
+	--vr-color-surface: #fff;
+	--vr-color-surface-alt: #f6f8f3;
+	--vr-color-border: #dde5da;
+
+	/* Status colours (text-safe on white). */
+	--vr-color-success: #166534; /* 7.1:1 */
+	--vr-color-warning: #8a5a00; /* 5.9:1 */
+	--vr-color-error: #b42318; /* 6.6:1 */
+
+	/* Typography. System stack: no font requests, best LCP. */
+	--vr-font-body: system-ui, -apple-system, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+	--vr-font-heading: var(--vr-font-body);
+	--vr-text-xs: 0.8125rem;
+	--vr-text-sm: 0.9375rem;
+	--vr-text-base: 1rem;
+	--vr-text-lg: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+	--vr-text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+	--vr-text-2xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+	--vr-text-3xl: clamp(1.875rem, 1.4rem + 1.8vw, 2.75rem);
+	--vr-leading-tight: 1.2;
+	--vr-leading-body: 1.6;
+
+	/* Spacing scale (4px base). */
+	--vr-space-1: 0.25rem;
+	--vr-space-2: 0.5rem;
+	--vr-space-3: 0.75rem;
+	--vr-space-4: 1rem;
+	--vr-space-5: 1.5rem;
+	--vr-space-6: 2rem;
+	--vr-space-7: 3rem;
+	--vr-space-8: 4rem;
+	--vr-space-section: clamp(2.5rem, 2rem + 3vw, 5rem);
+
+	/* Layout. */
+	--vr-container: 1200px;
+	--vr-gutter: 1rem;
+
+	/* Shape and depth. */
+	--vr-radius-sm: 0.375rem;
+	--vr-radius: 0.75rem;
+	--vr-radius-pill: 999px;
+	--vr-shadow-sm: 0 1px 2px rgba(28, 42, 33, 0.08);
+	--vr-shadow: 0 4px 14px rgba(28, 42, 33, 0.1);
+
+	/* Motion. */
+	--vr-transition: 0.2s ease;
+
+	/* Layering. */
+	--vr-z-sticky: 100;
+	--vr-z-dropdown: 200;
+	--vr-z-overlay: 900;
+	--vr-z-modal: 1000;
+
+	/* Focus ring (WCAG 2.4.7). */
+	--vr-focus-ring: 3px solid var(--vr-color-accent-dark);
+}
+
+@media (min-width: 768px) {
+
+	:root {
+		--vr-gutter: 1.5rem;
+	}
+}
+
+/*--------------------------------------------------------------
+# Accessibility base
+--------------------------------------------------------------*/
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+	outline: var(--vr-focus-ring);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/*--------------------------------------------------------------
+# Announcement bar (Step 4)
+--------------------------------------------------------------*/
+
+.vrc-announcement {
+	background: var(--vr-color-primary-dark);
+	color: var(--vr-color-surface);
+	padding: var(--vr-space-2) var(--vr-gutter);
+	text-align: center;
+}
+
+.vrc-announcement-text {
+	margin: 0;
+	font-size: var(--vr-text-sm);
+	line-height: var(--vr-leading-tight);
+}
+
+.vrc-announcement-link {
+	margin-left: var(--vr-space-2);
+	color: inherit;
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.vrc-announcement-link:hover {
+	color: var(--vr-color-accent);
+}
+
+.vrc-announcement-link:focus-visible {
+	outline-color: var(--vr-color-accent);
+}
