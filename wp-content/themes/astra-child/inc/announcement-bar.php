@@ -3,12 +3,21 @@
  * Announcement bar: a one-line notice above the header, editable in the Customizer.
  *
  * Rendered on wp_body_open (core hook, fired by Astra's header), so no Astra
- * template is touched. Nothing is shown until text is entered.
+ * template is touched. Hidden if the message is cleared in the Customizer.
  *
  * @package VerdantRootsChild
  */
 
 defined( 'ABSPATH' ) || exit;
+
+/**
+ * Default message, used until a different one is saved in the Customizer.
+ *
+ * @return string
+ */
+function vrc_announcement_default_text(): string {
+	return __( 'Natural Nutrition • Quality You Can Trust • Everyday Wellness', 'verdant-roots-child' );
+}
 
 /**
  * Registers the Customizer section and settings.
@@ -34,7 +43,7 @@ function vrc_announcement_customize_register( WP_Customize_Manager $wp_customize
 		'vrc_announcement_text'      => array(
 			'label'    => __( 'Message', 'verdant-roots-child' ),
 			'type'     => 'text',
-			'default'  => '',
+			'default'  => vrc_announcement_default_text(),
 			'sanitize' => 'sanitize_text_field',
 		),
 		'vrc_announcement_link_text' => array(
@@ -79,7 +88,7 @@ function vrc_announcement_render(): void {
 		return;
 	}
 
-	$text = (string) get_theme_mod( 'vrc_announcement_text', '' );
+	$text = (string) get_theme_mod( 'vrc_announcement_text', vrc_announcement_default_text() );
 	if ( '' === $text ) {
 		return;
 	}
