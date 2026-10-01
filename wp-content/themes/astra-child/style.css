@@ -120,4 +120,34 @@ Text Domain:  verdant-roots-child
 	}
 }
 
-/* Component styles are added to assets/css/ per development step. */
+/*--------------------------------------------------------------
+# Announcement bar (Step 4)
+--------------------------------------------------------------*/
+
+.vrc-announcement {
+	background: var(--vr-color-primary-dark);
+	color: var(--vr-color-surface);
+	padding: var(--vr-space-2) var(--vr-gutter);
+	text-align: center;
+}
+
+.vrc-announcement-text {
+	margin: 0;
+	font-size: var(--vr-text-sm);
+	line-height: var(--vr-leading-tight);
+}
+
+.vrc-announcement-link {
+	margin-left: var(--vr-space-2);
+	color: inherit;
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.vrc-announcement-link:hover {
+	color: var(--vr-color-accent);
+}
+
+.vrc-announcement-link:focus-visible {
+	outline-color: var(--vr-color-accent);
+}
