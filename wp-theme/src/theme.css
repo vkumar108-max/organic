@@ -259,7 +259,7 @@
   .woocommerce-MyAccount-navigation a { display: block; white-space: nowrap; border-radius: .5rem; padding: .625rem .75rem; font-size: .875rem; font-weight: 500; } .woocommerce-MyAccount-navigation a:hover { background: var(--color-brand-50); }
   .woocommerce-MyAccount-navigation .is-active a { background: var(--color-brand-100); color: var(--color-brand-800); } .woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--customer-logout a { color: var(--color-danger); }
   .woocommerce-MyAccount-content { min-width: 0; } .woocommerce-MyAccount-content h2, .woocommerce-MyAccount-content h3 { font-size: 1.25rem; margin-bottom: .75rem; }
-  .woocommerce-account:not(.logged-in) .woocommerce { display: block; max-width: 28rem; margin-inline: auto; } #customer_login { display: grid; gap: 2rem; } #customer_login h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+  .woocommerce-account:not(.logged-in) .woocommerce:not(:has(.vr-auth)) { display: block; max-width: 28rem; margin-inline: auto; } #customer_login:not(.vr-auth) { display: grid; gap: 2rem; } #customer_login:not(.vr-auth) h2 { font-size: 1.25rem; margin-bottom: 1rem; }
   form.login, form.register, form.woocommerce-form-login, form.track_order, form.woocommerce-EditAccountForm, form.lost_reset_password { border: 1px solid var(--color-line); border-radius: var(--radius-card); padding: 1.5rem; background: #fff; box-shadow: var(--shadow-card); }
   .woocommerce-orders-table, .woocommerce-table { display: block; overflow-x: auto; }
   mark { background: var(--color-brand-100); padding: 0 .25rem; border-radius: .25rem; }
@@ -649,4 +649,78 @@
   .vr-bf-done { padding: 2.5rem 1.5rem; border: 1px solid var(--color-brand-200); border-radius: 1.25rem; background: var(--color-brand-50); text-align: center; } .vr-bf-done[hidden] { display: none; }
   .vr-bf-done p { margin: 0; font-size: 1.15rem; font-weight: 600; color: var(--color-brand-800); }
   .vr-bf-tick { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; margin: 0 auto 1rem; border-radius: 9999px; background: var(--color-brand-600); color: #fff; font-size: 1.6rem; }
+}
+
+/* ------------------------------------------------------------------
+   Login & Sign-up card: a green "blade" slides across and morphs between Sign in and Create account
+------------------------------------------------------------------- */
+@layer components {
+  .vr-auth { --ease: cubic-bezier(.77, 0, .18, 1); position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 34rem; overflow: hidden; border-radius: 1.75rem; background: #fcf8ef; box-shadow: var(--shadow-lift); isolation: isolate; max-width: 62rem; margin-inline: auto; }
+  .vr-auth-panes { display: contents; }
+  .vr-auth-pane { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; padding: 2.5rem 5.5rem 2.5rem 3rem; transition: opacity .35s ease, transform .5s ease, visibility 0s linear .35s; }
+  .vr-auth-pane--signin { grid-column: 1; grid-row: 1; }
+  .vr-auth-pane--signup { grid-column: 2; grid-row: 1; padding: 2.5rem 3rem 2.5rem 5.5rem; }
+  .vr-auth[data-state="signin"] .vr-auth-pane--signup, .vr-auth[data-state="signup"] .vr-auth-pane--signin { opacity: 0; visibility: hidden; transform: translateY(10px); pointer-events: none; }
+  .vr-auth[data-state="signin"] .vr-auth-pane--signin, .vr-auth[data-state="signup"] .vr-auth-pane--signup { opacity: 1; transform: none; transition: opacity .45s ease .4s, transform .5s ease .4s, visibility 0s; }
+
+  .vr-auth-bladewrap { position: absolute; top: 0; bottom: 0; right: 0; z-index: 1; width: 58%; pointer-events: none; filter: drop-shadow(0 0 1px rgb(201 146 45 / .85)); transition: transform .85s var(--ease); }
+  .vr-auth[data-state="signup"] .vr-auth-bladewrap { transform: translateX(-72.4138%); }
+  .vr-auth-blade { position: absolute; inset: 0; color: #fff; background: radial-gradient(120% 90% at 20% 0%, #1d6b3c 0%, transparent 55%), linear-gradient(165deg, var(--color-brand-800), #0a2415 90%); clip-path: polygon(0 0, 100% 0, 100% 100%, 24% 100%); transition: clip-path .85s var(--ease); }
+  .vr-auth[data-state="signup"] .vr-auth-blade { clip-path: polygon(0 0, 68% 0, 92% 100%, 0 100%); }
+  .vr-auth-copy { position: absolute; top: 50%; translate: 0 -50%; transition: opacity .4s ease, transform .6s ease; }
+  .vr-auth-copy--in { left: 38%; right: 2.5rem; } .vr-auth-copy--up { left: 2.75rem; right: 40%; }
+  .vr-auth[data-state="signin"] .vr-auth-copy--up, .vr-auth[data-state="signup"] .vr-auth-copy--in { opacity: 0; transform: translateY(14px); }
+  .vr-auth[data-state="signin"] .vr-auth-copy--in, .vr-auth[data-state="signup"] .vr-auth-copy--up { opacity: 1; transition-delay: .45s; }
+  .vr-auth-brand { display: block; margin-bottom: 1rem; font-size: .72rem; font-weight: 700; letter-spacing: .32em; text-transform: uppercase; color: #e8b350; }
+  .vr-auth-title { margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(2rem, 3.4vw, 2.9rem); font-weight: 500; line-height: 1.08; color: #fff; }
+  .vr-auth-title em { color: #e8b350; font-style: italic; }
+  .vr-auth-text { margin: 0; max-width: 22rem; font-size: .95rem; line-height: 1.6; color: rgb(255 255 255 / .72); }
+
+  .vr-auth-h { margin: 0; font-family: var(--font-sans); font-size: 1.6rem; font-weight: 700; color: var(--color-ink); }
+  .vr-auth-rule { display: block; width: 4rem; height: 3px; margin: .6rem 0 1.75rem; border-radius: 9999px; background: var(--color-clay-500); }
+  .vr-auth-form { margin: 0; }
+  .vr-auth-field { position: relative; margin-bottom: 1.9rem; padding-top: .9rem; }
+  .vr-auth-field::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--color-clay-500); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+  .vr-auth-field:focus-within::after { transform: scaleX(1); }
+  .vr-auth-field[data-invalid]::after { background: #c0392b; transform: scaleX(1); }
+  .vr-auth-input { display: block; width: 100%; padding: .6rem 2.4rem .6rem 0; border: 0; border-bottom: 2px solid rgb(60 45 15 / .18); border-radius: 0; background: transparent; font: inherit; font-size: 1.05rem; color: var(--color-ink); outline: 0; box-shadow: none; }
+  .vr-auth-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 40px #fcf8ef inset; }
+  .vr-auth-label { position: absolute; left: 0; top: 1.55rem; transform-origin: left top; color: var(--color-ink-soft); pointer-events: none; transition: transform .2s ease, color .2s ease; }
+  .vr-auth-input:focus + .vr-auth-label, .vr-auth-input:not(:placeholder-shown) + .vr-auth-label { transform: translateY(-1.45rem) scale(.8); color: #9a6a1f; }
+  .vr-auth-ico, .vr-auth-eye { position: absolute; right: 0; bottom: .55rem; display: grid; place-items: center; width: 2rem; height: 2rem; color: var(--color-ink-soft); }
+  .vr-auth-eye { cursor: pointer; border-radius: 9999px; } .vr-auth-eye:hover { color: var(--color-brand-700); } .vr-auth-eye:focus-visible { outline: 2px solid var(--color-brand-500); }
+  .vr-auth-eye-off { display: none; } .vr-auth-eye[aria-pressed="true"] .vr-auth-eye-off { display: block; } .vr-auth-eye[aria-pressed="true"] .vr-auth-eye-on { display: none; }
+  .vr-auth-err { position: absolute; left: 0; top: calc(100% + .3rem); margin: 0; font-size: .78rem; font-weight: 600; color: #b03a2e; } .vr-auth-err[hidden] { display: none; }
+  .vr-auth-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: -.3rem 0 1.5rem; font-size: .92rem; }
+  .vr-auth-check { display: inline-flex; align-items: center; gap: .6rem; cursor: pointer; color: var(--color-ink-soft); } .vr-auth-check input { position: absolute; opacity: 0; pointer-events: none; }
+  .vr-auth-box { display: grid; place-items: center; width: 1.3rem; height: 1.3rem; border: 2px solid rgb(60 45 15 / .3); border-radius: .4rem; color: #fff; transition: background .15s, border-color .15s; } .vr-auth-box svg { opacity: 0; transition: opacity .15s; }
+  .vr-auth-check input:checked + .vr-auth-box { border-color: var(--color-brand-800); background: var(--color-brand-800); } .vr-auth-check input:checked + .vr-auth-box svg { opacity: 1; }
+  .vr-auth-check input:focus-visible + .vr-auth-box { outline: 3px solid var(--color-brand-500); outline-offset: 2px; }
+  .vr-auth-link { color: #9a6a1f; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--color-clay-500); text-underline-offset: 4px; background: none; }
+  .vr-auth-link--strong { color: var(--color-ink); font-weight: 700; } .vr-auth-link:hover { color: var(--color-brand-700); } .vr-auth-link:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 3px; border-radius: .25rem; }
+  .vr-auth-btn { display: grid; place-items: center; width: 100%; min-height: 3.4rem; border-radius: 9999px; background: linear-gradient(135deg, #1d6b3c, var(--color-brand-900, #123a1f)); color: #fff; font-size: 1.05rem; font-weight: 700; box-shadow: 0 10px 24px rgb(23 59 32 / .28); transition: transform .15s, box-shadow .15s, opacity .15s; }
+  .vr-auth-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgb(23 59 32 / .34); } .vr-auth-btn:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 3px; } .vr-auth-btn.is-loading { opacity: .7; pointer-events: none; }
+  .vr-auth-switch { margin: 1.2rem 0 0; font-size: .95rem; color: var(--color-ink-soft); }
+  .vr-auth-note { margin: 0 0 1.4rem; font-size: .9rem; color: var(--color-ink-soft); }
+  .vr-auth-meter { display: flex; align-items: center; gap: .4rem; margin: -1rem 0 1.4rem; }
+  .vr-auth-seg { width: 2.2rem; height: 3px; border-radius: 9999px; background: rgb(60 45 15 / .15); transition: background .25s; }
+  .vr-auth-hint { margin-left: auto; font-size: .8rem; font-weight: 600; color: var(--color-ink-soft); }
+  .vr-auth-meter[data-level="1"] .vr-auth-seg:nth-child(-n+1) { background: #c0392b; } .vr-auth-meter[data-level="2"] .vr-auth-seg:nth-child(-n+2) { background: #e08e2b; }
+  .vr-auth-meter[data-level="3"] .vr-auth-seg:nth-child(-n+3) { background: #9bb23a; } .vr-auth-meter[data-level="4"] .vr-auth-seg { background: #2d7439; }
+
+  @media (max-width: 767px) {
+    .vr-auth { display: flex; flex-direction: column; min-height: 0; }
+    .vr-auth-bladewrap { position: relative; order: -1; width: 100%; filter: none; transform: none !important; }
+    .vr-auth-blade { position: relative; display: grid; padding: 1.75rem 1.5rem 3.25rem; clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%) !important; }
+    .vr-auth-copy { position: static; translate: none; grid-area: 1 / 1; }
+    .vr-auth-title { font-size: 1.9rem; margin-bottom: .6rem; } .vr-auth-brand { margin-bottom: .6rem; }
+    .vr-auth-pane, .vr-auth-pane--signup { padding: 1.25rem 1.5rem 2rem; transition: none; }
+    .vr-auth[data-state="signin"] .vr-auth-pane--signup, .vr-auth[data-state="signup"] .vr-auth-pane--signin { display: none; }
+    .vr-auth-pane { animation: vr-auth-in .45s ease both; }
+    .vr-auth-row { flex-wrap: wrap; }
+  }
+  @keyframes vr-auth-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vr-auth *, .vr-auth *::before, .vr-auth *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
 }

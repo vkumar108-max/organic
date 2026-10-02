@@ -59,6 +59,13 @@ or import `demo/sample-products.csv` from *Products → Import*. All sample prod
 `demo` — delete them (Products → filter by tag) before you go live. Regenerate the CSV with
 `node --experimental-strip-types scripts/export-woo-csv.ts` (from the repo root).
 
+### Login & Sign-up animation (My account)
+A split card on WooCommerce's logged-out **My account** page: a deep-green "blade" slides across to switch between **Sign in** and **Create account** (floating labels, show/hide password, "Keep me signed in", "Forgot password?", live password-strength meter). Both forms are the real WooCommerce forms (same nonces, `login` / `register` buttons, Woo hooks), so plugins/captchas keep working.
+- Needs **WooCommerce → Settings → Accounts & Privacy → "Allow customers to create an account on the My account page"**; otherwise only Sign in is shown.
+- Create account asks for *Full name* (saved as first/last name) and requires a password of 8+ characters.
+- Edit the heading/text under **Customize → Login & Sign-up** (use `|` to split a heading into two lines).
+- Without JavaScript the card still works (`?vr_auth=signup` shows Create account); on phones it stacks with the green banner on top; reduced-motion users get no sliding.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

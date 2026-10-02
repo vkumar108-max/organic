@@ -140,6 +140,13 @@ Matching FAQ structured data (schema.org FAQPage) is printed from the same visib
 * **Spam protection:** hidden honeypot field, signed timestamp (instant submissions are dropped), max 5 requests per hour per visitor. Request types are editable (one per line) in the same Customizer section.
 * Mobile number is validated as an Indian number (10 digits starting 6–9, optional +91/0 prefix). We only use the details to reply — mention this form in your privacy policy.
 
+### Login & Sign-up animation (My account)
+A split card on WooCommerce's logged-out **My account** page: a deep-green "blade" slides across to switch between **Sign in** and **Create account** (floating labels, show/hide password, "Keep me signed in", "Forgot password?", live password-strength meter). Both forms are the real WooCommerce forms (same nonces, `login` / `register` buttons, Woo hooks), so plugins/captchas keep working.
+- Needs **WooCommerce → Settings → Accounts & Privacy → "Allow customers to create an account on the My account page"**; otherwise only Sign in is shown.
+- Create account asks for *Full name* (saved as first/last name) and requires a password of 8+ characters.
+- Edit the heading/text under **Customize → Login & Sign-up** (use `|` to split a heading into two lines).
+- Without JavaScript the card still works (`?vr_auth=signup` shows Create account); on phones it stacks with the green banner on top; reduced-motion users get no sliding.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

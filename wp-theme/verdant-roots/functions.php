@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VR_VERSION', '1.0.16' );
+define( 'VR_VERSION', '1.0.17' );
 define( 'VR_DIR', get_template_directory() );
 define( 'VR_URI', get_template_directory_uri() );
 
@@ -16,7 +16,7 @@ foreach ( array( 'icon-paths', 'helpers', 'art', 'setup', 'customizer', 'ads', '
 }
 
 if ( class_exists( 'WooCommerce' ) ) {
-	foreach ( array( 'woocommerce', 'product-fields', 'catalog', 'quick-view', 'wellness' ) as $vr_file ) {
+	foreach ( array( 'woocommerce', 'product-fields', 'catalog', 'quick-view', 'wellness', 'auth' ) as $vr_file ) {
 		require_once VR_DIR . "/inc/{$vr_file}.php";
 	}
 }

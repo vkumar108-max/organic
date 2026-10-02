@@ -400,6 +400,69 @@
 		} );
 	} );
 
+	/* ---------------- Login & Sign-up card: sliding blade, inline validation, password eye + strength ---------------- */
+	$$( '[data-auth]' ).forEach( function ( root ) {
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		var panes = { signin: $( '[data-pane="signin"]', root ), signup: $( '[data-pane="signup"]', root ) };
+		function setState( next, focus ) {
+			if ( next === 'signup' && root.getAttribute( 'data-reg' ) !== '1' ) { return; }
+			root.setAttribute( 'data-state', next );
+			Object.keys( panes ).forEach( function ( k ) {
+				var p = panes[ k ]; if ( ! p ) { return; }
+				if ( k === next ) { p.removeAttribute( 'inert' ); p.removeAttribute( 'aria-hidden' ); } else { p.setAttribute( 'inert', '' ); p.setAttribute( 'aria-hidden', 'true' ); }
+			} );
+			try { var u = new URL( window.location.href ); if ( next === 'signup' ) { u.searchParams.set( 'vr_auth', 'signup' ); } else { u.searchParams.delete( 'vr_auth' ); } window.history.replaceState( null, '', u ); } catch ( e ) {}
+			if ( focus ) { var f = $( 'input:not([type=hidden]):not([type=checkbox])', panes[ next ] ); setTimeout( function () { if ( f ) { f.focus( { preventScroll: true } ); } }, reduce ? 0 : 700 ); }
+		}
+		$$( '[data-auth-go]', root ).forEach( function ( a ) { a.addEventListener( 'click', function ( e ) { e.preventDefault(); setState( a.getAttribute( 'data-auth-go' ), true ); } ); } );
+
+		// show / hide password
+		$$( '[data-auth-eye]', root ).forEach( function ( btn ) {
+			btn.addEventListener( 'click', function () {
+				var input = $( 'input', btn.closest( '.vr-auth-field' ) ), show = input.type === 'password';
+				input.type = show ? 'text' : 'password'; btn.setAttribute( 'aria-pressed', show ? 'true' : 'false' ); btn.setAttribute( 'aria-label', show ? 'Hide password' : 'Show password' );
+			} );
+		} );
+
+		// inline validation (the server validates again; WooCommerce prints its own notices)
+		function setErr( input, msg ) {
+			var f = input.closest( '.vr-auth-field' ), p = $( '.vr-auth-err', f );
+			p.textContent = msg || ''; p.hidden = ! msg;
+			if ( msg ) { f.setAttribute( 'data-invalid', '' ); input.setAttribute( 'aria-invalid', 'true' ); input.setAttribute( 'aria-describedby', p.id ); } else { f.removeAttribute( 'data-invalid' ); input.removeAttribute( 'aria-invalid' ); }
+		}
+		function problem( input, form ) {
+			var v = input.value.trim();
+			if ( ! v ) { return 'This field is required.'; }
+			if ( input.type === 'email' && ! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( v ) ) { return 'Enter a valid email address.'; }
+			if ( form.getAttribute( 'data-auth-form' ) === 'signup' && input.name === 'password' && input.value.length < 8 ) { return 'Use 8 characters or more.'; }
+			return '';
+		}
+		$$( '[data-auth-form]', root ).forEach( function ( form ) {
+			var inputs = $$( '.vr-auth-input', form ), meter = $( '[data-meter]', form ), hint = $( '[data-meter-hint]', form );
+			inputs.forEach( function ( input ) {
+				input.addEventListener( 'input', function () { setErr( input, '' ); } );
+				input.addEventListener( 'blur', function () { if ( input.value.trim() ) { setErr( input, problem( input, form ) ); } } );
+			} );
+			if ( meter ) {
+				var pw = $( 'input[name="password"]', form ), labels = [ 'Use 8 characters or more.', 'Too short', 'Weak', 'Good', 'Strong' ];
+				pw.addEventListener( 'input', function () {
+					var v = pw.value, pts = ( v.length >= 8 ? 1 : 0 ) + ( v.length >= 12 ? 1 : 0 ) + ( /[a-z]/.test( v ) && /[A-Z]/.test( v ) ? 1 : 0 ) + ( /\d/.test( v ) && /[^A-Za-z0-9]/.test( v ) ? 1 : 0 );
+					var level = ! v ? 0 : v.length < 8 ? 1 : Math.min( 4, pts + 1 ); // 0 empty, 1 too short, 2 weak, 3 good, 4 strong
+					meter.setAttribute( 'data-level', String( level ) );
+					hint.textContent = labels[ level ];
+				} );
+			}
+			form.addEventListener( 'submit', function ( e ) {
+				var first = null;
+				inputs.forEach( function ( input ) { var m = problem( input, form ); setErr( input, m ); if ( m && ! first ) { first = input; } } );
+				if ( first ) { e.preventDefault(); first.focus(); return; }
+				// do NOT disable the button: a disabled submit button is left out of the POST and WooCommerce would ignore the form.
+				var btn = $( '.vr-auth-btn', form ), lab = btn && $( 'span', btn );
+				if ( btn ) { btn.classList.add( 'is-loading' ); btn.setAttribute( 'aria-busy', 'true' ); if ( lab ) { lab.textContent = form.getAttribute( 'data-auth-form' ) === 'signup' ? 'Creating account…' : 'Signing in…'; } }
+			} );
+		} );
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );
