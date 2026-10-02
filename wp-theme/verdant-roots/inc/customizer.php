@@ -18,6 +18,7 @@ add_action(
 			'hero_title'    => array( __( 'Hero headline', 'verdant-roots' ), 'text', 'Natural Goodness, Made Simple' ),
 			'hero_text'     => array( __( 'Hero sub-heading', 'verdant-roots' ), 'textarea', 'Discover quality fruit, leaf and vegetable products for everyday living.' ),
 			'hero_cats'     => array( __( 'Hero 3D slider — categories (up to 5, comma-separated slugs or names)', 'verdant-roots' ), 'text', 'fruit-powder, leaf-powder, vegetable-powder, dry-vegetables, tablets' ),
+			'trust_items'   => array( __( 'Trust strip under the hero — one per line: Label | Detail | Logo URL. Add ONLY licences/certificates you really hold, e.g. FSSAI | Lic. No. 1234… | https://…/fssai.png (upload logos in Media). Leave empty to hide the strip.', 'verdant-roots' ), 'textarea', '' ),
 			'section_1'     => array( __( 'Home section 1 — product category slug', 'verdant-roots' ), 'text', 'fruit-powder' ),
 			'section_2'     => array( __( 'Home section 2 — product category slug', 'verdant-roots' ), 'text', 'leaf-powder' ),
 			'section_3'     => array( __( 'Home section 3 — product category slug', 'verdant-roots' ), 'text', 'vegetable-powder' ),

@@ -112,6 +112,18 @@
 		startAuto();
 	}() );
 
+	/* ---------------- Trust strip: always running, with a pause control (WCAG 2.2.2) ---------------- */
+	( function () {
+		var strip = $( '[data-trust]' ), btn = strip && $( '[data-trust-play]', strip );
+		if ( ! btn ) { return; }
+		btn.addEventListener( 'click', function () {
+			var paused = strip.classList.toggle( 'is-paused' );
+			btn.setAttribute( 'aria-pressed', paused ? 'true' : 'false' );
+			btn.setAttribute( 'aria-label', paused ? 'Resume scrolling strip' : 'Pause scrolling strip' );
+			$( '[data-trust-icon]', btn ).textContent = paused ? '▶' : '❚❚';
+		} );
+	}() );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );

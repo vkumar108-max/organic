@@ -61,6 +61,8 @@ $vr_posts   = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3,
 	</div>
 </section>
 
+<?php get_template_part( 'template-parts/trust-strip' ); ?>
+
 <?php if ( $vr_cats ) : ?>
 <section aria-labelledby="shop-by-category" class="section">
 	<div class="container-page">

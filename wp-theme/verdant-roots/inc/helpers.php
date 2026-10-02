@@ -33,6 +33,27 @@ function vr_opt( string $key, $default = '' ) {
 	return get_theme_mod( 'vr_' . $key, $default );
 }
 
+/**
+ * Trust strip items from the Customizer: one per line as "Label | Detail | Logo URL" (detail and logo optional).
+ * Nothing is invented: with no lines saved, visitors see no strip at all.
+ */
+function vr_trust_items(): array {
+	$items = array();
+	foreach ( preg_split( '/\r\n|\r|\n/', (string) vr_opt( 'trust_items', '' ) ) as $line ) {
+		$line = trim( $line );
+		if ( '' === $line ) {
+			continue;
+		}
+		$part    = array_map( 'trim', explode( '|', $line, 3 ) );
+		$items[] = array(
+			'label'  => $part[0],
+			'detail' => $part[1] ?? '',
+			'logo'   => isset( $part[2] ) ? esc_url_raw( $part[2] ) : '',
+		);
+	}
+	return array_slice( $items, 0, 12 );
+}
+
 /** Announcement messages: one per line in the Customizer. */
 function vr_announcements(): array {
 	$raw   = (string) vr_opt( 'announcements', vr_default_announcements() );
