@@ -64,6 +64,14 @@ It lists your top-level product categories (Products → Categories; drag to ord
 categories without one get the generated placeholder artwork. It pauses on hover/focus/touch, has a pause button and prev/next
 arrows, can be swiped or scrolled by hand, and does not move for visitors who prefer reduced motion.
 
+### Best Selling Products (home page carousel)
+Under the Categories rail: a tinted band with swipeable product cards, big rank numbers and prev/next arrows.
+**To add any product later:** edit the product → tick **"Show in Best Selling Products on the home page"** in the right-hand box
+(untick to remove). Optional **Position** sets the order (1 = first); without it products are ordered by sales. Behind the
+scenes this adds/removes the `best-seller` tag (name configurable in the Customizer), so the "Best seller" badge, the shop tag
+filter and *Products → Bulk edit → Tags* all work too. While no product is ticked/tagged the carousel shows your most popular
+products instead; "See all" opens the best-seller tag page.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

@@ -21,6 +21,7 @@ WordPress 6.4+, PHP 8.0+, WooCommerce 8.5+.
    The **Trust strip** (thin scrolling bar under the hero) is filled here too: one item per line as
    `Label | Detail | Logo URL`, e.g. `FSSAI | Lic. No. 1234567890 | https://…/fssai.png`. Add only licences you really hold;
    leave it empty and visitors see no strip.
+   To feature a product under **Best Selling Products** on the home page, edit it and tick the box in the right-hand column.
 5. *Appearance → Menus*: optional. Without menus the theme uses sensible built-in defaults
    (locations: Primary, Footer, Support, Policy).
 

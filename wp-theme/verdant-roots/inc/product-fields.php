@@ -116,3 +116,81 @@ function vr_is_new_product( WC_Product $product ): bool {
 function vr_is_best_seller( int $product_id ): bool {
 	return has_term( (string) vr_opt( 'best_tag', 'best-seller' ), 'product_tag', $product_id );
 }
+
+/* ------------------------------------------------------------------
+ * "Best Selling Products" (home page): tick a box on any product to add it.
+ * The tag configured in the Customizer (default: best-seller) stays the single source of truth,
+ * so the card badge, the shop tag filter and Products → Bulk edit → Tags keep working too.
+ * ------------------------------------------------------------------ */
+add_action(
+	'add_meta_boxes',
+	static function () {
+		add_meta_box( 'vr-best-selling', __( 'Best Selling Products (home page)', 'verdant-roots' ), 'vr_render_best_metabox', 'product', 'side', 'high' );
+	}
+);
+
+function vr_render_best_metabox( WP_Post $post ): void {
+	wp_nonce_field( 'vr_best_meta', 'vr_best_meta_nonce' );
+	$on  = vr_is_best_seller( $post->ID );
+	$pos = (int) get_post_meta( $post->ID, '_vr_best_order', true );
+	printf(
+		'<input type="hidden" name="vr_best_was" value="%1$d"><p><label><input type="checkbox" name="vr_best" value="1" %2$s> %3$s</label></p>',
+		$on ? 1 : 0,
+		checked( $on, true, false ), // phpcs:ignore WordPress.Security.EscapeOutput -- core helper output.
+		esc_html__( 'Show in “Best Selling Products” on the home page', 'verdant-roots' )
+	);
+	printf(
+		'<p><label for="vr_best_order"><strong>%1$s</strong></label><br><input type="number" min="0" id="vr_best_order" name="vr_best_order" value="%2$s" class="small-text"> <span class="description">%3$s</span></p>',
+		esc_html__( 'Position', 'verdant-roots' ),
+		$pos ? esc_attr( (string) $pos ) : '',
+		esc_html__( '1 = first. Leave empty to order by sales.', 'verdant-roots' )
+	);
+}
+
+add_action(
+	'save_post_product',
+	static function ( int $post_id ) {
+		if ( ! isset( $_POST['vr_best_meta_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['vr_best_meta_nonce'] ) ), 'vr_best_meta' ) ) {
+			return;
+		}
+		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		$slug = (string) vr_opt( 'best_tag', 'best-seller' );
+		$was  = ! empty( $_POST['vr_best_was'] );
+		$now  = ! empty( $_POST['vr_best'] );
+		if ( $was !== $now ) { // only act on a change, so a tag typed into the Tags box is never undone.
+			if ( $now ) {
+				if ( ! term_exists( $slug, 'product_tag' ) ) {
+					wp_insert_term( ucwords( str_replace( '-', ' ', $slug ) ), 'product_tag', array( 'slug' => $slug ) );
+				}
+				wp_set_object_terms( $post_id, $slug, 'product_tag', true );
+			} else {
+				wp_remove_object_terms( $post_id, $slug, 'product_tag' );
+			}
+		}
+		$order = isset( $_POST['vr_best_order'] ) ? absint( wp_unslash( $_POST['vr_best_order'] ) ) : 0;
+		if ( $order ) {
+			update_post_meta( $post_id, '_vr_best_order', $order );
+		} else {
+			delete_post_meta( $post_id, '_vr_best_order' );
+		}
+	}
+);
+
+/** Products for the home "Best Selling" carousel: tagged products by Position, then sales; most popular if none tagged yet. */
+function vr_best_sellers( int $limit = 12 ): array {
+	$products = vr_get_products( array( 'tag' => (string) vr_opt( 'best_tag', 'best-seller' ), 'limit' => 48 ) );
+	if ( ! $products ) {
+		return vr_get_products( array( 'limit' => $limit ) );
+	}
+	usort(
+		$products,
+		static function ( WC_Product $a, WC_Product $b ): int {
+			$oa = (int) get_post_meta( $a->get_id(), '_vr_best_order', true ) ?: PHP_INT_MAX;
+			$ob = (int) get_post_meta( $b->get_id(), '_vr_best_order', true ) ?: PHP_INT_MAX;
+			return $oa !== $ob ? $oa <=> $ob : $b->get_total_sales() <=> $a->get_total_sales();
+		}
+	);
+	return array_slice( $products, 0, $limit );
+}

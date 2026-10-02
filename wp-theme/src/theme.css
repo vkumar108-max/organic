@@ -424,3 +424,24 @@
 @media (prefers-reduced-motion: reduce) {
   .vr-crail-circle { transition: none; }
 }
+
+/* ------------------------------------------------------------------
+   Best Selling Products: tinted band, swipeable cards, big rank numbers
+------------------------------------------------------------------- */
+@layer components {
+  .vr-bsl { position: relative; overflow: hidden; border-radius: 2rem; padding: 1.75rem 1rem 2rem; background: linear-gradient(135deg, var(--color-sand-100, #f3ead7), var(--color-sand-50, #faf5ea) 55%, var(--color-brand-50)); box-shadow: inset 0 0 0 1px var(--color-brand-100); }
+  @media (min-width: 640px) { .vr-bsl { padding: 2.25rem 2rem 2.5rem; } }
+  .vr-bsl-wrap { position: relative; }
+  .vr-bsl-track { display: flex; gap: 2.75rem; margin: 0; padding: .5rem .25rem 1rem; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .vr-bsl-track::-webkit-scrollbar { display: none; }
+  .vr-bsl-slide { position: relative; flex: 0 0 13.5rem; scroll-snap-align: start; }
+  @media (min-width: 640px) { .vr-bsl-slide { flex-basis: 16rem; } }
+  .vr-bsl-slide > * { position: relative; z-index: 1; }
+  .vr-bsl-slide::before { content: attr(data-rank); position: absolute; z-index: 0; left: -2.25rem; bottom: 1.5rem; font-family: var(--font-display, inherit); font-size: 9rem; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 2px rgb(63 143 74 / .28); pointer-events: none; user-select: none; }
+  .vr-bsl-nav { position: absolute; top: 38%; z-index: 5; display: none; place-items: center; width: 2.75rem; height: 2.75rem; translate: 0 -50%; border-radius: 9999px; background: #fff; color: var(--color-brand-800); box-shadow: var(--shadow-lift); transition: opacity .2s, transform .15s; }
+  .vr-bsl.is-ready .vr-bsl-nav, .vr-bsl-sec.is-ready .vr-bsl-nav { display: grid; }
+  .vr-bsl-nav[hidden] { display: none !important; }
+  .vr-bsl-nav:disabled { opacity: .35; cursor: default; }
+  .vr-bsl-nav:not(:disabled):hover { transform: scale(1.08); translate: 0 -50%; }
+  .vr-bsl-nav--prev { left: -.4rem; } .vr-bsl-nav--next { right: -.4rem; }
+}

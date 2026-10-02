@@ -10,10 +10,7 @@ get_header();
 
 $vr_woo   = function_exists( 'vr_get_products' );
 $vr_cats  = $vr_woo ? vr_top_categories() : array();
-$vr_best  = $vr_woo ? vr_get_products( array( 'tag' => (string) vr_opt( 'best_tag', 'best-seller' ) ) ) : array();
-if ( $vr_woo && ! $vr_best ) {
-	$vr_best = vr_get_products(); // no tagged products yet: fall back to the most popular.
-}
+$vr_best  = $vr_woo ? vr_best_sellers() : array(); // tagged products by Position, else most popular.
 $vr_sections = array(
 	array( 'id' => 'sec-1', 'slug' => (string) vr_opt( 'section_1', 'fruit-powder' ), 'tinted' => false ),
 	array( 'id' => 'sec-2', 'slug' => (string) vr_opt( 'section_2', 'leaf-powder' ), 'tinted' => true ),
@@ -65,6 +62,12 @@ $vr_posts   = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3,
 
 <?php get_template_part( 'template-parts/category-rail', null, array( 'cats' => $vr_cats, 'href' => vr_page_url( 'categories' ), 'link_label' => __( 'See all', 'verdant-roots' ) ) ); ?>
 
+<?php
+$vr_best_tag  = $vr_woo ? get_term_by( 'slug', (string) vr_opt( 'best_tag', 'best-seller' ), 'product_tag' ) : null;
+$vr_best_href = $vr_best_tag && $vr_best_tag->count ? get_term_link( $vr_best_tag ) : ( $vr_woo ? add_query_arg( 'orderby', 'popularity', wc_get_page_permalink( 'shop' ) ) : '#' );
+get_template_part( 'template-parts/best-selling', null, array( 'products' => $vr_best, 'href' => $vr_best_href ) );
+?>
+
 <?php if ( $vr_cats ) : ?>
 <section aria-labelledby="shop-by-category" class="section">
 	<div class="container-page">
@@ -75,7 +78,6 @@ $vr_posts   = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3,
 <?php endif; ?>
 
 <?php
-get_template_part( 'template-parts/product-section', null, array( 'id' => 'best-sellers', 'title' => __( 'Best Sellers', 'verdant-roots' ), 'description' => __( 'Our most popular products right now.', 'verdant-roots' ), 'products' => $vr_best, 'href' => $vr_woo ? add_query_arg( 'orderby', 'popularity', wc_get_page_permalink( 'shop' ) ) : '#', 'link_label' => __( 'View all', 'verdant-roots' ), 'tinted' => true ) );
 
 foreach ( $vr_sections as $vr_s ) {
 	$vr_term = get_term_by( 'slug', $vr_s['slug'], 'product_cat' );

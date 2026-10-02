@@ -182,6 +182,28 @@
 		start();
 	} );
 
+	/* ---------------- Best Selling carousel: arrows scroll by one card; row stays swipeable ---------------- */
+	$$( '[data-bsl]' ).forEach( function ( root ) {
+		var track = $( '[data-bsl-track]', root ), prev = $( '[data-bsl-prev]', root ), next = $( '[data-bsl-next]', root );
+		if ( ! track || ! prev || ! next ) { return; }
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		function sync() {
+			var max = track.scrollWidth - track.clientWidth - 2;
+			prev.disabled = track.scrollLeft <= 8; next.disabled = track.scrollLeft >= max - 6;
+			prev.hidden = next.hidden = max <= 0; // everything fits: no arrows needed.
+		}
+		function go( dir ) {
+			var slide = $( '.vr-bsl-slide', track ), gap = parseFloat( getComputedStyle( track ).columnGap ) || 0;
+			track.scrollBy( { left: dir * ( ( slide ? slide.getBoundingClientRect().width : 260 ) + gap ), behavior: reduce ? 'auto' : 'smooth' } );
+		}
+		prev.addEventListener( 'click', function () { go( -1 ); } );
+		next.addEventListener( 'click', function () { go( 1 ); } );
+		track.addEventListener( 'scroll', sync, { passive: true } );
+		window.addEventListener( 'resize', sync );
+		root.classList.add( 'is-ready' );
+		sync();
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );
