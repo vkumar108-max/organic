@@ -59,7 +59,7 @@ $vr_cols    = array(
 
 	<div class="border-t border-white/10">
 		<div class="container-page flex flex-col items-center justify-between gap-3 py-5 text-xs text-brand-100/70 sm:flex-row">
-			<p>© <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>. <?php esc_html_e( 'All Rights Reserved.', 'verdant-roots' ); ?></p>
+			<p>© <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( vr_brand_name( 'footer' ) ); ?>. <?php esc_html_e( 'All Rights Reserved.', 'verdant-roots' ); ?></p>
 			<?php
 			// Only methods that are actually enabled in WooCommerce are shown.
 			if ( function_exists( 'WC' ) && WC()->payment_gateways() ) :

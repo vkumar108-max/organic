@@ -14,7 +14,7 @@ $vr_gen_user = 'no' !== get_option( 'woocommerce_registration_generate_username'
 $vr_gen_pass = 'no' !== get_option( 'woocommerce_registration_generate_password' );
 $vr_up       = $vr_reg && ( isset( $_POST['register'] ) || ( isset( $_GET['vr_auth'] ) && 'signup' === $_GET['vr_auth'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 $vr_state    = $vr_up ? 'signup' : 'signin';
-$vr_brand    = get_bloginfo( 'name' );
+$vr_brand    = vr_brand_name( 'header' );
 $vr_val      = static fn( string $k ): string => ( ! empty( $_POST[ $k ] ) && is_string( $_POST[ $k ] ) ) ? esc_attr( wp_unslash( $_POST[ $k ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 $vr_url      = wc_get_page_permalink( 'myaccount' );
 $vr_field    = static function ( string $id, string $name, string $type, string $label, string $icon, array $o = array() ): void {

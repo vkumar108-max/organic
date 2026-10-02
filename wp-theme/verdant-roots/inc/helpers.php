@@ -150,10 +150,21 @@ function vr_product_tone( int $product_id ): string {
 	return 'leaf';
 }
 
+/** Brand text shown in the header ($where = 'header') or footer ('footer'); falls back to the Site Title. */
+function vr_brand_name( string $where = 'header' ): string {
+	$custom = trim( (string) get_theme_mod( 'vr_brand_' . $where, '' ) );
+	return '' !== $custom ? $custom : (string) get_bloginfo( 'name' );
+}
+
 /** Logo: custom logo if set, else the leaf mark + site name (same as the Next.js storefront). */
 function vr_logo( bool $light = false ): string {
-	$name = get_bloginfo( 'name' );
-	if ( ! $light && has_custom_logo() ) {
+	$name = vr_brand_name( $light ? 'footer' : 'header' );
+	if ( $light ) {
+		$img = (int) get_theme_mod( 'vr_brand_footer_logo', 0 );
+		if ( $img ) {
+			return '<a href="' . esc_url( home_url( '/' ) ) . '" class="inline-flex items-center" aria-label="' . esc_attr( sprintf( /* translators: %s site */ __( '%s — home', 'verdant-roots' ), $name ) ) . '">' . wp_get_attachment_image( $img, 'medium', false, array( 'class' => 'h-10 w-auto', 'alt' => '' ) ) . '</a>';
+		}
+	} elseif ( has_custom_logo() ) {
 		return get_custom_logo();
 	}
 	$bg   = $light ? '#fff' : 'var(--color-brand-600)';
