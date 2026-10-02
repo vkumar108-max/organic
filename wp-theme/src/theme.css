@@ -579,3 +579,22 @@
   @media (min-width: 768px) { .vr-feed-dialog { width: min(80vw, 24rem); } }
 }
 @media (prefers-reduced-motion: reduce) { .vr-feed-slide, .vr-feed-img { transition: none; } }
+
+/* ------------------------------------------------------------------
+   Offer banner: any colour; text colour is picked for contrast in PHP
+------------------------------------------------------------------- */
+@layer components {
+  .vr-offer { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; overflow: hidden; padding: 1.75rem 1.25rem; border-radius: 2rem; text-align: center; color: var(--offer-fg, #173b20); background-color: var(--offer-bg, #f2b134); background-image: linear-gradient(135deg, rgb(255 255 255 / .22), rgb(0 0 0 / .06)); box-shadow: var(--shadow-lift); isolation: isolate; }
+  .vr-offer::before, .vr-offer::after { content: ""; position: absolute; z-index: -1; border-radius: 9999px; background: currentColor; opacity: .08; }
+  .vr-offer::before { width: 14rem; height: 14rem; right: -4rem; top: -6rem; } .vr-offer::after { width: 9rem; height: 9rem; left: -3rem; bottom: -4rem; }
+  @media (min-width: 768px) { .vr-offer { flex-direction: row; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; text-align: left; } }
+  .vr-offer-eyebrow { margin: 0 0 .35rem; font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+  .vr-offer-when { margin-left: .5rem; padding: .1rem .5rem; border-radius: 9999px; background: rgb(0 0 0 / .12); font-size: .7rem; letter-spacing: .04em; text-transform: none; }
+  .vr-offer-text { margin: 0; font-family: var(--font-display, inherit); font-size: 1.35rem; font-weight: 700; line-height: 1.4; }
+  @media (min-width: 768px) { .vr-offer-text { font-size: 1.75rem; } }
+  .vr-offer-code { display: inline-flex; align-items: center; gap: .5rem; margin-left: .35rem; padding: .15rem .35rem .15rem .75rem; border: 2px dashed currentColor; border-radius: .75rem; vertical-align: middle; }
+  .vr-offer-code code { font: 800 .85em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .06em; }
+  .vr-offer-copy { padding: .2rem .65rem; border-radius: .5rem; background: var(--offer-fg, #173b20); color: var(--offer-bg, #f2b134); font-size: .7rem; font-weight: 800; }
+  .vr-offer-btn { flex-shrink: 0; display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.6rem; border-radius: 9999px; background: var(--offer-fg, #173b20); color: var(--offer-bg, #f2b134); font-weight: 800; box-shadow: 0 6px 16px rgb(0 0 0 / .18); transition: transform .15s; }
+  .vr-offer-btn:hover { transform: translateY(-2px); } .vr-offer-btn:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+}

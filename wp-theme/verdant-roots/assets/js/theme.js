@@ -345,6 +345,17 @@
 		}
 	} );
 
+	/* ---------------- Offer banner: copy the coupon code ---------------- */
+	$$( '[data-offer-copy]' ).forEach( function ( btn ) {
+		btn.hidden = false;
+		btn.addEventListener( 'click', function () {
+			var code = btn.getAttribute( 'data-offer-copy' );
+			function done() { toast( ( i18n.codeCopied || 'Code copied' ) + ': ' + code ); btn.textContent = i18n.copied || 'Copied'; setTimeout( function () { btn.textContent = i18n.copy || 'Copy'; }, 2000 ); }
+			if ( navigator.clipboard && navigator.clipboard.writeText ) { navigator.clipboard.writeText( code ).then( done, fallback ); } else { fallback(); }
+			function fallback() { var t = d.createElement( 'textarea' ); t.value = code; t.setAttribute( 'readonly', '' ); t.style.cssText = 'position:fixed;opacity:0'; d.body.appendChild( t ); t.select(); try { d.execCommand( 'copy' ); done(); } catch ( e ) {} t.remove(); }
+		} );
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );
