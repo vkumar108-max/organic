@@ -38,6 +38,16 @@ add_action(
 			'newsletter_sc' => array( __( 'Newsletter form shortcode (optional — e.g. from your email plugin). Leave blank to email sign-ups to the admin.', 'verdant-roots' ), 'text', '' ),
 		);
 
+		$wp_customize->add_section( 'vr_brand', array( 'title' => __( 'Header & footer name', 'verdant-roots' ), 'description' => __( 'Replace the shop name text. Leave blank to use the Site Title (Settings → General). A header logo image is set in Site Identity.', 'verdant-roots' ), 'priority' => 29 ) );
+		foreach ( array( 'header' => __( 'Header name (also in the mobile menu)', 'verdant-roots' ), 'footer' => __( 'Footer name (also in © line)', 'verdant-roots' ) ) as $where => $label ) {
+			$wp_customize->add_setting( 'vr_brand_' . $where, array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
+			$wp_customize->add_control( 'vr_brand_' . $where, array( 'label' => $label, 'section' => 'vr_brand', 'type' => 'text' ) );
+		}
+		$wp_customize->add_setting( 'vr_brand_footer_logo', array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
+		$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'vr_brand_footer_logo', array( 'label' => __( 'Footer logo image (optional — replaces the footer name text; use a light/transparent logo on the dark footer)', 'verdant-roots' ), 'section' => 'vr_brand', 'mime_type' => 'image' ) ) );
+		$wp_customize->add_setting( 'vr_brand_favicon', array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
+		$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'vr_brand_favicon', array( 'label' => __( 'Favicon / site icon (square PNG, at least 512×512). Used when no WordPress Site Icon is set.', 'verdant-roots' ), 'section' => 'vr_brand', 'mime_type' => 'image' ) ) );
+
 		foreach ( $fields as $key => [ $label, $type, $default ] ) {
 			$sanitize = 'url' === $type ? 'esc_url_raw' : ( 'number' === $type ? 'absint' : ( 'textarea' === $type ? 'sanitize_textarea_field' : 'sanitize_text_field' ) );
 			$wp_customize->add_setting( 'vr_' . $key, array( 'default' => $default, 'sanitize_callback' => $sanitize ) );
