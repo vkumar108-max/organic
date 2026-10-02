@@ -18,6 +18,9 @@ WordPress 6.4+, PHP 8.0+, WooCommerce 8.5+.
    shortcodes, which the theme styles.
 4. *Appearance → Customize → Verdant Roots store settings*: announcement bar text, hero text,
    contact details, social links, which categories appear on the home page, etc.
+   The **Trust strip** (thin scrolling bar under the hero) is filled here too: one item per line as
+   `Label | Detail | Logo URL`, e.g. `FSSAI | Lic. No. 1234567890 | https://…/fssai.png`. Add only licences you really hold;
+   leave it empty and visitors see no strip.
 5. *Appearance → Menus*: optional. Without menus the theme uses sensible built-in defaults
    (locations: Primary, Footer, Support, Policy).
 
@@ -49,14 +52,6 @@ wp eval-file wp-content/themes/verdant-roots/demo/import-demo.php
 or import `demo/sample-products.csv` from *Products → Import*. All sample products carry the tag
 `demo` — delete them (Products → filter by tag) before you go live. Regenerate the CSV with
 `node --experimental-strip-types scripts/export-woo-csv.ts` (from the repo root).
-
-### Trust strip (licences) under the hero
-A thin, always-scrolling strip sits right under the home hero. Fill it in *Appearance → Customize → Verdant Roots store
-settings → Trust strip*, one item per line as `Label | Detail | Logo URL` (detail and logo are optional), e.g.
-`FSSAI | Lic. No. 1234567890 | https://yourstore.com/wp-content/uploads/fssai.png`. Upload logos in *Media* and paste the URL.
-Add **only licences and certificates you actually hold** (FSSAI, GST, Udyam, ISO…) — the theme never invents any. With nothing saved,
-visitors see no strip; logged-in admins see a clearly-labelled sample so they know where it goes. It pauses on hover/focus, has a
-pause button, and stops animating for visitors who prefer reduced motion.
 
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
