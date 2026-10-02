@@ -75,6 +75,8 @@ $vr_featured = $vr_woo ? vr_get_products( array( 'featured' => true, 'limit' => 
 get_template_part( 'template-parts/featured-products', null, array( 'products' => $vr_featured, 'href' => $vr_woo ? add_query_arg( 'orderby', 'popularity', wc_get_page_permalink( 'shop' ) ) : '#' ) );
 ?>
 
+<?php get_template_part( 'template-parts/ads-videos' ); ?>
+
 <?php
 
 foreach ( $vr_sections as $vr_s ) {

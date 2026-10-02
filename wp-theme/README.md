@@ -88,6 +88,15 @@ Featured column (or Quick Edit / the product's *Catalog visibility → Featured*
 button and prev/next arrows, can be swiped, and never autoplays for visitors who prefer reduced motion. Heading is in the Customizer
 (*Featured products section*). Visitors see nothing until at least one product is Featured; admins see a dashed preview with instructions.
 
+### Product ads (up to 3 videos)
+Under Our Featured Products. Upload the videos in **Appearance → Customize → Product ads (videos)**: three slots, each with an optional
+cover image, caption and product/page link ("Shop now" button), plus an optional heading and a video-shape choice (Auto / Landscape / Portrait / Square).
+**Limits:** max 3 videos; **MP4 (H.264) or WebM only** (not .mov); each file up to **15 MB** (the Customizer refuses bigger files with a message;
+change with `add_filter( 'vr_ad_video_max_mb', fn() => 25 );`). Tips: 15–30 s, 720p, little or no sound. **Phones** get a swipeable row, **desktop**
+shows them side by side (a single video is centred). Videos are muted and loop, load/play only while on screen (and only the visible one on phones),
+do not autoplay with Data Saver or reduced-motion (visitor taps play), have a pause button and a sound toggle (one video with sound at a time).
+Add a cover image so nothing is downloaded until the visitor scrolls near it. No videos set = visitors see nothing; admins see a note with a link to the setting.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

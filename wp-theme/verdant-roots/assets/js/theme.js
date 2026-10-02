@@ -247,6 +247,53 @@
 		restart();
 	} );
 
+	/* ---------------- Product ad videos: muted loop, play only while on screen, never on data-saver / reduced motion ---------------- */
+	( function () {
+		var vids = $$( '[data-ad-video]' );
+		if ( ! vids.length ) { return; }
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		var saver = !! ( navigator.connection && navigator.connection.saveData );
+		var auto = ! reduce && ! saver; // otherwise the visitor starts a video with the play button.
+		var states = [];
+
+		function label( btn, text ) { btn.setAttribute( 'aria-label', text ); }
+		vids.forEach( function ( v ) {
+			var card = v.closest( '.vr-ad' ), ui = $( '[data-ad-ui]', card ), play = $( '[data-ad-play]', card ), snd = $( '[data-ad-sound]', card ), icon = $( '[data-ad-play-icon]', card );
+			var st = { v: v, visible: false, userPaused: ! auto };
+			states.push( st );
+			v.controls = false; v.muted = true; ui.hidden = false;
+			function tryPlay() { var p = v.play(); if ( p && p.catch ) { p.catch( function () {} ); } }
+			v.addEventListener( 'play', function () { icon.textContent = '❚❚'; label( play, 'Pause video' ); } );
+			v.addEventListener( 'pause', function () { icon.textContent = '▶'; label( play, 'Play video' ); } );
+			icon.textContent = '▶'; label( play, 'Play video' );
+			play.addEventListener( 'click', function () {
+				if ( v.paused ) { st.userPaused = false; tryPlay(); } else { st.userPaused = true; v.pause(); }
+			} );
+			snd.addEventListener( 'click', function () {
+				v.muted = ! v.muted;
+				states.forEach( function ( o ) { if ( o.v !== v ) { o.v.muted = true; o.v.closest( '.vr-ad' ).querySelector( '[data-ad-sound]' ).setAttribute( 'aria-pressed', 'false' ); } } );
+				snd.setAttribute( 'aria-pressed', v.muted ? 'false' : 'true' );
+				label( snd, v.muted ? 'Turn sound on' : 'Turn sound off' );
+				if ( ! v.muted && v.paused ) { st.userPaused = false; tryPlay(); }
+			} );
+		} );
+
+		function sync( st ) { if ( st.visible && ! st.userPaused && ! d.hidden ) { var p = st.v.play(); if ( p && p.catch ) { p.catch( function () {} ); } } else { st.v.pause(); } }
+		if ( 'IntersectionObserver' in window ) {
+			var io = new IntersectionObserver( function ( entries ) {
+				entries.forEach( function ( e ) {
+					var st = states.filter( function ( s ) { return s.v === e.target; } )[ 0 ];
+					if ( ! st ) { return; }
+					if ( e.isIntersecting && st.v.preload === 'none' && ! saver ) { st.v.preload = 'metadata'; }
+					st.visible = e.intersectionRatio >= 0.4;
+					sync( st );
+				} );
+			}, { threshold: [ 0, 0.4 ] } );
+			states.forEach( function ( s ) { io.observe( s.v ); } );
+		}
+		d.addEventListener( 'visibilitychange', function () { states.forEach( sync ); } );
+	}() );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );
