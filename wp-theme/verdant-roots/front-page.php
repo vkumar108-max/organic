@@ -136,6 +136,8 @@ $vr_guides = array(
 	</div>
 </section>
 
+<?php get_template_part( 'template-parts/faq-home' ); ?>
+
 <?php if ( $vr_reviews ) : // Only real, approved WooCommerce reviews are ever shown here. ?>
 <section aria-labelledby="reviews" class="section bg-sand-50">
 	<div class="container-page">

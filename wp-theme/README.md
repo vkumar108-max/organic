@@ -121,6 +121,13 @@ Everything is in *Customize → Offer banner*: texts, code, button link, an **en
 unless the banner says so). Admins see a note with a one-click "Create coupon" button on the banner while the coupon does not exist. WooCommerce cannot tell whether a customer has
 ordered before, so "first order" is only softly enforced by the one-use-per-customer limit; use a plugin for a strict first-order rule or reword the banner.
 
+### Home FAQs (editable)
+Under "Helpful guides": a heading + "Contact us / All FAQs" buttons on the left and an accordion on the right (stacked on phones; the first answer starts open).
+Edit everything in *Customize → Home FAQs*: heading, intro and **up to 8 question / answer pairs** — change any text any time, **clear a question to remove it**, fill slots 7–8 to add more.
+Six neutral starter answers ship with the theme (placing an order, payment, coupons, tracking, storage, contact); they only describe how the shop works.
+**Add your own delivery time, shipping charges, returns/refunds and product answers** — the theme does not invent them — and keep health wording within what you can substantiate.
+Matching FAQ structured data (schema.org FAQPage) is printed from the same visible text. The section hides itself if every question is cleared.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
