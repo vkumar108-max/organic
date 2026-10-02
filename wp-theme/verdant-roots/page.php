@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 while ( have_posts() ) :
 	the_post();
-	$vr_wide = function_exists( 'is_woocommerce' ) && ( is_cart() || is_checkout() || is_account_page() ) || has_shortcode( get_the_content(), 'vr_wishlist' ) || has_shortcode( get_the_content(), 'vr_categories' );
+	$vr_wide = function_exists( 'is_woocommerce' ) && ( is_cart() || is_checkout() || is_account_page() ) || has_shortcode( get_the_content(), 'vr_wishlist' ) || has_shortcode( get_the_content(), 'vr_categories' ) || has_shortcode( get_the_content(), 'vr_bulk_order' );
 	?>
 	<div class="container-page pb-12">
 		<nav aria-label="Breadcrumb" class="py-3 text-sm"><ol class="flex items-center gap-1 text-ink-soft"><li><a class="hover:underline" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'verdant-roots' ); ?></a></li><li class="flex items-center gap-1"><?php vr_e_icon( 'chevronRight', 14 ); ?><span aria-current="page" class="font-medium text-ink"><?php the_title(); ?></span></li></ol></nav>

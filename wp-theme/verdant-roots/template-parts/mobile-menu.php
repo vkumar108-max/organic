@@ -11,6 +11,7 @@ $vr_cats = function_exists( 'vr_top_categories' ) && taxonomy_exists( 'product_c
 		</div>
 		<nav aria-label="<?php esc_attr_e( 'Mobile', 'verdant-roots' ); ?>" class="flex flex-col gap-5">
 			<?php echo vr_logo(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<?php get_template_part( 'template-parts/menu-tiles' ); ?>
 			<ul class="divide-y divide-line">
 				<?php foreach ( vr_menu_items( 'primary' ) as [ $vr_l, $vr_u ] ) : ?>
 					<li><a href="<?php echo esc_url( $vr_u ); ?>" class="block py-3 font-medium"><?php echo esc_html( $vr_l ); ?></a></li>
@@ -30,7 +31,7 @@ $vr_cats = function_exists( 'vr_top_categories' ) && taxonomy_exists( 'product_c
 				<?php foreach ( array_slice( vr_menu_items( 'support' ), 0, 3 ) as [ $vr_l, $vr_u ] ) : ?>
 					<li><a href="<?php echo esc_url( $vr_u ); ?>" class="block rounded-lg bg-brand-50 px-3 py-2"><?php echo esc_html( $vr_l ); ?></a></li>
 				<?php endforeach; ?>
-				<li><a href="<?php echo esc_url( vr_page_url( 'wishlist' ) ); ?>" class="block rounded-lg bg-brand-50 px-3 py-2"><?php esc_html_e( 'Wishlist', 'verdant-roots' ); ?></a></li>
+				<li><a href="<?php echo esc_url( vr_page_url( 'bulk-order' ) ); ?>" class="block rounded-lg bg-brand-100 px-3 py-2 font-semibold text-brand-800"><?php esc_html_e( 'Bulk Order', 'verdant-roots' ); ?></a></li>
 			</ul>
 		</nav>
 	</div>

@@ -356,6 +356,50 @@
 		} );
 	} );
 
+	/* ---------------- Bulk order form: inline validation + submit without leaving the page ---------------- */
+	$$( '[data-bulk]' ).forEach( function ( root ) {
+		var form = $( '[data-bulk-form]', root ), done = $( '[data-bulk-done]', root ), doneText = $( '[data-bulk-done-text]', root ), formErr = $( '[data-bulk-error]', root ), btn = $( '[data-bulk-submit]', root );
+		if ( ! form ) { return; }
+		var names = [ 'business', 'contact', 'mobile', 'email', 'state', 'city', 'type', 'qty', 'date', 'details', 'via' ];
+		function setErr( name, msg ) {
+			var p = $( '#vrb_' + name + '_err', root ), field = $( '[data-field="' + name + '"]', root ), input = $( '[name="vrb_' + name + '"]', root );
+			if ( p ) { p.textContent = msg || ''; p.hidden = ! msg; }
+			if ( field ) { if ( msg ) { field.setAttribute( 'data-invalid', '' ); } else { field.removeAttribute( 'data-invalid' ); } }
+			if ( input && input.type !== 'radio' ) { if ( msg ) { input.setAttribute( 'aria-invalid', 'true' ); input.setAttribute( 'aria-describedby', 'vrb_' + name + '_err' ); } else { input.removeAttribute( 'aria-invalid' ); } }
+		}
+		function clearAll() { names.forEach( function ( n ) { setErr( n, '' ); } ); formErr.hidden = true; formErr.textContent = ''; }
+		function localCheck() {
+			var errs = {}, v = function ( n ) { var el = $( '[name="vrb_' + n + '"]', root ); return el ? el.value.trim() : ''; };
+			[ 'business', 'contact', 'mobile', 'email', 'type', 'qty', 'date' ].forEach( function ( n ) { if ( ! v( n ) ) { errs[ n ] = i18n.required || 'This field is required.'; } } );
+			if ( ! errs.mobile ) { var dg = v( 'mobile' ).replace( /\D+/g, '' ); if ( dg.length === 12 && dg.indexOf( '91' ) === 0 ) { dg = dg.slice( 2 ); } else if ( dg.length === 11 && dg.charAt( 0 ) === '0' ) { dg = dg.slice( 1 ); } if ( ! /^[6-9]\d{9}$/.test( dg ) ) { errs.mobile = 'Enter a valid 10-digit mobile number.'; } }
+			if ( ! errs.email && ! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( v( 'email' ) ) ) { errs.email = 'Enter a valid email address.'; }
+			if ( ! errs.qty && ! /\d/.test( v( 'qty' ) ) ) { errs.qty = 'Include a number, for example 50 or 25 kg.'; }
+			return errs;
+		}
+		function show( errs ) {
+			var first = null;
+			names.forEach( function ( n ) { if ( errs[ n ] ) { setErr( n, errs[ n ] ); first = first || n; } } );
+			if ( first ) { var el = $( '[name="vrb_' + first + '"]', root ); if ( el ) { el.focus(); } }
+			return !! first;
+		}
+		form.addEventListener( 'input', function ( e ) { var n = ( e.target.name || '' ).replace( 'vrb_', '' ); if ( n ) { setErr( n, '' ); } } );
+		form.addEventListener( 'submit', function ( e ) {
+			if ( ! window.fetch || ! window.FormData ) { return; } // no fetch: the normal form post still works.
+			e.preventDefault(); clearAll();
+			var local = localCheck(); if ( show( local ) ) { return; }
+			var label = $( 'span', btn ), old = label.textContent; btn.disabled = true; label.textContent = i18n.sending || 'Sending…';
+			fetch( form.getAttribute( 'action' ), { method: 'POST', body: new FormData( form ), headers: { Accept: 'application/json' }, credentials: 'same-origin' } )
+				.then( function ( r ) { return r.json().catch( function () { return { ok: false, message: 'Something went wrong. Please try again.' }; } ); } )
+				.then( function ( res ) {
+					if ( res && res.ok ) { form.hidden = true; doneText.textContent = res.message; done.hidden = false; done.focus(); done.scrollIntoView( { block: 'center' } ); return; }
+					var errs = res && res.errors ? res.errors : {};
+					if ( ! show( errs ) ) { formErr.textContent = ( res && res.message ) || 'Something went wrong. Please try again.'; formErr.hidden = false; }
+				} )
+				.catch( function () { formErr.textContent = 'Network problem. Please check your connection and try again.'; formErr.hidden = false; } )
+				.then( function () { btn.disabled = false; label.textContent = old; } );
+		} );
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );

@@ -128,6 +128,18 @@ Six neutral starter answers ship with the theme (placing an order, payment, coup
 **Add your own delivery time, shipping charges, returns/refunds and product answers** — the theme does not invent them — and keep health wording within what you can substantiate.
 Matching FAQ structured data (schema.org FAQPage) is printed from the same visible text. The section hides itself if every question is cleared.
 
+### Bulk Order page + mobile menu changes
+* **Mobile menu (hamburger):** under the logo there are now **4 round category icons** (default: Herbal Powder, Superfood Powder, Immunity Products, Nutrition Products — change the
+  slugs in *Customize → Bulk order form → "Mobile menu"*; missing ones are topped up with your first categories; the icon is the category image). **Wishlist is replaced by "Bulk Order"** at the bottom
+  of the drawer (the Wishlist page and the desktop header heart still exist).
+* **Bulk Order page** (`/bulk-order/`, created once the first time an admin opens wp-admin after the update; the shortcode is `[vr_bulk_order]`): three cards — *Tell us about your business*
+  (business, contact person, +91 mobile, email, state, city), *What do you need?* (type, approximate quantity, required date, details), *How should we connect with you?* (WhatsApp / Email) — and a **GET BULK QUOTE** button.
+  Validation happens in the browser and again on the server; the form submits without reloading and shows a thank-you panel.
+* **Where requests go:** emailed to the address in *Customize → Bulk order form* (empty = site admin email, reply-to is the customer) **and saved in wp-admin → Bulk enquiries** (administrators only), so a mail problem never loses a lead.
+  If emails do not arrive, install an SMTP plugin (shared hosting often drops PHP mail) — the enquiry is still in Bulk enquiries.
+* **Spam protection:** hidden honeypot field, signed timestamp (instant submissions are dropped), max 5 requests per hour per visitor. Request types are editable (one per line) in the same Customizer section.
+* Mobile number is validated as an Indian number (10 digits starting 6–9, optional +91/0 prefix). We only use the details to reply — mention this form in your privacy policy.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
