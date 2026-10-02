@@ -543,3 +543,39 @@
   @media (min-width: 768px) { .vr-story-img { aspect-ratio: auto; object-fit: initial; } }
   .vr-story-link:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: -3px; }
 }
+
+/* ------------------------------------------------------------------
+   From Our Feed: centred portrait video cards + pop-up player
+------------------------------------------------------------------- */
+@layer components {
+  .vr-feed-wrap { position: relative; }
+  .vr-feed-track { position: relative; display: flex; gap: 1rem; margin: 0; padding: 1.5rem calc(50% - 7rem) 2rem; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .vr-feed-track::-webkit-scrollbar { display: none; }
+  @media (min-width: 640px) { .vr-feed-track { padding-inline: calc(50% - 9rem); gap: 1.25rem; } }
+  .vr-feed-slide { flex: 0 0 14rem; scroll-snap-align: center; transform: scale(calc(.9 + var(--f, 1) * .1)); transition: transform .2s ease-out; }
+  @media (min-width: 640px) { .vr-feed-slide { flex-basis: 18rem; } }
+  .vr-feed-card { position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 1.25rem; background: linear-gradient(160deg, var(--color-brand-700), var(--color-brand-900, #173b20)); color: #fff; box-shadow: var(--shadow-lift); isolation: isolate; }
+  .vr-feed-card--instagram { background: linear-gradient(160deg, #833ab4, #fd1d1d 60%, #fcb045); }
+  .vr-feed-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .vr-feed-card:hover .vr-feed-img { transform: scale(1.04); }
+  .vr-feed-card:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 3px; }
+  .vr-feed-badge { position: absolute; top: .7rem; left: .7rem; z-index: 2; padding: .2rem .6rem; border-radius: 9999px; background: rgb(0 0 0 / .55); font-size: .7rem; font-weight: 700; letter-spacing: .04em; backdrop-filter: blur(4px); }
+  .vr-feed-play { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; }
+  .vr-feed-play svg { width: 3.5rem; height: 3.5rem; padding: 1rem; border-radius: 9999px; background: rgb(255 255 255 / .92); color: var(--color-brand-800); box-shadow: 0 6px 18px rgb(0 0 0 / .3); transition: transform .2s; }
+  .vr-feed-card:hover .vr-feed-play svg { transform: scale(1.1); }
+  .vr-feed-cap { position: absolute; inset-inline: 0; bottom: 0; z-index: 2; padding: 2.25rem .9rem .9rem; background: linear-gradient(transparent, rgb(0 0 0 / .65)); font-size: .9rem; font-weight: 600; line-height: 1.3; text-shadow: 0 1px 3px rgb(0 0 0 / .5); }
+  .vr-feed-nav { position: absolute; top: 46%; z-index: 5; display: none; place-items: center; width: 2.75rem; height: 2.75rem; translate: 0 -50%; border-radius: 9999px; border: 1.5px solid var(--color-brand-700); background: #fff; color: var(--color-brand-800); transition: opacity .2s, transform .15s; }
+  [data-feed].is-ready .vr-feed-nav { display: grid; } .vr-feed-nav[hidden] { display: none !important; }
+  .vr-feed-nav:disabled { opacity: .35; cursor: default; }
+  .vr-feed-nav--prev { left: .25rem; } .vr-feed-nav--next { right: .25rem; }
+  @media (min-width: 1024px) { .vr-feed-nav--prev { left: 3rem; } .vr-feed-nav--next { right: 3rem; } }
+  @media (max-width: 640px) { .vr-feed-nav { display: none !important; } }
+
+  .vr-feed-dialog { margin: auto; width: min(92vw, 26rem); max-height: 94dvh; padding: 0; border: 0; border-radius: 1.25rem; background: #000; overflow: hidden; }
+  .vr-feed-dialog::backdrop { background: rgb(8 20 12 / .78); backdrop-filter: blur(3px); }
+  .vr-feed-player { aspect-ratio: 9 / 16; width: 100%; max-height: 88dvh; margin-inline: auto; }
+  .vr-feed-player iframe { display: block; width: 100%; height: 100%; border: 0; background: #000; }
+  .vr-feed-close { position: absolute; top: .5rem; right: .5rem; z-index: 5; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 9999px; background: rgb(0 0 0 / .65); color: #fff; font-size: 1rem; }
+  @media (min-width: 768px) { .vr-feed-dialog { width: min(80vw, 24rem); } }
+}
+@media (prefers-reduced-motion: reduce) { .vr-feed-slide, .vr-feed-img { transition: none; } }

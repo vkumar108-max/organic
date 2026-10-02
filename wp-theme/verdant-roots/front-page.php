@@ -121,6 +121,8 @@ $vr_guides = array(
 	</div>
 </section>
 
+<?php get_template_part( 'template-parts/feed' ); ?>
+
 <section aria-labelledby="guides" class="section">
 	<div class="container-page">
 		<?php get_template_part( 'template-parts/section-heading', null, array( 'id' => 'guides', 'eyebrow' => __( 'Learn', 'verdant-roots' ), 'title' => __( 'Helpful guides for your kitchen', 'verdant-roots' ), 'description' => __( 'Practical, factual information — no medical claims.', 'verdant-roots' ), 'href' => vr_blog_url(), 'link_label' => __( 'All guides', 'verdant-roots' ) ) ); ?>

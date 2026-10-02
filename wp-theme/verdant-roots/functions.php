@@ -7,11 +7,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VR_VERSION', '1.0.12' );
+define( 'VR_VERSION', '1.0.13' );
 define( 'VR_DIR', get_template_directory() );
 define( 'VR_URI', get_template_directory_uri() );
 
-foreach ( array( 'icon-paths', 'helpers', 'art', 'setup', 'customizer', 'ads', 'search', 'wishlist', 'starter' ) as $vr_file ) {
+foreach ( array( 'icon-paths', 'helpers', 'art', 'setup', 'customizer', 'ads', 'feed', 'search', 'wishlist', 'starter' ) as $vr_file ) {
 	require_once VR_DIR . "/inc/{$vr_file}.php";
 }
 

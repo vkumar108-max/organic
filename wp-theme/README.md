@@ -103,6 +103,16 @@ Desktop shows the whole banner; phones show the centre of it so the headline sta
 Change or hide it in *Customize → Story banner*: replace the image (best 2000 × 800 px, under 300 KB, keep headline text in the centre), edit the alt text,
 set a link, or untick "Show the banner". Keep any statements about healing within what you can substantiate.
 
+### From Our Feed (YouTube / Instagram)
+Above "Helpful guides": a centred carousel of portrait video cards (the middle card is emphasised; arrows + swipe). Set it in
+*Customize → From Our Feed*: paste up to **6** links per slot — YouTube (`watch?v=`, `youtu.be`, Shorts, live) or a public Instagram reel / post — plus an optional
+caption and cover image. Tapping a card opens the video in a pop-up player (closes with ✕, Esc or a tap outside; playback stops on close). Links are
+checked when you save (anything that is not a recognisable YouTube/Instagram link is refused) and the player address is rebuilt from the video id only,
+so only youtube-nocookie.com and instagram.com embeds can ever load. Nothing from YouTube/Instagram is loaded until a card is tapped, except YouTube cover images
+(from i.ytimg.com). **Instagram does not share covers**, so upload a cover image for Instagram items (they show a gradient until you do); private accounts, stories and some
+posts cannot be embedded. Without JavaScript each card is a normal link that opens the original video in a new tab. If GDPR applies to you, mention YouTube/Instagram in your privacy policy.
+With no links set visitors see nothing; admins see a note linking to the setting.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

@@ -294,6 +294,57 @@
 		d.addEventListener( 'visibilitychange', function () { states.forEach( sync ); } );
 	}() );
 
+	/* ---------------- From Our Feed: centred carousel + pop-up YouTube / Instagram player ---------------- */
+	$$( '[data-feed]' ).forEach( function ( root ) {
+		var track = $( '[data-feed-track]', root ), prev = $( '[data-feed-prev]', root ), next = $( '[data-feed-next]', root );
+		var dialog = $( '[data-feed-dialog]', root ), player = $( '[data-feed-player]', root ), closeBtn = $( '[data-feed-close]', root );
+		if ( ! track ) { return; }
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches, slides = $$( '.vr-feed-slide', track ), raf = 0, opener = null;
+		function maxLeft() { return track.scrollWidth - track.clientWidth; }
+		function update() {
+			raf = 0;
+			var mid = track.scrollLeft + track.clientWidth / 2;
+			slides.forEach( function ( s ) { var w = s.offsetWidth || 1; s.style.setProperty( '--f', Math.max( 0, 1 - Math.abs( s.offsetLeft + w / 2 - mid ) / w ).toFixed( 2 ) ); } );
+			if ( prev ) { prev.disabled = track.scrollLeft <= 4; prev.hidden = maxLeft() <= 2; }
+			if ( next ) { next.disabled = track.scrollLeft >= maxLeft() - 4; next.hidden = maxLeft() <= 2; }
+		}
+		function queue() { if ( ! raf ) { raf = requestAnimationFrame( update ); } }
+		function go( dir ) { var s = slides[ 0 ], gap = parseFloat( getComputedStyle( track ).columnGap ) || 0; track.scrollBy( { left: dir * ( ( s ? s.getBoundingClientRect().width : 240 ) + gap ), behavior: reduce ? 'auto' : 'smooth' } ); }
+		if ( prev ) { prev.addEventListener( 'click', function () { go( -1 ); } ); }
+		if ( next ) { next.addEventListener( 'click', function () { go( 1 ); } ); }
+		track.addEventListener( 'scroll', queue, { passive: true } );
+		window.addEventListener( 'resize', queue );
+		root.classList.add( 'is-ready' );
+		// start with the middle card centred
+		if ( slides.length > 2 ) { var m = slides[ Math.floor( ( slides.length - 1 ) / 2 ) ]; track.scrollLeft = m.offsetLeft + m.offsetWidth / 2 - track.clientWidth / 2; }
+		update();
+
+		// Pop-up player. The URL is rebuilt from validated parts only (never from the raw link).
+		function embedUrl( provider, kind, id ) {
+			if ( provider === 'youtube' && /^[A-Za-z0-9_-]{11}$/.test( id ) ) { return 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1'; }
+			if ( provider === 'instagram' && /^(reel|p|tv)$/.test( kind ) && /^[A-Za-z0-9_-]{5,}$/.test( id ) ) { return 'https://www.instagram.com/' + kind + '/' + id + '/embed/'; }
+			return '';
+		}
+		function closePlayer() { if ( dialog && dialog.open ) { dialog.close(); } }
+		if ( dialog && typeof dialog.showModal === 'function' ) {
+			$$( '[data-feed-open]', root ).forEach( function ( a ) {
+				a.addEventListener( 'click', function ( e ) {
+					var src = embedUrl( a.getAttribute( 'data-provider' ), a.getAttribute( 'data-kind' ), a.getAttribute( 'data-id' ) );
+					if ( ! src ) { return; } // fall back to the normal link
+					e.preventDefault(); opener = a;
+					var f = d.createElement( 'iframe' );
+					f.src = src; f.title = a.getAttribute( 'aria-label' ) || 'Video'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin';
+					f.setAttribute( 'loading', 'eager' );
+					player.textContent = ''; player.appendChild( f ); player.setAttribute( 'data-provider', a.getAttribute( 'data-provider' ) );
+					dialog.showModal();
+				} );
+			} );
+			if ( closeBtn ) { closeBtn.addEventListener( 'click', closePlayer ); }
+			dialog.addEventListener( 'click', function ( e ) { if ( e.target === dialog ) { closePlayer(); } } ); // click on the dark backdrop
+			dialog.addEventListener( 'close', function () { player.textContent = ''; if ( opener ) { opener.focus(); opener = null; } } ); // removing the iframe stops playback
+		}
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );
