@@ -724,3 +724,11 @@
 @media (prefers-reduced-motion: reduce) {
   .vr-auth *, .vr-auth *::before, .vr-auth *::after { transition-duration: .01ms !important; transition-delay: 0s !important; animation: none !important; }
 }
+
+/* v1.0.19 cookie notice */
+@layer components {
+  .vr-cookie { position: fixed; z-index: 60; left: 1rem; right: 1rem; bottom: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 40rem; margin-inline: auto; padding: .85rem 1rem .85rem 1.25rem; border: 1px solid var(--color-line); border-radius: 1rem; background: #fff; box-shadow: var(--shadow-lift); font-size: .9rem; color: var(--color-ink); }
+  .vr-cookie[hidden] { display: none; }
+  .vr-cookie p { margin: 0; } .vr-cookie a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; color: var(--color-brand-700); }
+  @media (max-width: 1023px) { .vr-cookie { bottom: 5rem; } }
+}

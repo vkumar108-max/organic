@@ -709,4 +709,18 @@
 			if ( ev.type === 'added_to_cart' ) { toast( 'Added to cart', { label: 'View cart', href: ( $( 'a[aria-label^="Cart"]' ) || {} ).href || '/cart' } ); }
 		} );
 	}
+
+/* v1.0.19 — cookie notice (information only; remembers the OK in this browser) */
+	( function () {
+	var box = $( '[data-cookie]' );
+	if ( ! box ) { return; }
+	var seen = false;
+	try { seen = localStorage.getItem( 'vr_cookie_ok' ) === '1'; } catch ( e ) {}
+	if ( seen ) { return; }
+	box.hidden = false;
+	box.querySelector( '[data-cookie-ok]' ).addEventListener( 'click', function () {
+		try { localStorage.setItem( 'vr_cookie_ok', '1' ); } catch ( e ) {}
+		box.hidden = true;
+	} );
+}() );
 }() );

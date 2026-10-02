@@ -66,6 +66,9 @@ A split card on WooCommerce's logged-out **My account** page: a deep-green "blad
 - Edit the heading/text under **Customize → Login & Sign-up** (use `|` to split a heading into two lines).
 - Without JavaScript the card still works (`?vr_auth=signup` shows Create account); on phones it stacks with the green banner on top; reduced-motion users get no sliding.
 
+### SEO basics & cookie notice
+Customize → **SEO & cookie notice**: home-page description, a social preview image (used by WhatsApp/Facebook/X link previews) and the cookie notice text/on-off. The theme prints meta description + Open Graph tags itself, but steps aside automatically if Yoast, Rank Math, AIOSEO or SEOPress is active. Until you set a **Site Icon** (Customize → Site Identity) a simple leaf favicon is used. The cookie notice only *informs* (OK button); it does not block tracking scripts — if you add Analytics/Pixel/ads, use a consent plugin instead.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
