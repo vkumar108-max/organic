@@ -104,6 +104,14 @@ add_action(
 		if ( has_site_icon() ) {
 			return;
 		}
+		$icon = (int) get_theme_mod( 'vr_brand_favicon', 0 );
+		$url  = $icon ? wp_get_attachment_image_url( $icon, 'full' ) : '';
+		if ( $url ) {
+			$small = wp_get_attachment_image_url( $icon, array( 192, 192 ) ) ?: $url;
+			echo '<link rel="icon" href="' . esc_url( $small ) . '" sizes="192x192">' . "\n";
+			echo '<link rel="apple-touch-icon" href="' . esc_url( $small ) . '">' . "\n";
+			return;
+		}
 		$svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='#1f5c33'/><path d='M46 16C26 16 16 28 16 40c0 4 2 8 6 8 14 0 24-10 24-32Z' fill='#e8b350'/></svg>";
 		echo '<link rel="icon" href="data:image/svg+xml,' . rawurlencode( $svg ) . '">' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
 	},

@@ -151,7 +151,7 @@ A split card on WooCommerce's logged-out **My account** page: a deep-green "blad
 Customize → **SEO & cookie notice**: home-page description, a social preview image (used by WhatsApp/Facebook/X link previews) and the cookie notice text/on-off. The theme prints meta description + Open Graph tags itself, but steps aside automatically if Yoast, Rank Math, AIOSEO or SEOPress is active. Until you set a **Site Icon** (Customize → Site Identity) a simple leaf favicon is used. The cookie notice only *informs* (OK button); it does not block tracking scripts — if you add Analytics/Pixel/ads, use a consent plugin instead.
 
 ### Header & footer name
-Customize → **Header & footer name**: replace the shop name text in the header (and mobile menu / login card) and in the footer (and © line) independently. Optional footer logo image. Leave blank to use the Site Title. A header logo image still goes in Customize → Site Identity.
+Customize → **Header & footer name** (also has a Favicon upload if Site Identity shows no Site Icon): replace the shop name text in the header (and mobile menu / login card) and in the footer (and © line) independently. Optional footer logo image. Leave blank to use the Site Title. A header logo image still goes in Customize → Site Identity.
 
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
