@@ -129,6 +129,10 @@ function vr_tone_for_slug( string $slug ): string {
 		'dry-vegetable'    => 'dry',
 		'dry-vegetables'   => 'dry',
 		'tablets'          => 'tablet',
+		'herbal-powder'      => 'leaf',
+		'superfood-powder'   => 'vegetable',
+		'immunity-products'  => 'dry',
+		'nutrition-products' => 'tablet',
 	);
 	return $map[ $slug ] ?? 'leaf';
 }

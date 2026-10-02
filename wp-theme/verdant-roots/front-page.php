@@ -68,6 +68,8 @@ $vr_best_href = $vr_best_tag && $vr_best_tag->count ? get_term_link( $vr_best_ta
 get_template_part( 'template-parts/best-selling', null, array( 'products' => $vr_best, 'href' => $vr_best_href ) );
 ?>
 
+<?php get_template_part( 'template-parts/wellness' ); ?>
+
 <?php
 
 foreach ( $vr_sections as $vr_s ) {

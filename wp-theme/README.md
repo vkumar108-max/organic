@@ -73,6 +73,14 @@ filter and *Products → Bulk edit → Tags* all work too. While no product is t
 products instead; "See all" opens the best-seller tag page. With **no published products at all** the section is hidden from visitors,
 but logged-in admins see a dashed preview with instructions (products must be *Published*, not Draft).
 
+### Herbal & Wellness (four category cards)
+Under Best Selling Products: a heading plus four tinted cards — **Herbal Powder, Superfood Powder, Immunity Products, Nutrition Products** —
+each with a short text, an Explore button and the category image (placeholder art until you set one). The four are created **once**
+as normal WooCommerce product categories the first time an admin opens wp-admin after installing the theme (Products → Categories), so you can
+assign products to them straight away; rename/delete/re-describe them freely — they are not re-created. Set images in
+*Products → Categories → Thumbnail*. Heading and which categories (up to 4, in order) are in *Customize → Verdant Roots store settings →
+Herbal & Wellness section*. Keep product wording within what is lawful for your products (no disease or cure claims).
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

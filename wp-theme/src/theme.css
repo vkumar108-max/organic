@@ -454,3 +454,25 @@
   .vr-bsl-ph-line { display: block; height: .8rem; border-radius: 9999px; background: var(--color-brand-100); } .vr-bsl-ph-line--s { width: 55%; }
   .vr-bsl-ph-btn { display: block; height: 2.5rem; margin-top: auto; border-radius: 9999px; background: var(--color-brand-100); }
 }
+
+/* ------------------------------------------------------------------
+   Herbal & Wellness: four tinted category cards
+------------------------------------------------------------------- */
+@layer components {
+  .vr-wl-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .35rem; min-height: 15rem; padding: 1.25rem; overflow: hidden; border-radius: 1.5rem; background: linear-gradient(135deg, var(--wl-a, #e8f5e9), var(--wl-b, #c8e6c9)); box-shadow: 0 1px 0 rgb(255 255 255 / .7) inset, 0 6px 18px rgb(23 59 32 / .08); transition: transform .25s, box-shadow .25s; }
+  .vr-wl-card:hover, .vr-wl-card:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+  .vr-wl-card:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 3px; }
+  .vr-wl-card--leaf { --wl-a: #eaf6ea; --wl-b: #c9e7cc; }
+  .vr-wl-card--vegetable { --wl-a: #fdeff4; --wl-b: #f8cfdf; }
+  .vr-wl-card--dry { --wl-a: #fbf3df; --wl-b: #f0dca8; }
+  .vr-wl-card--tablet { --wl-a: #e9f3f8; --wl-b: #c5dfee; }
+  .vr-wl-card--fruit { --wl-a: #fff4e3; --wl-b: #ffe0b2; }
+  .vr-wl-card--combo { --wl-a: #f6efe3; --wl-b: #e6d9c2; }
+  .vr-wl-title { position: relative; z-index: 2; font-family: var(--font-display, inherit); font-size: 1.4rem; font-weight: 700; line-height: 1.15; color: var(--color-brand-900, #173b20); }
+  .vr-wl-desc { position: relative; z-index: 2; max-width: 55%; font-size: .85rem; line-height: 1.35; color: var(--color-ink-soft); }
+  .vr-wl-cta { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: .3rem; margin-top: .5rem; padding: .3rem .75rem; border-radius: 9999px; background: #fff; font-size: .8rem; font-weight: 700; color: var(--color-brand-800); box-shadow: 0 1px 4px rgb(0 0 0 / .08); }
+  .vr-wl-art { position: absolute; right: -.5rem; bottom: -.5rem; z-index: 1; width: 52%; aspect-ratio: 1; overflow: hidden; border-radius: 1.5rem 0 1.5rem 0; rotate: 4deg; box-shadow: 0 10px 24px rgb(23 59 32 / .18); transition: transform .35s; }
+  .vr-wl-art > img, .vr-wl-art > span, .vr-wl-art svg { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .vr-wl-card:hover .vr-wl-art { transform: scale(1.05) rotate(-1deg); }
+}
+@media (prefers-reduced-motion: reduce) { .vr-wl-card, .vr-wl-art { transition: none; } }
