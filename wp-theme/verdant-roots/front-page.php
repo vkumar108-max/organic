@@ -63,6 +63,8 @@ $vr_posts   = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3,
 
 <?php get_template_part( 'template-parts/trust-strip' ); ?>
 
+<?php get_template_part( 'template-parts/category-rail', null, array( 'cats' => $vr_cats, 'href' => vr_page_url( 'categories' ), 'link_label' => __( 'See all', 'verdant-roots' ) ) ); ?>
+
 <?php if ( $vr_cats ) : ?>
 <section aria-labelledby="shop-by-category" class="section">
 	<div class="container-page">

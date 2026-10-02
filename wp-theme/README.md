@@ -58,6 +58,12 @@ Add **only licences and certificates you actually hold** (FSSAI, GST, Udyam, ISO
 visitors see no strip; logged-in admins see a clearly-labelled sample so they know where it goes. It pauses on hover/focus, has a
 pause button, and stops animating for visitors who prefer reduced motion.
 
+### Categories rail (auto-sliding round icons)
+Right under the trust strip the home page shows a "Categories" row of round icons that slides on its own and loops forever.
+It lists your top-level product categories (Products → Categories; drag to order). The round image is the **category image**;
+categories without one get the generated placeholder artwork. It pauses on hover/focus/touch, has a pause button and prev/next
+arrows, can be swiped or scrolled by hand, and does not move for visitors who prefer reduced motion.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

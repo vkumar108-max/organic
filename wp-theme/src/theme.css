@@ -398,3 +398,29 @@
   .vr-trust-viewport { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
   .vr-trust-group[aria-hidden="true"], .vr-trust-play { display: none; }
 }
+
+/* ------------------------------------------------------------------
+   Categories rail: round icons that slide on their own
+------------------------------------------------------------------- */
+@layer components {
+  .vr-crail-wrap { position: relative; }
+  .vr-crail-viewport { overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); overscroll-behavior-x: contain; }
+  .vr-crail-viewport::-webkit-scrollbar { display: none; }
+  .vr-crail-track { display: flex; width: max-content; }
+  .vr-crail-group { display: flex; flex-shrink: 0; gap: 1.25rem; margin: 0; padding: .5rem 1.25rem .75rem 0; list-style: none; }
+  .vr-crail-item { width: 6.5rem; flex-shrink: 0; }
+  @media (min-width: 640px) { .vr-crail-item { width: 8rem; } }
+  .vr-crail-link { display: flex; flex-direction: column; align-items: center; gap: .6rem; text-align: center; }
+  .vr-crail-circle { display: block; width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 9999px; background: var(--color-brand-50); box-shadow: inset 0 0 0 1px var(--color-brand-100); transition: transform .25s, box-shadow .25s; }
+  .vr-crail-circle > img, .vr-crail-circle > svg { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .vr-crail-link:hover .vr-crail-circle, .vr-crail-link:focus-visible .vr-crail-circle { transform: translateY(-3px) scale(1.04); box-shadow: inset 0 0 0 2px var(--color-brand-400), var(--shadow-lift); }
+  .vr-crail-link:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 4px; border-radius: 1rem; }
+  .vr-crail-name { font-size: .9rem; font-weight: 600; line-height: 1.25; color: var(--color-ink); }
+  .vr-crail-nav { position: absolute; top: 38%; z-index: 5; display: none; place-items: center; width: 2.5rem; height: 2.5rem; translate: 0 -50%; border-radius: 9999px; background: #fff; color: var(--color-brand-800); box-shadow: var(--shadow-lift); }
+  .vr-crail.is-ready .vr-crail-nav:not([hidden]) { display: grid; }
+  .vr-crail-nav--prev { left: -.25rem; } .vr-crail-nav--next { right: -.25rem; }
+  @media (max-width: 640px) { .vr-crail-nav { display: none !important; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vr-crail-circle { transition: none; }
+}

@@ -124,6 +124,64 @@
 		} );
 	}() );
 
+	/* ---------------- Categories rail: continuous auto-slide that still scrolls by hand ---------------- */
+	$$( '[data-crail]' ).forEach( function ( root ) {
+		var view = $( '[data-crail-view]', root ), track = $( '[data-crail-track]', root ), group = $( '[data-crail-group]', root );
+		var prev = $( '[data-crail-prev]', root ), next = $( '[data-crail-next]', root ), play = $( '[data-crail-play]', root );
+		if ( ! view || ! track || ! group ) { return; }
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+		var loopW = 0, pos = 0, last = 0, raf = 0, hold = false, userPaused = false, touching = false, resumeAt = 0, SPEED = 38;
+
+		// Clone the list until it can loop seamlessly, whatever the screen width; clones are decorative and unfocusable.
+		function build() {
+			$$( '[data-clone]', track ).forEach( function ( c ) { c.remove(); } );
+			loopW = group.getBoundingClientRect().width;
+			if ( ! loopW ) { return; }
+			for ( var n = Math.ceil( view.clientWidth / loopW ) + 1; n > 0; n-- ) {
+				var c = group.cloneNode( true );
+				c.removeAttribute( 'data-crail-group' ); c.setAttribute( 'data-clone', '' ); c.setAttribute( 'aria-hidden', 'true' ); c.setAttribute( 'inert', '' );
+				track.appendChild( c );
+			}
+		}
+		function wrap() { if ( loopW && view.scrollLeft >= loopW ) { view.scrollLeft -= loopW; pos = view.scrollLeft; } else if ( view.scrollLeft < 0 ) { view.scrollLeft += loopW; pos = view.scrollLeft; } }
+		function tick( t ) {
+			raf = requestAnimationFrame( tick );
+			var dt = Math.min( 64, t - last ) / 1000; last = t;
+			if ( hold || userPaused || touching || t < resumeAt || d.hidden ) { pos = view.scrollLeft; return; }
+			if ( Math.abs( view.scrollLeft - pos ) > 2 ) { pos = view.scrollLeft; } // scrolled from outside (scrollbar, keys): carry on from there.
+			pos += SPEED * dt; view.scrollLeft = pos; wrap();
+		}
+		function start() { if ( reduce || raf ) { return; } last = performance.now(); pos = view.scrollLeft; raf = requestAnimationFrame( tick ); }
+		function hide( b ) { if ( b ) { b.hidden = false; } }
+		function step( dir ) { var it = $( '.vr-crail-item', group ); var w = it ? it.getBoundingClientRect().width + 20 : 140; resumeAt = performance.now() + 2500; view.scrollBy( { left: dir * w * 2, behavior: reduce ? 'auto' : 'smooth' } ); }
+
+		build();
+		var overflow = loopW > view.clientWidth;
+		root.classList.add( 'is-ready' );
+		hide( prev ); hide( next );
+		if ( prev ) { prev.addEventListener( 'click', function () { step( -1 ); } ); }
+		if ( next ) { next.addEventListener( 'click', function () { step( 1 ); } ); }
+		view.addEventListener( 'scroll', function () { wrap(); }, { passive: true } );
+		root.addEventListener( 'mouseenter', function () { hold = true; } );
+		root.addEventListener( 'mouseleave', function () { hold = false; } );
+		root.addEventListener( 'focusin', function () { hold = true; } );
+		root.addEventListener( 'focusout', function () { hold = false; } );
+		view.addEventListener( 'pointerdown', function ( e ) { if ( e.pointerType !== 'mouse' ) { touching = true; } } );
+		[ 'pointerup', 'pointercancel' ].forEach( function ( ev ) { view.addEventListener( ev, function () { touching = false; resumeAt = performance.now() + 2000; } ); } );
+		view.addEventListener( 'wheel', function () { resumeAt = performance.now() + 2000; }, { passive: true } );
+		if ( play ) {
+			play.hidden = reduce;
+			play.addEventListener( 'click', function () {
+				userPaused = ! userPaused;
+				play.setAttribute( 'aria-pressed', userPaused ? 'true' : 'false' );
+				play.setAttribute( 'aria-label', userPaused ? 'Resume automatic sliding' : 'Pause automatic sliding' );
+				$( '[data-crail-icon]', play ).textContent = userPaused ? '▶' : '❚❚';
+			} );
+		}
+		var rt; window.addEventListener( 'resize', function () { clearTimeout( rt ); rt = setTimeout( function () { build(); }, 200 ); } );
+		start();
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );
