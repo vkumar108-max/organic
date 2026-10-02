@@ -24,6 +24,7 @@ WordPress 6.4+, PHP 8.0+, WooCommerce 8.5+.
    To feature a product under **Best Selling Products** on the home page, edit it and tick the box in the right-hand column.
    **Product ads** videos (max 3, MP4/WebM, up to 15 MB each) are uploaded in Customize → *Product ads (videos)*.
    **From Our Feed** (above Helpful guides): paste YouTube / Instagram links in Customize → *From Our Feed* (up to 6).
+   **Offer banner** (under From Our Feed): text, code, colour and end date in Customize → *Offer banner*; create the matching coupon in WooCommerce → Marketing → Coupons.
 5. *Appearance → Menus*: optional. Without menus the theme uses sensible built-in defaults
    (locations: Primary, Footer, Support, Policy).
 

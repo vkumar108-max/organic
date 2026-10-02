@@ -10,14 +10,14 @@ defined( 'ABSPATH' ) || exit;
 if ( ! vr_offer_active() ) {
 	return;
 }
-$vr_bg    = (string) ( sanitize_hex_color( (string) vr_opt( 'offer_bg', '#f2b134' ) ) ?: '#f2b134' );
+$vr_bg    = (string) ( sanitize_hex_color( (string) vr_offer_opt( 'bg' ) ) ?: vr_offer_defaults()['bg'] );
 $vr_fg    = vr_text_on( $vr_bg );
-$vr_code  = trim( (string) vr_opt( 'offer_code', '' ) );
-$vr_link  = (string) vr_opt( 'offer_link', '' );
+$vr_code  = trim( (string) vr_offer_opt( 'code' ) );
+$vr_link  = (string) vr_offer_opt( 'link' );
 if ( ! $vr_link ) {
 	$vr_link = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
 }
-$vr_end   = (string) vr_opt( 'offer_end', '' );
+$vr_end   = (string) vr_offer_opt( 'end' );
 $vr_when  = $vr_end && ( $vr_ts = strtotime( $vr_end . ' 12:00:00' ) ) ? wp_date( 'j M Y', $vr_ts ) : '';
 $vr_miss  = $vr_code && current_user_can( 'manage_woocommerce' ) && function_exists( 'wc_get_coupon_id_by_code' ) && ! wc_get_coupon_id_by_code( strtolower( $vr_code ) );
 ?>
@@ -25,16 +25,16 @@ $vr_miss  = $vr_code && current_user_can( 'manage_woocommerce' ) && function_exi
 	<div class="container-page">
 		<div class="vr-offer" style="--offer-bg: <?php echo esc_attr( $vr_bg ); ?>; --offer-fg: <?php echo esc_attr( $vr_fg ); ?>;">
 			<div class="vr-offer-body">
-				<?php if ( vr_opt( 'offer_eyebrow', 'Limited Time Offer!' ) ) : ?><p class="vr-offer-eyebrow"><?php echo esc_html( (string) vr_opt( 'offer_eyebrow', 'Limited Time Offer!' ) ); ?><?php if ( $vr_when ) : ?> <span class="vr-offer-when"><?php echo esc_html( sprintf( /* translators: %s date */ __( 'Ends %s', 'verdant-roots' ), $vr_when ) ); ?></span><?php endif; ?></p><?php endif; ?>
+				<?php if ( vr_offer_opt( 'eyebrow' ) ) : ?><p class="vr-offer-eyebrow"><?php echo esc_html( (string) vr_offer_opt( 'eyebrow' ) ); ?><?php if ( $vr_when ) : ?> <span class="vr-offer-when"><?php echo esc_html( sprintf( /* translators: %s date */ __( 'Ends %s', 'verdant-roots' ), $vr_when ) ); ?></span><?php endif; ?></p><?php endif; ?>
 				<p class="vr-offer-text">
-					<?php echo esc_html( (string) vr_opt( 'offer_text', '' ) ); ?>
+					<?php echo esc_html( (string) vr_offer_opt( 'text' ) ); ?>
 					<?php if ( $vr_code ) : ?>
 						<span class="vr-offer-code"><code><?php echo esc_html( $vr_code ); ?></code><button type="button" class="vr-offer-copy" data-offer-copy="<?php echo esc_attr( $vr_code ); ?>" hidden><?php esc_html_e( 'Copy', 'verdant-roots' ); ?></button></span>
 					<?php endif; ?>
 				</p>
 			</div>
-			<?php if ( vr_opt( 'offer_btn', 'Start Snacking Smart' ) ) : ?>
-				<a href="<?php echo esc_url( $vr_link ); ?>" class="vr-offer-btn"><?php echo esc_html( (string) vr_opt( 'offer_btn', 'Start Snacking Smart' ) ); ?> <?php vr_e_icon( 'arrowRight', 18 ); ?></a>
+			<?php if ( vr_offer_opt( 'btn' ) ) : ?>
+				<a href="<?php echo esc_url( $vr_link ); ?>" class="vr-offer-btn"><?php echo esc_html( (string) vr_offer_opt( 'btn' ) ); ?> <?php vr_e_icon( 'arrowRight', 18 ); ?></a>
 			<?php endif; ?>
 		</div>
 		<?php if ( $vr_miss ) : ?>

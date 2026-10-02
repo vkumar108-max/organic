@@ -113,6 +113,14 @@ so only youtube-nocookie.com and instagram.com embeds can ever load. Nothing fro
 posts cannot be embedded. Without JavaScript each card is a normal link that opens the original video in a new tab. If GDPR applies to you, mention YouTube/Instagram in your privacy policy.
 With no links set visitors see nothing; admins see a note linking to the setting.
 
+### Offer banner ("Limited Time Offer! … use code …")
+A coloured banner under From Our Feed: small heading, offer text, the coupon code (with a **Copy** button) and a button (default "Start Snacking Smart" → Shop).
+Everything is in *Customize → Offer banner*: texts, code, button link, an **end date** (the banner hides itself after it — set one so "limited time" is true), and a
+**colour picker** (the text colour switches between white and deep green automatically for readability). Defaults: 5% OFF on your first order, code `DHANVANTARI108`.
+**The banner only advertises the code — the discount is a WooCommerce coupon** (*Marketing → Coupons*: Percentage discount, 5, *Usage limit per user* 1, no minimum spend
+unless the banner says so). Admins see a note with a one-click "Create coupon" button on the banner while the coupon does not exist. WooCommerce cannot tell whether a customer has
+ordered before, so "first order" is only softly enforced by the one-use-per-customer limit; use a plugin for a strict first-order rule or reword the banner.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
