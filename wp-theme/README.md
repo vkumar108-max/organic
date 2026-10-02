@@ -81,6 +81,13 @@ assign products to them straight away; rename/delete/re-describe them freely —
 *Products → Categories → Thumbnail*. Heading and which categories (up to 4, in order) are in *Customize → Verdant Roots store settings →
 Herbal & Wellness section*. Keep product wording within what is lawful for your products (no disease or cure claims).
 
+### Our Featured Products (auto-sliding, every 5 seconds)
+Under Herbal & Wellness: a deep-green panel with the heading plus a carousel that moves to the next product every **5 seconds**
+(and loops back to the start). It shows the products you star as **Featured** in WooCommerce: *Products* list → click the ☆ in the
+Featured column (or Quick Edit / the product's *Catalog visibility → Featured*). It pauses on hover, keyboard focus and touch, has a pause
+button and prev/next arrows, can be swiped, and never autoplays for visitors who prefer reduced motion. Heading is in the Customizer
+(*Featured products section*). Visitors see nothing until at least one product is Featured; admins see a dashed preview with instructions.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

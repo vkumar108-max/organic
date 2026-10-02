@@ -204,6 +204,49 @@
 		sync();
 	} );
 
+	/* ---------------- Featured products: arrows + auto-slide every 5 s (pausable) ---------------- */
+	$$( '[data-fp]' ).forEach( function ( root ) {
+		var track = $( '[data-fp-track]', root ), prev = $( '[data-fp-prev]', root ), next = $( '[data-fp-next]', root ), play = $( '[data-fp-play]', root );
+		if ( ! track ) { return; }
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches, INTERVAL = 5000;
+		var timer = 0, hovering = false, focused = false, touching = false, userPaused = false;
+		function maxLeft() { return track.scrollWidth - track.clientWidth; }
+		function sync() {
+			var fits = maxLeft() <= 2;
+			if ( prev ) { prev.disabled = track.scrollLeft <= 8; prev.hidden = fits; }
+			if ( next ) { next.disabled = track.scrollLeft >= maxLeft() - 6; next.hidden = fits; }
+			if ( play ) { play.hidden = fits || reduce; }
+		}
+		function stepWidth() { var s = $( '.vr-fp-slide', track ), gap = parseFloat( getComputedStyle( track ).columnGap ) || 0; return ( s ? s.getBoundingClientRect().width : 260 ) + gap; }
+		function go( dir ) { track.scrollBy( { left: dir * stepWidth(), behavior: reduce ? 'auto' : 'smooth' } ); }
+		function advance() {
+			if ( hovering || focused || touching || userPaused || d.hidden || maxLeft() <= 2 ) { return; }
+			if ( track.scrollLeft >= maxLeft() - 6 ) { track.scrollTo( { left: 0, behavior: reduce ? 'auto' : 'smooth' } ); } else { go( 1 ); }
+		}
+		function restart() { clearInterval( timer ); timer = 0; if ( ! reduce ) { timer = setInterval( advance, INTERVAL ); } }
+		if ( prev ) { prev.addEventListener( 'click', function () { go( -1 ); restart(); } ); }
+		if ( next ) { next.addEventListener( 'click', function () { go( 1 ); restart(); } ); }
+		track.addEventListener( 'scroll', sync, { passive: true } );
+		window.addEventListener( 'resize', sync );
+		root.addEventListener( 'mouseenter', function () { hovering = true; } );
+		root.addEventListener( 'mouseleave', function () { hovering = false; restart(); } );
+		root.addEventListener( 'focusin', function ( e ) { try { focused = e.target.matches( ':focus-visible' ); } catch ( err ) { focused = true; } } );
+		root.addEventListener( 'focusout', function () { focused = false; } );
+		track.addEventListener( 'pointerdown', function ( e ) { if ( e.pointerType !== 'mouse' ) { touching = true; } } );
+		[ 'pointerup', 'pointercancel' ].forEach( function ( ev ) { track.addEventListener( ev, function () { touching = false; restart(); } ); } );
+		if ( play ) {
+			play.addEventListener( 'click', function () {
+				userPaused = ! userPaused;
+				play.setAttribute( 'aria-pressed', userPaused ? 'true' : 'false' );
+				play.setAttribute( 'aria-label', userPaused ? 'Resume automatic sliding' : 'Pause automatic sliding' );
+				$( '[data-fp-icon]', play ).textContent = userPaused ? '▶' : '❚❚';
+			} );
+		}
+		root.classList.add( 'is-ready' );
+		sync();
+		restart();
+	} );
+
 	/* ---------------- Toasts ---------------- */
 	function toast( message, action ) {
 		var box = $( '.vr-toasts' );

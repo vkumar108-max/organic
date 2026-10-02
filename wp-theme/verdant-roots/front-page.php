@@ -71,6 +71,11 @@ get_template_part( 'template-parts/best-selling', null, array( 'products' => $vr
 <?php get_template_part( 'template-parts/wellness' ); ?>
 
 <?php
+$vr_featured = $vr_woo ? vr_get_products( array( 'featured' => true, 'limit' => 12 ) ) : array(); // WooCommerce's own Featured star.
+get_template_part( 'template-parts/featured-products', null, array( 'products' => $vr_featured, 'href' => $vr_woo ? add_query_arg( 'orderby', 'popularity', wc_get_page_permalink( 'shop' ) ) : '#' ) );
+?>
+
+<?php
 
 foreach ( $vr_sections as $vr_s ) {
 	$vr_term = get_term_by( 'slug', $vr_s['slug'], 'product_cat' );

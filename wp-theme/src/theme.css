@@ -476,3 +476,30 @@
   .vr-wl-card:hover .vr-wl-art { transform: scale(1.05) rotate(-1deg); }
 }
 @media (prefers-reduced-motion: reduce) { .vr-wl-card, .vr-wl-art { transition: none; } }
+
+/* ------------------------------------------------------------------
+   Our Featured Products: side panel + auto-sliding carousel (5 s)
+------------------------------------------------------------------- */
+@layer components {
+  .vr-fp { display: grid; overflow: hidden; border-radius: 2rem; background: linear-gradient(135deg, var(--color-brand-50), #e6f0e4); box-shadow: inset 0 0 0 1px var(--color-brand-100); }
+  @media (min-width: 1024px) { .vr-fp { grid-template-columns: 17rem minmax(0, 1fr); } }
+  .vr-fp-side { position: relative; overflow: hidden; padding: 1.5rem 1.5rem 1.25rem; color: #fff; background: linear-gradient(160deg, var(--color-brand-800), var(--color-brand-900, #173b20)); }
+  @media (min-width: 1024px) { .vr-fp-side { padding: 2.25rem 1.75rem; min-height: 26rem; } }
+  .vr-fp-title { font-size: 1.6rem; font-weight: 700; line-height: 1.15; color: #fff; }
+  @media (min-width: 1024px) { .vr-fp-title { font-size: 2rem; max-width: 9ch; } }
+  .vr-fp-art { position: absolute; right: -1rem; bottom: -1.5rem; width: 9rem; opacity: .9; pointer-events: none; }
+  @media (min-width: 1024px) { .vr-fp-art { left: -1rem; right: auto; bottom: -1rem; width: 15rem; } }
+  .vr-fp-main { position: relative; min-width: 0; padding: 1rem 1rem 1.25rem; }
+  @media (min-width: 640px) { .vr-fp-main { padding: 1.25rem 1.5rem 1.5rem; } }
+  .vr-fp-wrap { position: relative; }
+  .vr-fp-track { display: flex; gap: 1.25rem; margin: 0; padding: .25rem .25rem 1rem; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .vr-fp-track::-webkit-scrollbar { display: none; }
+  .vr-fp-slide { flex: 0 0 13.5rem; scroll-snap-align: start; }
+  @media (min-width: 640px) { .vr-fp-slide { flex-basis: 15rem; } }
+  .vr-fp-nav { position: absolute; top: 38%; z-index: 5; display: none; place-items: center; width: 2.75rem; height: 2.75rem; translate: 0 -50%; border-radius: 9999px; background: #fff; color: var(--color-brand-800); box-shadow: var(--shadow-lift); transition: opacity .2s, transform .15s; }
+  [data-fp].is-ready .vr-fp-nav { display: grid; }
+  .vr-fp-nav[hidden] { display: none !important; }
+  .vr-fp-nav:disabled { opacity: .35; cursor: default; }
+  .vr-fp-nav:not(:disabled):hover { transform: scale(1.08); translate: 0 -50%; }
+  .vr-fp-nav--prev { left: -.4rem; } .vr-fp-nav--next { right: -.4rem; }
+}

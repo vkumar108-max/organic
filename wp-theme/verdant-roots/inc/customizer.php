@@ -21,6 +21,7 @@ add_action(
 			'trust_items'   => array( __( 'Trust strip under the hero — one per line: Label | Detail | Logo URL. Add ONLY licences/certificates you really hold, e.g. FSSAI | Lic. No. 1234… | https://…/fssai.png (upload logos in Media). Leave empty to hide the strip.', 'verdant-roots' ), 'textarea', '' ),
 			'wellness_title' => array( __( 'Herbal & Wellness section — heading', 'verdant-roots' ), 'text', 'Herbal & Wellness' ),
 			'wellness_cats'  => array( __( 'Herbal & Wellness section — categories (up to 4, comma-separated slugs, in order)', 'verdant-roots' ), 'text', 'herbal-powder, superfood-powder, immunity-products, nutrition-products' ),
+			'featured_title' => array( __( 'Featured products section — heading', 'verdant-roots' ), 'text', 'Our Featured Products' ),
 			'section_1'     => array( __( 'Home section 1 — product category slug', 'verdant-roots' ), 'text', 'fruit-powder' ),
 			'section_2'     => array( __( 'Home section 2 — product category slug', 'verdant-roots' ), 'text', 'leaf-powder' ),
 			'section_3'     => array( __( 'Home section 3 — product category slug', 'verdant-roots' ), 'text', 'vegetable-powder' ),
