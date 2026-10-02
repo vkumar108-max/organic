@@ -68,15 +68,6 @@ $vr_best_href = $vr_best_tag && $vr_best_tag->count ? get_term_link( $vr_best_ta
 get_template_part( 'template-parts/best-selling', null, array( 'products' => $vr_best, 'href' => $vr_best_href ) );
 ?>
 
-<?php if ( $vr_cats ) : ?>
-<section aria-labelledby="shop-by-category" class="section">
-	<div class="container-page">
-		<?php get_template_part( 'template-parts/section-heading', null, array( 'id' => 'shop-by-category', 'eyebrow' => __( 'Browse', 'verdant-roots' ), 'title' => __( 'Shop by Category', 'verdant-roots' ), 'href' => vr_page_url( 'categories' ), 'link_label' => __( 'All categories', 'verdant-roots' ) ) ); ?>
-		<ul class="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"><?php foreach ( $vr_cats as $vr_t ) : ?><li><?php get_template_part( 'template-parts/category-card', null, array( 'term' => $vr_t ) ); ?></li><?php endforeach; ?></ul>
-	</div>
-</section>
-<?php endif; ?>
-
 <?php
 
 foreach ( $vr_sections as $vr_s ) {
