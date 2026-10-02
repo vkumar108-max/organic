@@ -532,3 +532,14 @@
     .vr-ad { flex: none; }
   }
 }
+
+/* ------------------------------------------------------------------
+   "Our Story" banner: full width; phones show the centre of the artwork so the headline stays readable
+------------------------------------------------------------------- */
+@layer components {
+  .vr-story { margin-top: 1rem; background: #fcfaf6; } /* = the banner's own edge colour, so wide screens show no seam */
+  .vr-story-link { display: block; }
+  .vr-story-img { display: block; width: 100%; max-width: 1983px; height: auto; margin-inline: auto; aspect-ratio: 11 / 10; object-fit: cover; object-position: 50% 50%; }
+  @media (min-width: 768px) { .vr-story-img { aspect-ratio: auto; object-fit: initial; } }
+  .vr-story-link:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: -3px; }
+}

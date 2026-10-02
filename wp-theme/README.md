@@ -97,6 +97,12 @@ shows them side by side (a single video is centred). Videos are muted and loop, 
 do not autoplay with Data Saver or reduced-motion (visitor taps play), have a pause button and a sound toggle (one video with sound at a time).
 Add a cover image so nothing is downloaded until the visitor scrolls near it. No videos set = visitors see nothing; admins see a note with a link to the setting.
 
+### "Our Story" banner
+A full-width banner under the product videos (ships with the Lord Dhanvantari "Our Story" artwork, `assets/img/our-story-banner.webp`, 1983 × 800, ~175 KB).
+Desktop shows the whole banner; phones show the centre of it so the headline stays readable. Click-through goes to your **About Us** page (or the link you set).
+Change or hide it in *Customize → Story banner*: replace the image (best 2000 × 800 px, under 300 KB, keep headline text in the centre), edit the alt text,
+set a link, or untick "Show the banner". Keep any statements about healing within what you can substantiate.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

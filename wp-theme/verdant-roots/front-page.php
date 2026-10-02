@@ -77,6 +77,8 @@ get_template_part( 'template-parts/featured-products', null, array( 'products' =
 
 <?php get_template_part( 'template-parts/ads-videos' ); ?>
 
+<?php get_template_part( 'template-parts/story-banner' ); ?>
+
 <?php
 
 foreach ( $vr_sections as $vr_s ) {

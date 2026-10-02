@@ -132,3 +132,29 @@ function vr_ad_shape( array $videos ): string {
 	}
 	return 'landscape';
 }
+
+/* ------------------------------------------------------------------
+ * "Our Story" banner under the product ads. Ships with the Dhanvantari artwork; replace the image,
+ * alt text and link in Customize → Story banner, or untick "Show".
+ * ------------------------------------------------------------------ */
+add_action(
+	'customize_register',
+	static function ( WP_Customize_Manager $wp_customize ) {
+		$wp_customize->add_section(
+			'vr_banner',
+			array(
+				'title'       => __( 'Story banner', 'verdant-roots' ),
+				'priority'    => 32,
+				'description' => __( 'A wide banner under the product videos. Best size: 2000 × 800 px (2.5:1), WebP or JPG under 300 KB. On phones the middle part is shown, so keep headline text in the centre of any image you upload.', 'verdant-roots' ),
+			)
+		);
+		$wp_customize->add_setting( 'vr_banner_show', array( 'default' => true, 'sanitize_callback' => 'wp_validate_boolean' ) );
+		$wp_customize->add_control( 'vr_banner_show', array( 'label' => __( 'Show the banner', 'verdant-roots' ), 'section' => 'vr_banner', 'type' => 'checkbox' ) );
+		$wp_customize->add_setting( 'vr_banner_image', array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
+		$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'vr_banner_image', array( 'label' => __( 'Banner image (leave empty to use the built-in "Our Story" banner)', 'verdant-roots' ), 'section' => 'vr_banner', 'mime_type' => 'image' ) ) );
+		$wp_customize->add_setting( 'vr_banner_alt', array( 'default' => 'Our Story: How Lord Dhanvantari shared the gift of natural healing with the world', 'sanitize_callback' => 'sanitize_text_field' ) );
+		$wp_customize->add_control( 'vr_banner_alt', array( 'label' => __( 'Banner text for screen readers / search (describe what the banner says)', 'verdant-roots' ), 'section' => 'vr_banner', 'type' => 'text' ) );
+		$wp_customize->add_setting( 'vr_banner_link', array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
+		$wp_customize->add_control( 'vr_banner_link', array( 'label' => __( 'Link (optional — empty links to your About Us page when it exists)', 'verdant-roots' ), 'section' => 'vr_banner', 'type' => 'url' ) );
+	}
+);
