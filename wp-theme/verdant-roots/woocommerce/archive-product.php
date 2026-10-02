@@ -13,7 +13,8 @@ $vr_term     = is_product_taxonomy() ? get_queried_object() : null;
 $vr_is_cat   = $vr_term instanceof WP_Term && 'product_cat' === $vr_term->taxonomy;
 $vr_search   = is_search();
 $vr_title    = $vr_search ? sprintf( /* translators: %s query */ __( 'Results for “%s”', 'verdant-roots' ), get_search_query() ) : ( $vr_term ? $vr_term->name : woocommerce_page_title( false ) );
-$vr_total    = (int) wc_get_loop_prop( 'total', 0 );
+// wc_get_loop_prop('total') is only filled once the loop starts, so read the main query instead.
+$vr_total    = (int) $GLOBALS['wp_query']->found_posts;
 $vr_faqs     = $vr_is_cat ? vr_parse_pairs( (string) get_term_meta( $vr_term->term_id, 'vr_faqs', true ) ) : array();
 $vr_orderby  = isset( $_GET['orderby'] ) ? wc_clean( wp_unslash( $_GET['orderby'] ) ) : apply_filters( 'woocommerce_default_catalog_orderby', 'menu_order' ); // phpcs:ignore WordPress.Security.NonceVerification
 $vr_options  = apply_filters( 'woocommerce_catalog_orderby', array() );
@@ -103,18 +104,22 @@ $vr_options  = apply_filters( 'woocommerce_catalog_orderby', array() );
 			<?php vr_faq_schema( $vr_faqs ); ?>
 		</section>
 	<?php endif; ?>
-
-	<?php if ( $vr_is_cat ) :
-		$vr_related = array_filter( vr_top_categories(), static fn( $t ) => $t->term_id !== $vr_term->term_id );
-		if ( $vr_related ) : ?>
-			<section aria-labelledby="related-categories" class="mt-16">
-				<h2 id="related-categories" class="mb-4 text-2xl font-semibold"><?php esc_html_e( 'Related categories', 'verdant-roots' ); ?></h2>
-				<ul class="flex flex-wrap gap-3">
-					<?php foreach ( array_slice( $vr_related, 0, 3 ) as $vr_t ) : ?><li><a href="<?php echo esc_url( get_term_link( $vr_t ) ); ?>" class="inline-block rounded-full border border-line px-5 py-2.5 font-medium hover:border-brand-500 hover:bg-brand-50"><?php echo esc_html( $vr_t->name ); ?></a></li><?php endforeach; ?>
-				</ul>
-			</section>
-		<?php endif; endif; ?>
 </div>
+
+<?php
+// Keeps visitors going after the last product instead of dropping straight into the footer.
+$vr_more = array_filter( vr_top_categories(), static fn( $t ) => ! $vr_is_cat || $t->term_id !== $vr_term->term_id );
+if ( $vr_more ) : ?>
+	<section aria-labelledby="keep-exploring" class="section bg-sand-50">
+		<div class="container-page">
+			<?php get_template_part( 'template-parts/section-heading', null, array( 'id' => 'keep-exploring', 'eyebrow' => __( 'Keep exploring', 'verdant-roots' ), 'title' => $vr_is_cat ? __( 'More from our shelves', 'verdant-roots' ) : __( 'Shop by category', 'verdant-roots' ), 'href' => wc_get_page_permalink( 'shop' ), 'link_label' => __( 'Shop all', 'verdant-roots' ) ) ); ?>
+			<ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+				<?php foreach ( array_slice( $vr_more, 0, 4 ) as $vr_t ) : ?><li><?php get_template_part( 'template-parts/category-card', null, array( 'term' => $vr_t ) ); ?></li><?php endforeach; ?>
+			</ul>
+		</div>
+	</section>
+<?php endif; ?>
+<?php get_template_part( 'template-parts/newsletter' ); ?>
 
 <dialog id="vr-filters" class="vr-drawer m-0 h-dvh max-h-dvh w-[88vw] max-w-sm overflow-y-auto rounded-none bg-white p-0 text-ink shadow-lift" aria-labelledby="vr-filters-title">
 	<div class="p-5">
