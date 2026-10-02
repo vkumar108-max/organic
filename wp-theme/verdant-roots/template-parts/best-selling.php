@@ -9,9 +9,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$vr_bsl = $args['products'] ?? array();
+$vr_bsl     = $args['products'] ?? array();
+$vr_preview = false;
 if ( ! $vr_bsl ) {
-	return;
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return; // visitors never see an empty section.
+	}
+	$vr_preview = true; // admins see where it goes and how to fill it.
 }
 global $post;
 ?>
@@ -28,9 +32,18 @@ global $post;
 				<?php endif; ?>
 			</div>
 
+			<?php if ( $vr_preview ) : ?>
+				<p class="vr-bsl-note" role="note"><?php esc_html_e( 'Only you (admin) can see this preview. There are no published products yet: publish a product, then tick “Show in Best Selling Products” on its edit screen (right-hand box).', 'verdant-roots' ); ?> <?php if ( function_exists( 'wc_get_page_id' ) ) : ?><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=product' ) ); ?>"><?php esc_html_e( 'Go to Products', 'verdant-roots' ); ?></a><?php endif; ?></p>
+			<?php endif; ?>
+
 			<div class="vr-bsl-wrap">
 				<button type="button" class="vr-bsl-nav vr-bsl-nav--prev" data-bsl-prev aria-label="<?php esc_attr_e( 'Previous products', 'verdant-roots' ); ?>" hidden><?php vr_e_icon( 'chevronLeft', 22 ); ?></button>
 				<ul class="vr-bsl-track products" data-bsl-track>
+					<?php if ( $vr_preview ) : foreach ( range( 1, 4 ) as $vr_n ) : ?>
+						<li class="vr-bsl-slide" data-rank="<?php echo (int) $vr_n; ?>" aria-hidden="true">
+							<div class="vr-bsl-ph"><span class="vr-bsl-ph-img"></span><span class="vr-bsl-ph-line"></span><span class="vr-bsl-ph-line vr-bsl-ph-line--s"></span><span class="vr-bsl-ph-btn"></span></div>
+						</li>
+					<?php endforeach; endif; ?>
 					<?php foreach ( $vr_bsl as $vr_i => $product ) :
 						$post = get_post( $product->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 						setup_postdata( $post );

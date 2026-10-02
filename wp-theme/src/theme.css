@@ -445,3 +445,12 @@
   .vr-bsl-nav:not(:disabled):hover { transform: scale(1.08); translate: 0 -50%; }
   .vr-bsl-nav--prev { left: -.4rem; } .vr-bsl-nav--next { right: -.4rem; }
 }
+
+@layer components {
+  .vr-bsl-note { margin: 0 auto 1rem; max-width: 46rem; padding: .6rem .9rem; border-radius: .9rem; border: 1px dashed var(--color-brand-400); background: rgb(255 255 255 / .7); font-size: .85rem; text-align: center; color: var(--color-ink-soft); }
+  .vr-bsl-note a { font-weight: 700; color: var(--color-brand-700); text-decoration: underline; }
+  .vr-bsl-ph { display: flex; flex-direction: column; gap: .6rem; height: 100%; padding: .75rem; border-radius: 1rem; border: 2px dashed var(--color-brand-300); background: rgb(255 255 255 / .6); }
+  .vr-bsl-ph-img { display: block; aspect-ratio: 1; border-radius: .75rem; background: var(--color-brand-50); }
+  .vr-bsl-ph-line { display: block; height: .8rem; border-radius: 9999px; background: var(--color-brand-100); } .vr-bsl-ph-line--s { width: 55%; }
+  .vr-bsl-ph-btn { display: block; height: 2.5rem; margin-top: auto; border-radius: 9999px; background: var(--color-brand-100); }
+}

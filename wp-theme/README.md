@@ -70,7 +70,8 @@ Under the Categories rail: a tinted band with swipeable product cards, big rank 
 (untick to remove). Optional **Position** sets the order (1 = first); without it products are ordered by sales. Behind the
 scenes this adds/removes the `best-seller` tag (name configurable in the Customizer), so the "Best seller" badge, the shop tag
 filter and *Products → Bulk edit → Tags* all work too. While no product is ticked/tagged the carousel shows your most popular
-products instead; "See all" opens the best-seller tag page.
+products instead; "See all" opens the best-seller tag page. With **no published products at all** the section is hidden from visitors,
+but logged-in admins see a dashed preview with instructions (products must be *Published*, not Draft).
 
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
