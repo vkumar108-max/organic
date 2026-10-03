@@ -750,4 +750,29 @@
 		box.hidden = true;
 	} );
 }() );
+
+	/* v1.0.27 — "account needed" pop-up: guests who try to add to cart / buy get Create account / Sign in */
+	( function () {
+		var gate = $( '[data-gate]' );
+		if ( ! gate || typeof gate.showModal !== 'function' ) { return; }
+		var up = $( '[data-gate-signup]', gate ), inn = $( '[data-gate-signin]', gate );
+		function withBack( base ) { return base + ( base.indexOf( '?' ) > -1 ? '&' : '?' ) + 'redirect_to=' + encodeURIComponent( location.href ); }
+		function openGate() {
+			if ( up ) { up.href = withBack( gate.getAttribute( 'data-signup' ) ); }
+			if ( inn ) { inn.href = withBack( gate.getAttribute( 'data-signin' ) ); }
+			if ( ! gate.open ) { gate.showModal(); }
+		}
+		var hit = '.add_to_cart_button, .single_add_to_cart_button, [data-buy-now]';
+		// capture phase: runs before WooCommerce's AJAX add-to-cart and the Buy Now helper
+		d.addEventListener( 'click', function ( e ) {
+			var b = e.target.closest ? e.target.closest( hit ) : null;
+			if ( b && ! gate.contains( b ) ) { e.preventDefault(); e.stopImmediatePropagation(); openGate(); }
+		}, true );
+		d.addEventListener( 'submit', function ( e ) {
+			if ( e.target.matches && e.target.matches( 'form.cart' ) ) { e.preventDefault(); e.stopImmediatePropagation(); openGate(); }
+		}, true );
+		var close = $( '[data-gate-close]', gate );
+		if ( close ) { close.addEventListener( 'click', function () { gate.close(); } ); }
+		gate.addEventListener( 'click', function ( e ) { if ( e.target === gate ) { gate.close(); } } );
+	}() );
 }() );

@@ -14,6 +14,8 @@ $vr_gen_user = 'no' !== get_option( 'woocommerce_registration_generate_username'
 $vr_gen_pass = 'no' !== get_option( 'woocommerce_registration_generate_password' );
 $vr_up       = $vr_reg && ( isset( $_POST['register'] ) || ( isset( $_GET['vr_auth'] ) && 'signup' === $_GET['vr_auth'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 $vr_state    = $vr_up ? 'signup' : 'signin';
+// Where to send the shopper after signing in / registering (set by the "account needed" pop-up and the checkout redirect).
+$vr_back     = isset( $_GET['redirect_to'] ) ? wp_validate_redirect( esc_url_raw( wp_unslash( $_GET['redirect_to'] ) ), '' ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 $vr_brand    = vr_brand_name( 'header' );
 $vr_val      = static fn( string $k ): string => ( ! empty( $_POST[ $k ] ) && is_string( $_POST[ $k ] ) ) ? esc_attr( wp_unslash( $_POST[ $k ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 $vr_url      = wc_get_page_permalink( 'myaccount' );
@@ -52,6 +54,7 @@ do_action( 'woocommerce_before_customer_login_form' ); // notices (login / regis
 					<a class="vr-auth-link" href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Forgot password?', 'verdant-roots' ); ?></a>
 				</div>
 				<?php wp_nonce_field( 'woocommerce-login', 'woocommerce-login-nonce' ); ?>
+				<?php if ( $vr_back ) : ?><input type="hidden" name="redirect" value="<?php echo esc_url( $vr_back ); ?>"><?php endif; ?>
 				<button type="submit" class="vr-auth-btn woocommerce-button woocommerce-form-login__submit" name="login" value="<?php esc_attr_e( 'Log in', 'woocommerce' ); ?>"><span><?php esc_html_e( 'Sign in', 'verdant-roots' ); ?></span></button>
 				<?php do_action( 'woocommerce_login_form_end' ); ?>
 			</form>
@@ -77,6 +80,7 @@ do_action( 'woocommerce_before_customer_login_form' ); // notices (login / regis
 				<?php endif; ?>
 				<?php do_action( 'woocommerce_register_form' ); // privacy policy text, spam-protection plugins… ?>
 				<?php wp_nonce_field( 'woocommerce-register', 'woocommerce-register-nonce' ); ?>
+				<?php if ( $vr_back ) : ?><input type="hidden" name="redirect" value="<?php echo esc_url( $vr_back ); ?>"><?php endif; ?>
 				<button type="submit" class="vr-auth-btn woocommerce-Button woocommerce-button woocommerce-form-register__submit" name="register" value="<?php esc_attr_e( 'Register', 'woocommerce' ); ?>"><span><?php esc_html_e( 'Create account', 'verdant-roots' ); ?></span></button>
 				<?php do_action( 'woocommerce_register_form_end' ); ?>
 			</form>

@@ -162,6 +162,9 @@ When visitors scroll to the feed section, the centred **YouTube** card plays mut
 ### Categories page ending
 The Categories page and every product page now continue with the Best Selling carousel and the newsletter block instead of ending at the footer (shop and category product pages have a "Keep exploring" section, added in 1.0.18).
 
+### Account needed to order
+Customize → **Account needed to order** (on by default). Visitors who are not signed in get a **Create account / Sign in** pop-up when they tap Add to cart or Buy Now. After signing in or registering they return to the page they were on. The shop also enforces it on the server: guests cannot add to cart, are redirected from Checkout to sign-up, and the order cannot be placed without an account. While it is on, the theme overrides two WooCommerce settings on the front end only (guest checkout off, account creation on My account on); WooCommerce → Settings still shows your saved values. Turn the checkbox off to go back to normal WooCommerce behaviour. Note: the item is not added automatically after sign-up — the shopper taps Add to cart again.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
