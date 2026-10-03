@@ -1,0 +1,206 @@
+# Verdant Roots — WordPress + WooCommerce theme
+
+Same design as the Next.js storefront (same colours, fonts, spacing, components), but as a
+classic PHP theme so products, orders, payments, shipping, coupons and customers are all
+managed in **WooCommerce**. WooCommerce stays in charge of the business logic; the theme
+only presents it.
+
+## Requirements
+WordPress 6.4+, PHP 8.0+, WooCommerce 8.5+.
+
+## Install
+1. Copy `wp-theme/verdant-roots/` into `wp-content/themes/` (or zip that folder and upload it under
+   *Appearance → Themes → Add New*).
+2. Install and activate **WooCommerce** and finish its setup wizard (currency INR, country, payments, shipping).
+3. Activate **Verdant Roots**. On activation it (once) creates the pages the design expects
+   (About, Contact, FAQ, Track Order, Wishlist, Categories, policy pages), sets the static front
+   page (Home) and posts page (Blog), and switches Cart/Checkout to WooCommerce's classic
+   shortcodes, which the theme styles.
+4. *Appearance → Customize → Verdant Roots store settings*: announcement bar text, hero text,
+   contact details, social links, which categories appear on the home page, etc.
+5. *Appearance → Menus*: optional. Without menus the theme uses sensible built-in defaults
+   (locations: Primary, Footer, Support, Policy).
+
+## Connecting products (WooCommerce)
+Everything comes from WooCommerce — nothing is hard-coded in templates.
+
+| Storefront element | Comes from |
+|---|---|
+| Categories, mega menu, home sections | Products → **Categories** (top-level categories, drag to order; category image = card image; description = card text) |
+| Prices, MRP + discount % | **Regular price** (MRP) and **Sale price** (current price); variable products use each variation |
+| Size / weight selector | Global product attribute **Size** (variations) |
+| Filters | Price, rating, stock, and every global attribute (Size, Product type…) automatically |
+| Best Seller badge / home section | Product tag **`best-seller`** (configurable in the Customizer) |
+| New badge | Products created in the last 30 days |
+| Featured card in mega menu | Product marked **Featured** (star) |
+| Ingredients, how to use, storage, nutrition, highlights, FAQs | Meta box **"Verdant Roots: product details"** on the product edit screen. Empty fields show an honest "to be provided" note — nothing is invented |
+| Category FAQs | Category edit screen → "FAQs" |
+| Reviews & ratings | WooCommerce reviews (only real, approved reviews are ever shown, including on the home page) |
+| Product schema, breadcrumbs schema | WooCommerce structured data |
+
+Products without photos show generated placeholder artwork (the same as the Next.js site).
+
+### Try it with sample products
+Sample catalogue (31 demo products, exported from the Next.js demo data) in WooCommerce's own CSV format:
+
+```bash
+wp eval-file wp-content/themes/verdant-roots/demo/import-demo.php
+```
+or import `demo/sample-products.csv` from *Products → Import*. All sample products carry the tag
+`demo` — delete them (Products → filter by tag) before you go live. Regenerate the CSV with
+`node --experimental-strip-types scripts/export-woo-csv.ts` (from the repo root).
+
+### Trust strip (licences) under the hero
+A thin, always-scrolling strip sits right under the home hero. Fill it in *Appearance → Customize → Verdant Roots store
+settings → Trust strip*, one item per line as `Label | Detail | Logo URL` (detail and logo are optional), e.g.
+`FSSAI | Lic. No. 1234567890 | https://yourstore.com/wp-content/uploads/fssai.png`. Upload logos in *Media* and paste the URL.
+Add **only licences and certificates you actually hold** (FSSAI, GST, Udyam, ISO…) — the theme never invents any. With nothing saved,
+visitors see no strip; logged-in admins see a clearly-labelled sample so they know where it goes. It pauses on hover/focus, has a
+pause button, and stops animating for visitors who prefer reduced motion.
+
+### Categories rail (auto-sliding round icons)
+Right under the trust strip the home page shows a "Categories" row of round icons that slides on its own and loops forever.
+It lists your top-level product categories (Products → Categories; drag to order). The round image is the **category image**;
+categories without one get the generated placeholder artwork. It pauses on hover/focus/touch, has a pause button and prev/next
+arrows, can be swiped or scrolled by hand, and does not move for visitors who prefer reduced motion.
+
+### Best Selling Products (home page carousel)
+Under the Categories rail: a tinted band with swipeable product cards, big rank numbers and prev/next arrows.
+**To add any product later:** edit the product → tick **"Show in Best Selling Products on the home page"** in the right-hand box
+(untick to remove). Optional **Position** sets the order (1 = first); without it products are ordered by sales. Behind the
+scenes this adds/removes the `best-seller` tag (name configurable in the Customizer), so the "Best seller" badge, the shop tag
+filter and *Products → Bulk edit → Tags* all work too. While no product is ticked/tagged the carousel shows your most popular
+products instead; "See all" opens the best-seller tag page. With **no published products at all** the section is hidden from visitors,
+but logged-in admins see a dashed preview with instructions (products must be *Published*, not Draft).
+
+### Herbal & Wellness (four category cards)
+Under Best Selling Products: a heading plus four tinted cards — **Herbal Powder, Superfood Powder, Immunity Products, Nutrition Products** —
+each with a short text, an Explore button and the category image (placeholder art until you set one). The four are created **once**
+as normal WooCommerce product categories the first time an admin opens wp-admin after installing the theme (Products → Categories), so you can
+assign products to them straight away; rename/delete/re-describe them freely — they are not re-created. Set images in
+*Products → Categories → Thumbnail*. Heading and which categories (up to 4, in order) are in *Customize → Verdant Roots store settings →
+Herbal & Wellness section*. Keep product wording within what is lawful for your products (no disease or cure claims).
+
+### Our Featured Products (auto-sliding, every 2 seconds)
+Under Herbal & Wellness: a deep-green panel with the heading plus a carousel that moves to the next product every **2 seconds**
+(and loops back to the start). It shows the products you star as **Featured** in WooCommerce: *Products* list → click the ☆ in the
+Featured column (or Quick Edit / the product's *Catalog visibility → Featured*). It pauses on hover, keyboard focus and touch, has a pause
+button and prev/next arrows, can be swiped, and never autoplays for visitors who prefer reduced motion. Heading is in the Customizer
+(*Featured products section*). Visitors see nothing until at least one product is Featured; admins see a dashed preview with instructions.
+
+### Product ads (up to 3 videos)
+Under Our Featured Products. Upload the videos in **Appearance → Customize → Product ads (videos)**: three slots, each with an optional
+cover image, caption and product/page link ("Shop now" button), plus an optional heading and a video-shape choice (Auto / Landscape / Portrait / Square).
+**Limits:** max 3 videos; **MP4 (H.264) or WebM only** (not .mov); each file up to **15 MB** (the Customizer refuses bigger files with a message;
+change with `add_filter( 'vr_ad_video_max_mb', fn() => 25 );`). Tips: 15–30 s, 720p, little or no sound. **Phones** get a swipeable row, **desktop**
+shows them side by side (a single video is centred). Videos are muted and loop, load/play only while on screen (and only the visible one on phones),
+do not autoplay with Data Saver or reduced-motion (visitor taps play), have a pause button and a sound toggle (one video with sound at a time).
+Add a cover image so nothing is downloaded until the visitor scrolls near it. No videos set = visitors see nothing; admins see a note with a link to the setting.
+
+### "Our Story" banner
+A full-width banner under the product videos (ships with the Lord Dhanvantari "Our Story" artwork, `assets/img/our-story-banner.webp`, 1983 × 800, ~175 KB).
+Desktop shows the whole banner; phones show the centre of it so the headline stays readable. Click-through goes to your **About Us** page (or the link you set).
+Change or hide it in *Customize → Story banner*: replace the image (best 2000 × 800 px, under 300 KB, keep headline text in the centre), edit the alt text,
+set a link, or untick "Show the banner". Keep any statements about healing within what you can substantiate.
+
+### From Our Feed (YouTube / Instagram)
+Above "Helpful guides": a centred carousel of portrait video cards (the middle card is emphasised; arrows + swipe). Set it in
+*Customize → From Our Feed*: paste up to **6** links per slot — YouTube (`watch?v=`, `youtu.be`, Shorts, live) or a public Instagram reel / post — plus an optional
+caption and cover image. Tapping a card opens the video in a pop-up player (closes with ✕, Esc or a tap outside; playback stops on close). Links are
+checked when you save (anything that is not a recognisable YouTube/Instagram link is refused) and the player address is rebuilt from the video id only,
+so only youtube-nocookie.com and instagram.com embeds can ever load. Nothing from YouTube/Instagram is loaded until a card is tapped, except YouTube cover images
+(from i.ytimg.com). **Instagram does not share covers**, so upload a cover image for Instagram items (they show a gradient until you do); private accounts, stories and some
+posts cannot be embedded. Without JavaScript each card is a normal link that opens the original video in a new tab. If GDPR applies to you, mention YouTube/Instagram in your privacy policy.
+With no links set visitors see nothing; admins see a note linking to the setting.
+
+### Offer banner ("Limited Time Offer! … use code …")
+A coloured banner under From Our Feed: small heading, offer text, the coupon code (with a **Copy** button) and a button (default "Start Snacking Smart" → Shop).
+Everything is in *Customize → Offer banner*: texts, code, button link, an **end date** (the banner hides itself after it — set one so "limited time" is true), and a
+**colour picker** (the text colour switches between white and deep green automatically for readability). Defaults: 5% OFF on your first order, code `DHANVANTARI108`.
+**The banner only advertises the code — the discount is a WooCommerce coupon** (*Marketing → Coupons*: Percentage discount, 5, *Usage limit per user* 1, no minimum spend
+unless the banner says so). Admins see a note with a one-click "Create coupon" button on the banner while the coupon does not exist. WooCommerce cannot tell whether a customer has
+ordered before, so "first order" is only softly enforced by the one-use-per-customer limit; use a plugin for a strict first-order rule or reword the banner.
+
+### Home FAQs (editable)
+Under "Helpful guides": a heading + "Contact us / All FAQs" buttons on the left and an accordion on the right (stacked on phones; the first answer starts open).
+Edit everything in *Customize → Home FAQs*: heading, intro and **up to 8 question / answer pairs** — change any text any time, **clear a question to remove it**, fill slots 7–8 to add more.
+Six neutral starter answers ship with the theme (placing an order, payment, coupons, tracking, storage, contact); they only describe how the shop works.
+**Add your own delivery time, shipping charges, returns/refunds and product answers** — the theme does not invent them — and keep health wording within what you can substantiate.
+Matching FAQ structured data (schema.org FAQPage) is printed from the same visible text. The section hides itself if every question is cleared.
+
+### Bulk Order page + mobile menu changes
+* **Mobile menu (hamburger):** under the logo there are now **4 round category icons** (default: Herbal Powder, Superfood Powder, Immunity Products, Nutrition Products — change the
+  slugs in *Customize → Bulk order form → "Mobile menu"*; missing ones are topped up with your first categories; the icon is the category image). **Wishlist is replaced by "Bulk Order"** at the bottom
+  of the drawer (the Wishlist page and the desktop header heart still exist).
+* **Bulk Order page** (`/bulk-order/`, created once the first time an admin opens wp-admin after the update; the shortcode is `[vr_bulk_order]`): three cards — *Tell us about your business*
+  (business, contact person, +91 mobile, email, state, city), *What do you need?* (type, approximate quantity, required date, details), *How should we connect with you?* (WhatsApp / Email) — and a **GET BULK QUOTE** button.
+  Validation happens in the browser and again on the server; the form submits without reloading and shows a thank-you panel.
+* **Where requests go:** emailed to the address in *Customize → Bulk order form* (empty = site admin email, reply-to is the customer) **and saved in wp-admin → Bulk enquiries** (administrators only), so a mail problem never loses a lead.
+  If emails do not arrive, install an SMTP plugin (shared hosting often drops PHP mail) — the enquiry is still in Bulk enquiries.
+* **Spam protection:** hidden honeypot field, signed timestamp (instant submissions are dropped), max 5 requests per hour per visitor. Request types are editable (one per line) in the same Customizer section.
+* Mobile number is validated as an Indian number (10 digits starting 6–9, optional +91/0 prefix). We only use the details to reply — mention this form in your privacy policy.
+
+### Login & Sign-up animation (My account)
+A split card on WooCommerce's logged-out **My account** page: a deep-green "blade" slides across to switch between **Sign in** and **Create account** (floating labels, show/hide password, "Keep me signed in", "Forgot password?", live password-strength meter). Both forms are the real WooCommerce forms (same nonces, `login` / `register` buttons, Woo hooks), so plugins/captchas keep working.
+- Needs **WooCommerce → Settings → Accounts & Privacy → "Allow customers to create an account on the My account page"**; otherwise only Sign in is shown.
+- Create account asks for *Full name* (saved as first/last name) and requires a password of 8+ characters.
+- Edit the heading/text under **Customize → Login & Sign-up** (use `|` to split a heading into two lines).
+- Without JavaScript the card still works (`?vr_auth=signup` shows Create account); on phones it stacks with the green banner on top; reduced-motion users get no sliding.
+
+### SEO basics & cookie notice
+Customize → **SEO & cookie notice**: home-page description, a social preview image (used by WhatsApp/Facebook/X link previews) and the cookie notice text/on-off. The theme prints meta description + Open Graph tags itself, but steps aside automatically if Yoast, Rank Math, AIOSEO or SEOPress is active. Until you set a **Site Icon** (Customize → Site Identity) a simple leaf favicon is used. The cookie notice only *informs* (OK button); it does not block tracking scripts — if you add Analytics/Pixel/ads, use a consent plugin instead.
+
+### Header & footer name
+Customize → **Header & footer name** (also has a Favicon upload): replace the shop name text in the header (and mobile menu / login card) and in the footer (and © line) independently. Optional footer logo image. Leave blank to use the Site Title. A header logo image still goes in Customize → Site Identity.
+
+### Trust logos strip (under the hero)
+Customize → **Trust logos strip**: upload up to 8 logos (Logo 1…8). They run as a thin, always-moving strip of logos only — no licence numbers (put those in the footer yourself). Fill each logo's **Alt text** in Media for screen readers. With no logo uploaded, visitors see nothing; admins see a labelled sample.
+
+### From Our Feed — auto-play
+When visitors scroll to the feed section, the centred **YouTube** card plays muted as a live preview (it moves as they swipe, and stops when they scroll away). Tapping a card still opens the pop-up player with sound. Instagram links cannot auto-play (Instagram does not allow it). Turn it off in Customize → From Our Feed. Skipped for reduced-motion and Data Saver visitors.
+
+### Categories page ending
+The Categories page and every product page now continue with the Best Selling carousel and the newsletter block instead of ending at the footer (shop and category product pages have a "Keep exploring" section, added in 1.0.18).
+
+### Account needed to order
+Customize → **Account needed to order** (on by default). Visitors who are not signed in get a **Create account / Sign in** pop-up when they tap Add to cart or Buy Now. After signing in or registering they return to the page they were on. The shop also enforces it on the server: guests cannot add to cart, are redirected from Checkout to sign-up, and the order cannot be placed without an account. While it is on, the theme overrides two WooCommerce settings on the front end only (guest checkout off, account creation on My account on); WooCommerce → Settings still shows your saved values. Turn the checkbox off to go back to normal WooCommerce behaviour. Note: the item is not added automatically after sign-up — the shopper taps Add to cart again.
+
+### Home: Our Featured Products (all categories)
+"Our Featured Products" now sits below the Our Story banner, in the slot the Fruit Powder section used to take (that section was removed; Leaf Powder and Vegetable Powder remain). It shows products you starred as Featured in WooCommerce first, then tops up with the newest products of every category in turn, so all categories appear. It slides by itself every 2 seconds. It needs at least one published product.
+
+## Before you go live (WooCommerce settings)
+* **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
+  whole shop from logged-out visitors.
+* Shipping: create a zone with **Flat rate** (e.g. ₹49) and **Free shipping** (minimum order ₹499). When free shipping
+  applies the theme offers only that method (turn off with `add_filter( 'vr_hide_paid_shipping_when_free', '__return_false' );`).
+  The Customizer "free shipping threshold" is display text only — keep it equal to the WooCommerce rule.
+* Payments: enable Cash on Delivery and install your gateway plugin (Razorpay, PayU, Cashfree…). Test in the gateway's sandbox first.
+* Remove the `demo` products; add real photos, ingredients and prices.
+
+## What is native WooCommerce (and therefore unchanged)
+Cart, coupons (code, type, value, min/max, expiry, usage limit), checkout, payment gateways
+(Razorpay, UPI, cards, COD… whichever plugins you enable — card details never touch this site),
+shipping zones and free-shipping rules, taxes, stock, orders, emails, My Account, order
+tracking (`[woocommerce_order_tracking]` on the Track Order page), guest checkout.
+
+## Theme features added
+Announcement bar · sticky header · accessible mega menu · search with suggestions, recent
+searches and no-results state (searches product names, categories and tags) · quick view · wishlist (guest cookie → account on login) ·
+filter sidebar/drawer · Buy Now · free-shipping progress in cart · mobile bottom navigation ·
+blog with categories/featured/popular/share/related · newsletter (uses your form shortcode or emails the admin) ·
+404 and empty states.
+
+## Differences from the Next.js storefront (be aware)
+* **Order statuses** are WooCommerce's (Pending, Processing, On hold, Completed, Cancelled, Refunded, Failed). The
+  7-step timeline (Packed, Shipped, Out for delivery…) needs a shipment-tracking plugin or custom statuses.
+* **SEO**: the theme adds `title-tag`, canonical (WordPress core) and WooCommerce's structured data. For meta
+  descriptions, Open Graph and XML sitemaps beyond core, install **Yoast SEO** or **Rank Math**.
+* **Contact form / FAQ schema for the FAQ page**: use Contact Form 7 / WPForms for the form.
+* **Demo/sample reviews**: not created — the review section stays hidden until real reviews exist.
+* **Wishlist** is cookie/user-meta based; if you use full-page caching, exclude the wishlist page.
+* Fonts load from Google Fonts; self-host them if GDPR requires.
+
+## Development (rebuilding CSS)
+Styles are Tailwind CSS 4, compiled to `verdant-roots/assets/css/main.css` (committed).
+From the repo root: `npm install && npm run build:theme` (or `npm run dev:theme` to watch).
+Design tokens live in `wp-theme/src/theme.css` and mirror `src/app/globals.css`.
