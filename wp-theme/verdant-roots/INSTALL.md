@@ -78,6 +78,9 @@ Customize → **Trust logos strip**: upload up to 8 logos (Logo 1…8). They run
 ### From Our Feed — auto-play
 When visitors scroll to the feed section, the centred **YouTube** card plays muted as a live preview (it moves as they swipe, and stops when they scroll away). Tapping a card still opens the pop-up player with sound. Instagram links cannot auto-play (Instagram does not allow it). Turn it off in Customize → From Our Feed. Skipped for reduced-motion and Data Saver visitors.
 
+### Categories page ending
+The Categories page now continues with the Best Selling carousel and the newsletter block instead of ending at the footer (shop and category product pages have a "Keep exploring" section, added in 1.0.18).
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
