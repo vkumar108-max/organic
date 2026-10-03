@@ -732,3 +732,9 @@
   .vr-cookie p { margin: 0; } .vr-cookie a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; color: var(--color-brand-700); }
   @media (max-width: 1023px) { .vr-cookie { bottom: 5rem; } }
 }
+
+/* v1.0.24 feed: muted live preview on the centred card */
+@layer components {
+  .vr-feed-live { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; pointer-events: none; }
+  .vr-feed-card.has-live .vr-feed-img { opacity: 0; } .vr-feed-card.has-live .vr-feed-play { opacity: 0; transition: opacity .2s; }
+}

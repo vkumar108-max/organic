@@ -69,6 +69,9 @@ add_action(
 		$wp_customize->add_setting( 'vr_feed_title', array( 'default' => 'From Our Feed', 'sanitize_callback' => 'sanitize_text_field' ) );
 		$wp_customize->add_control( 'vr_feed_title', array( 'label' => __( 'Heading', 'verdant-roots' ), 'section' => 'vr_feed', 'type' => 'text' ) );
 
+		$wp_customize->add_setting( 'vr_feed_autoplay', array( 'default' => true, 'sanitize_callback' => 'rest_sanitize_boolean' ) );
+		$wp_customize->add_control( 'vr_feed_autoplay', array( 'label' => __( 'Auto-play the centre YouTube video (muted) when visitors reach this section. Instagram links cannot auto-play. Visitors who prefer reduced motion or use Data Saver are not auto-played.', 'verdant-roots' ), 'section' => 'vr_feed', 'type' => 'checkbox' ) );
+
 		for ( $n = 1; $n <= VR_FEED_SLOTS; $n++ ) {
 			$wp_customize->add_setting( "vr_feed_url_$n", array( 'default' => '', 'sanitize_callback' => 'esc_url_raw', 'validate_callback' => 'vr_validate_feed_url' ) );
 			$wp_customize->add_control( "vr_feed_url_$n", array( /* translators: %d slot number */ 'label' => sprintf( __( 'Video %d — YouTube or Instagram link', 'verdant-roots' ), $n ), 'section' => 'vr_feed', 'type' => 'url', 'input_attrs' => array( 'placeholder' => 'https://www.youtube.com/watch?v=… or https://www.instagram.com/reel/…' ) ) );

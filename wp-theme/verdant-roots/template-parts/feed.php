@@ -22,7 +22,7 @@ if ( ! $vr_feed ) {
 }
 $vr_names = array( 'youtube' => 'YouTube', 'instagram' => 'Instagram' );
 ?>
-<section aria-labelledby="feed-title" class="section" data-feed>
+<section aria-labelledby="feed-title" class="section" data-feed data-autoplay="<?php echo get_theme_mod( 'vr_feed_autoplay', true ) ? '1' : '0'; ?>">
 	<div class="container-page">
 		<h2 id="feed-title" class="mb-7 text-center text-2xl font-semibold sm:text-3xl"><?php echo esc_html( (string) vr_opt( 'feed_title', 'From Our Feed' ) ); ?></h2>
 		<div class="vr-feed-wrap">

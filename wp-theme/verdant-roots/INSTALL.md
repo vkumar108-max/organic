@@ -75,6 +75,9 @@ Customize → **Header & footer name** (also has a Favicon upload): replace the 
 ### Trust logos strip (under the hero)
 Customize → **Trust logos strip**: upload up to 8 logos (Logo 1…8). They run as a thin, always-moving strip of logos only — no licence numbers (put those in the footer yourself). Fill each logo's **Alt text** in Media for screen readers. With no logo uploaded, visitors see nothing; admins see a labelled sample.
 
+### From Our Feed — auto-play
+When visitors scroll to the feed section, the centred **YouTube** card plays muted as a live preview (it moves as they swipe, and stops when they scroll away). Tapping a card still opens the pop-up player with sound. Instagram links cannot auto-play (Instagram does not allow it). Turn it off in Customize → From Our Feed. Skipped for reduced-motion and Data Saver visitors.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.
