@@ -89,6 +89,12 @@ add_shortcode(
 	}
 );
 
+/** Categories shown in the navigation (mega menu, mobile menu): the Combos category is left out of the menus. */
+function vr_nav_categories(): array {
+	$combo = (string) vr_opt( 'combo_slug', 'combos' );
+	return array_values( array_filter( vr_top_categories(), static fn( $t ) => $t->slug !== $combo && 'combos' !== $t->slug ) );
+}
+
 /** Top-level, visible product categories in admin-defined order. */
 function vr_top_categories(): array {
 	$terms = get_terms( array( 'taxonomy' => 'product_cat', 'parent' => 0, 'hide_empty' => false, 'orderby' => 'menu_order', 'exclude' => array( (int) get_option( 'default_product_cat' ) ) ) );

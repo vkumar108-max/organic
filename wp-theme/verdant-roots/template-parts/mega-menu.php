@@ -2,7 +2,7 @@
 /** Desktop navigation + accessible mega menu (categories are read live from WooCommerce). */
 defined( 'ABSPATH' ) || exit;
 
-$vr_cats     = function_exists( 'vr_top_categories' ) && taxonomy_exists( 'product_cat' ) ? vr_top_categories() : array();
+$vr_cats     = function_exists( 'vr_nav_categories' ) && taxonomy_exists( 'product_cat' ) ? vr_nav_categories() : array();
 $vr_featured = null;
 if ( function_exists( 'wc_get_featured_product_ids' ) ) {
 	$vr_fids     = wc_get_featured_product_ids();

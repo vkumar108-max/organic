@@ -103,7 +103,6 @@ function vr_menu_fallback_items( string $location ): array {
 			array( __( 'Home', 'verdant-roots' ), home_url( '/' ) ),
 			array( __( 'Shop', 'verdant-roots' ), function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' ), 'mega' ),
 			array( __( 'Categories', 'verdant-roots' ), vr_page_url( 'categories', home_url( '/' ) ) ),
-			array( __( 'Combos', 'verdant-roots' ), vr_term_url( 'combos' ) ),
 			array( __( 'About Us', 'verdant-roots' ), vr_page_url( 'about' ) ),
 			array( __( 'Blog', 'verdant-roots' ), vr_blog_url() ),
 			array( __( 'Contact Us', 'verdant-roots' ), vr_page_url( 'contact' ) ),

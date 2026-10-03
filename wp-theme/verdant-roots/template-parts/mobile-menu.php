@@ -1,7 +1,7 @@
 <?php
 /** Hamburger drawer: native <dialog> (focus trap + Escape for free). */
 defined( 'ABSPATH' ) || exit;
-$vr_cats = function_exists( 'vr_top_categories' ) && taxonomy_exists( 'product_cat' ) ? vr_top_categories() : array();
+$vr_cats = function_exists( 'vr_nav_categories' ) && taxonomy_exists( 'product_cat' ) ? vr_nav_categories() : array();
 ?>
 <dialog id="vr-menu" class="vr-drawer m-0 h-dvh max-h-dvh w-[88vw] max-w-sm overflow-y-auto rounded-none bg-white p-0 text-ink shadow-lift" aria-labelledby="vr-menu-title">
 	<div class="p-5">
