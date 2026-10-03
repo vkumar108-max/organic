@@ -18,7 +18,7 @@ add_action(
 			'hero_title'    => array( __( 'Hero headline', 'verdant-roots' ), 'text', 'Natural Goodness, Made Simple' ),
 			'hero_text'     => array( __( 'Hero sub-heading', 'verdant-roots' ), 'textarea', 'Discover quality fruit, leaf and vegetable products for everyday living.' ),
 			'hero_cats'     => array( __( 'Hero 3D slider — categories (up to 5, comma-separated slugs or names)', 'verdant-roots' ), 'text', 'fruit-powder, leaf-powder, vegetable-powder, dry-vegetables, tablets' ),
-			'trust_items'   => array( __( 'Trust strip under the hero — one per line: Label | Detail | Logo URL. Add ONLY licences/certificates you really hold, e.g. FSSAI | Lic. No. 1234… | https://…/fssai.png (upload logos in Media). Leave empty to hide the strip.', 'verdant-roots' ), 'textarea', '' ),
+			'trust_items'   => array( __( 'Trust strip (advanced, optional) — one per line: Label | (ignored) | Logo URL. Easier: use Customize → Trust logos strip and upload logos there.', 'verdant-roots' ), 'textarea', '' ),
 			'wellness_title' => array( __( 'Herbal & Wellness section — heading', 'verdant-roots' ), 'text', 'Herbal & Wellness' ),
 			'wellness_cats'  => array( __( 'Herbal & Wellness section — categories (up to 4, comma-separated slugs, in order)', 'verdant-roots' ), 'text', 'herbal-powder, superfood-powder, immunity-products, nutrition-products' ),
 			'featured_title' => array( __( 'Featured products section — heading', 'verdant-roots' ), 'text', 'Our Featured Products' ),
@@ -47,6 +47,13 @@ add_action(
 		$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'vr_brand_footer_logo', array( 'label' => __( 'Footer logo image (optional — replaces the footer name text; use a light/transparent logo on the dark footer)', 'verdant-roots' ), 'section' => 'vr_brand', 'mime_type' => 'image' ) ) );
 		$wp_customize->add_setting( 'vr_brand_favicon', array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
 		$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'vr_brand_favicon', array( 'label' => __( 'Favicon / site icon (square PNG, at least 512×512). Used when no WordPress Site Icon is set.', 'verdant-roots' ), 'section' => 'vr_brand', 'mime_type' => 'image' ) ) );
+
+		$wp_customize->add_section( 'vr_trust', array( 'title' => __( 'Trust logos strip', 'verdant-roots' ), 'description' => __( 'Thin always-running strip under the hero. Upload up to 8 logos (only ones you are entitled to show). Add the logo\'s name in its Media "Alt text" for screen readers. Empty = visitors see no strip.', 'verdant-roots' ), 'priority' => 28 ) );
+		for ( $i = 1; $i <= 8; $i++ ) {
+			$wp_customize->add_setting( 'vr_trust_logo_' . $i, array( 'default' => 0, 'sanitize_callback' => 'absint' ) );
+			/* translators: %d slot number */
+			$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'vr_trust_logo_' . $i, array( 'label' => sprintf( __( 'Logo %d', 'verdant-roots' ), $i ), 'section' => 'vr_trust', 'mime_type' => 'image' ) ) );
+		}
 
 		foreach ( $fields as $key => [ $label, $type, $default ] ) {
 			$sanitize = 'url' === $type ? 'esc_url_raw' : ( 'number' === $type ? 'absint' : ( 'textarea' === $type ? 'sanitize_textarea_field' : 'sanitize_text_field' ) );

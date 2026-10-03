@@ -153,6 +153,9 @@ Customize → **SEO & cookie notice**: home-page description, a social preview i
 ### Header & footer name
 Customize → **Header & footer name** (also has a Favicon upload): replace the shop name text in the header (and mobile menu / login card) and in the footer (and © line) independently. Optional footer logo image. Leave blank to use the Site Title. A header logo image still goes in Customize → Site Identity.
 
+### Trust logos strip (under the hero)
+Customize → **Trust logos strip**: upload up to 8 logos (Logo 1…8). They run as a thin, always-moving strip of logos only — no licence numbers (put those in the footer yourself). Fill each logo's **Alt text** in Media for screen readers. With no logo uploaded, visitors see nothing; admins see a labelled sample.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

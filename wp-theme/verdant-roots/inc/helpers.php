@@ -39,6 +39,16 @@ function vr_opt( string $key, $default = '' ) {
  */
 function vr_trust_items(): array {
 	$items = array();
+	// Logos uploaded in Customize → Trust logos (shown as logos only; no licence numbers).
+	for ( $i = 1; $i <= 8; $i++ ) {
+		$id  = (int) get_theme_mod( 'vr_trust_logo_' . $i, 0 );
+		$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : '';
+		if ( $url ) {
+			$alt     = trim( (string) get_post_meta( $id, '_wp_attachment_image_alt', true ) );
+			$items[] = array( 'label' => '' !== $alt ? $alt : trim( (string) get_the_title( $id ) ), 'detail' => '', 'logo' => $url );
+		}
+	}
+	// Older setting: "Label | Detail | Logo URL" lines. Only the label and logo are used.
 	foreach ( preg_split( '/\r\n|\r|\n/', (string) vr_opt( 'trust_items', '' ) ) as $line ) {
 		$line = trim( $line );
 		if ( '' === $line ) {
@@ -47,7 +57,7 @@ function vr_trust_items(): array {
 		$part    = array_map( 'trim', explode( '|', $line, 3 ) );
 		$items[] = array(
 			'label'  => $part[0],
-			'detail' => $part[1] ?? '',
+			'detail' => '',
 			'logo'   => isset( $part[2] ) ? esc_url_raw( $part[2] ) : '',
 		);
 	}

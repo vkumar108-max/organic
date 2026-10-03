@@ -384,7 +384,7 @@
   .vr-trust:hover .vr-trust-track, .vr-trust:focus-within .vr-trust-track, .vr-trust.is-paused .vr-trust-track { animation-play-state: paused; }
   .vr-trust-group { display: flex; flex-shrink: 0; align-items: center; gap: 2.5rem; margin: 0; padding: .55rem 2.5rem .55rem 0; list-style: none; }
   .vr-trust-item { display: inline-flex; align-items: center; gap: .55rem; white-space: nowrap; font-size: .8125rem; color: var(--color-ink-soft); }
-  .vr-trust-logo { height: 1.625rem; width: auto; max-width: 6.5rem; object-fit: contain; }
+  .vr-trust-logo { height: 2rem; width: auto; max-width: 8rem; object-fit: contain; }
   .vr-trust-ico { display: grid; place-items: center; width: 1.625rem; height: 1.625rem; border-radius: 9999px; background: var(--color-brand-100); color: var(--color-brand-700); }
   .vr-trust-label { font-weight: 700; letter-spacing: .02em; color: var(--color-brand-800); }
   .vr-trust-detail { color: var(--color-ink-soft); }
