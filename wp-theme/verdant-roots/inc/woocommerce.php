@@ -236,6 +236,38 @@ function vr_get_products( array $args = array() ): array {
 	return wc_get_products( $query );
 }
 
+/**
+ * "Our Featured Products": products starred as Featured first, then topped up with the newest product of every category in
+ * turn (so all categories are represented), then with the latest products overall.
+ */
+function vr_featured_mix( int $limit = 12 ): array {
+	$picked = array();
+	foreach ( vr_get_products( array( 'featured' => true, 'limit' => $limit ) ) as $p ) {
+		$picked[ $p->get_id() ] = $p;
+	}
+	if ( count( $picked ) < $limit && function_exists( 'vr_top_categories' ) ) {
+		$pools = array();
+		foreach ( vr_top_categories() as $term ) {
+			$pools[] = vr_get_products( array( 'category' => $term->slug, 'limit' => 6, 'orderby' => 'date' ) );
+		}
+		for ( $round = 0; $round < 6 && count( $picked ) < $limit; $round++ ) {
+			foreach ( $pools as $pool ) {
+				if ( isset( $pool[ $round ] ) && ! isset( $picked[ $pool[ $round ]->get_id() ] ) && count( $picked ) < $limit ) {
+					$picked[ $pool[ $round ]->get_id() ] = $pool[ $round ];
+				}
+			}
+		}
+	}
+	if ( count( $picked ) < $limit ) {
+		foreach ( vr_get_products( array( 'limit' => $limit, 'orderby' => 'date' ) ) as $p ) {
+			if ( count( $picked ) < $limit ) {
+				$picked[ $p->get_id() ] = $p;
+			}
+		}
+	}
+	return array_values( $picked );
+}
+
 /** Renders a responsive grid of product cards for an array of WC_Product. */
 function vr_render_product_grid( array $products, int $columns = 4 ): void {
 	if ( ! $products ) {

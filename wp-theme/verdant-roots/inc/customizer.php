@@ -22,7 +22,6 @@ add_action(
 			'wellness_title' => array( __( 'Herbal & Wellness section — heading', 'verdant-roots' ), 'text', 'Herbal & Wellness' ),
 			'wellness_cats'  => array( __( 'Herbal & Wellness section — categories (up to 4, comma-separated slugs, in order)', 'verdant-roots' ), 'text', 'herbal-powder, superfood-powder, immunity-products, nutrition-products' ),
 			'featured_title' => array( __( 'Featured products section — heading', 'verdant-roots' ), 'text', 'Our Featured Products' ),
-			'section_1'     => array( __( 'Home section 1 — product category slug', 'verdant-roots' ), 'text', 'fruit-powder' ),
 			'section_2'     => array( __( 'Home section 2 — product category slug', 'verdant-roots' ), 'text', 'leaf-powder' ),
 			'section_3'     => array( __( 'Home section 3 — product category slug', 'verdant-roots' ), 'text', 'vegetable-powder' ),
 			'combo_slug'    => array( __( 'Combos category slug', 'verdant-roots' ), 'text', 'combos' ),

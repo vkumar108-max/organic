@@ -165,6 +165,9 @@ The Categories page and every product page now continue with the Best Selling ca
 ### Account needed to order
 Customize → **Account needed to order** (on by default). Visitors who are not signed in get a **Create account / Sign in** pop-up when they tap Add to cart or Buy Now. After signing in or registering they return to the page they were on. The shop also enforces it on the server: guests cannot add to cart, are redirected from Checkout to sign-up, and the order cannot be placed without an account. While it is on, the theme overrides two WooCommerce settings on the front end only (guest checkout off, account creation on My account on); WooCommerce → Settings still shows your saved values. Turn the checkbox off to go back to normal WooCommerce behaviour. Note: the item is not added automatically after sign-up — the shopper taps Add to cart again.
 
+### Home: Our Featured Products (all categories)
+"Our Featured Products" now sits below the Our Story banner, in the slot the Fruit Powder section used to take (that section was removed; Leaf Powder and Vegetable Powder remain). It shows products you starred as Featured in WooCommerce first, then tops up with the newest products of every category in turn, so all categories appear. It slides by itself every 5 seconds. It needs at least one published product.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

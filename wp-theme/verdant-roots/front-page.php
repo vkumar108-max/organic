@@ -12,7 +12,6 @@ $vr_woo   = function_exists( 'vr_get_products' );
 $vr_cats  = $vr_woo ? vr_top_categories() : array();
 $vr_best  = $vr_woo ? vr_best_sellers() : array(); // tagged products by Position, else most popular.
 $vr_sections = array(
-	array( 'id' => 'sec-1', 'slug' => (string) vr_opt( 'section_1', 'fruit-powder' ), 'tinted' => false ),
 	array( 'id' => 'sec-2', 'slug' => (string) vr_opt( 'section_2', 'leaf-powder' ), 'tinted' => true ),
 	array( 'id' => 'sec-3', 'slug' => (string) vr_opt( 'section_3', 'vegetable-powder' ), 'tinted' => false ),
 );
@@ -70,16 +69,15 @@ get_template_part( 'template-parts/best-selling', null, array( 'products' => $vr
 
 <?php get_template_part( 'template-parts/wellness' ); ?>
 
-<?php
-$vr_featured = $vr_woo ? vr_get_products( array( 'featured' => true, 'limit' => 12 ) ) : array(); // WooCommerce's own Featured star.
-get_template_part( 'template-parts/featured-products', null, array( 'products' => $vr_featured, 'href' => $vr_woo ? add_query_arg( 'orderby', 'popularity', wc_get_page_permalink( 'shop' ) ) : '#' ) );
-?>
-
 <?php get_template_part( 'template-parts/ads-videos' ); ?>
 
 <?php get_template_part( 'template-parts/story-banner' ); ?>
 
 <?php
+// Our Featured Products: starred products first, then products from every category (see vr_featured_mix()).
+$vr_featured = $vr_woo ? vr_featured_mix( 12 ) : array();
+get_template_part( 'template-parts/featured-products', null, array( 'products' => $vr_featured, 'href' => $vr_woo ? add_query_arg( 'orderby', 'popularity', wc_get_page_permalink( 'shop' ) ) : '#' ) );
+
 
 foreach ( $vr_sections as $vr_s ) {
 	$vr_term = get_term_by( 'slug', $vr_s['slug'], 'product_cat' );
