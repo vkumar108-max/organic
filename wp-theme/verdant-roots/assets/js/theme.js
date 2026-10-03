@@ -208,7 +208,7 @@
 	$$( '[data-fp]' ).forEach( function ( root ) {
 		var track = $( '[data-fp-track]', root ), prev = $( '[data-fp-prev]', root ), next = $( '[data-fp-next]', root ), play = $( '[data-fp-play]', root );
 		if ( ! track ) { return; }
-		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches, INTERVAL = 5000;
+		var reduce = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches, INTERVAL = 2000;
 		var timer = 0, hovering = false, focused = false, touching = false, userPaused = false;
 		function maxLeft() { return track.scrollWidth - track.clientWidth; }
 		function sync() {

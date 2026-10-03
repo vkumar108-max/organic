@@ -81,8 +81,8 @@ assign products to them straight away; rename/delete/re-describe them freely —
 *Products → Categories → Thumbnail*. Heading and which categories (up to 4, in order) are in *Customize → Verdant Roots store settings →
 Herbal & Wellness section*. Keep product wording within what is lawful for your products (no disease or cure claims).
 
-### Our Featured Products (auto-sliding, every 5 seconds)
-Under Herbal & Wellness: a deep-green panel with the heading plus a carousel that moves to the next product every **5 seconds**
+### Our Featured Products (auto-sliding, every 2 seconds)
+Under Herbal & Wellness: a deep-green panel with the heading plus a carousel that moves to the next product every **2 seconds**
 (and loops back to the start). It shows the products you star as **Featured** in WooCommerce: *Products* list → click the ☆ in the
 Featured column (or Quick Edit / the product's *Catalog visibility → Featured*). It pauses on hover, keyboard focus and touch, has a pause
 button and prev/next arrows, can be swiped, and never autoplays for visitors who prefer reduced motion. Heading is in the Customizer
@@ -166,7 +166,7 @@ The Categories page and every product page now continue with the Best Selling ca
 Customize → **Account needed to order** (on by default). Visitors who are not signed in get a **Create account / Sign in** pop-up when they tap Add to cart or Buy Now. After signing in or registering they return to the page they were on. The shop also enforces it on the server: guests cannot add to cart, are redirected from Checkout to sign-up, and the order cannot be placed without an account. While it is on, the theme overrides two WooCommerce settings on the front end only (guest checkout off, account creation on My account on); WooCommerce → Settings still shows your saved values. Turn the checkbox off to go back to normal WooCommerce behaviour. Note: the item is not added automatically after sign-up — the shopper taps Add to cart again.
 
 ### Home: Our Featured Products (all categories)
-"Our Featured Products" now sits below the Our Story banner, in the slot the Fruit Powder section used to take (that section was removed; Leaf Powder and Vegetable Powder remain). It shows products you starred as Featured in WooCommerce first, then tops up with the newest products of every category in turn, so all categories appear. It slides by itself every 5 seconds. It needs at least one published product.
+"Our Featured Products" now sits below the Our Story banner, in the slot the Fruit Powder section used to take (that section was removed; Leaf Powder and Vegetable Powder remain). It shows products you starred as Featured in WooCommerce first, then tops up with the newest products of every category in turn, so all categories appear. It slides by itself every 2 seconds. It needs at least one published product.
 
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the

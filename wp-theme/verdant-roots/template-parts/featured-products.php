@@ -1,6 +1,6 @@
 <?php
 /**
- * "Our Featured Products": deep-green side panel + a product carousel that slides on its own every 5 seconds.
+ * "Our Featured Products": deep-green side panel + a product carousel that slides on its own every 2 seconds.
  * Products are the ones starred as Featured in WooCommerce (Products list → ☆, or Quick Edit / product → Catalog visibility → Featured).
  * Args: products (WC_Product[]), href.
  *
