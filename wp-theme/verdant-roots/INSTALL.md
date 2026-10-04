@@ -87,6 +87,9 @@ Customize → **Account needed to order** (on by default). Visitors who are not 
 ### Home: Our Featured Products (all categories)
 "Our Featured Products" now sits below the Our Story banner, in the slot the Fruit Powder section used to take (that section was removed; Leaf Powder and Vegetable Powder remain). It shows products you starred as Featured in WooCommerce first, then tops up with the newest products of every category in turn, so all categories appear. It slides by itself every 2 seconds. It needs at least one published product.
 
+### Hero category slider: all categories
+The 3D slider in the hero now shows **every top-level category** by default (up to 12). To pick only some, list their slugs in Customize → Verdant Roots store settings → "Hero 3D slider — categories"; leave it blank for all.
+
 ## Before you go live (WooCommerce settings)
 * **WooCommerce → Settings → Site visibility → Live.** New stores start in "Coming soon" mode, which hides the
   whole shop from logged-out visitors.

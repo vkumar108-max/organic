@@ -17,7 +17,7 @@ add_action(
 			'free_shipping' => array( __( 'Free shipping threshold (₹, display only — configure the real rule in WooCommerce → Shipping)', 'verdant-roots' ), 'number', 499 ),
 			'hero_title'    => array( __( 'Hero headline', 'verdant-roots' ), 'text', 'Natural Goodness, Made Simple' ),
 			'hero_text'     => array( __( 'Hero sub-heading', 'verdant-roots' ), 'textarea', 'Discover quality fruit, leaf and vegetable products for everyday living.' ),
-			'hero_cats'     => array( __( 'Hero 3D slider — categories (up to 5, comma-separated slugs or names)', 'verdant-roots' ), 'text', 'fruit-powder, leaf-powder, vegetable-powder, dry-vegetables, tablets' ),
+			'hero_cats'     => array( __( 'Hero 3D slider — categories to show (comma-separated slugs or names, up to 12). Leave BLANK to show all categories.', 'verdant-roots' ), 'text', '' ),
 			'trust_items'   => array( __( 'Trust strip (advanced, optional) — one per line: Label | (ignored) | Logo URL. Easier: use Customize → Trust logos strip and upload logos there.', 'verdant-roots' ), 'textarea', '' ),
 			'wellness_title' => array( __( 'Herbal & Wellness section — heading', 'verdant-roots' ), 'text', 'Herbal & Wellness' ),
 			'wellness_cats'  => array( __( 'Herbal & Wellness section — categories (up to 4, comma-separated slugs, in order)', 'verdant-roots' ), 'text', 'herbal-powder, superfood-powder, seeds, dry-fruits' ),

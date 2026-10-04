@@ -1,6 +1,6 @@
 <?php
 /**
- * Hero 3D coverflow slider: one card per category (max 5).
+ * Hero 3D coverflow slider: one card per category (all categories by default, max 12).
  * Without JS it is a swipeable scroll-snap row; theme.js upgrades it to a 3D carousel with
  * drag/swipe, arrow keys, dots, tilt and a pausable autoplay.
  *

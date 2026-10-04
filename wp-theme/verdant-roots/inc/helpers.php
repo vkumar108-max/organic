@@ -269,8 +269,8 @@ function vr_card_price_html( WC_Product $product ): string {
 }
 
 /**
- * Categories for the hero slider: the slugs/names listed in Customizer (default: the five
- * storefront categories), falling back to the first top-level categories. Max 5.
+ * Categories for the hero slider: every top-level product category by default. If slugs/names are listed in
+ * Customizer, only those are shown (in that order). Max 12.
  *
  * @return WP_Term[]
  */
@@ -278,7 +278,7 @@ function vr_hero_categories(): array {
 	if ( ! taxonomy_exists( 'product_cat' ) ) {
 		return array();
 	}
-	$wanted = array_filter( array_map( 'trim', explode( ',', (string) vr_opt( 'hero_cats', 'fruit-powder, leaf-powder, vegetable-powder, dry-vegetables, tablets' ) ) ) );
+	$wanted = array_filter( array_map( 'trim', explode( ',', (string) vr_opt( 'hero_cats', '' ) ) ) );
 	$out    = array();
 	foreach ( $wanted as $token ) {
 		$term = get_term_by( 'slug', sanitize_title( $token ), 'product_cat' ) ?: get_term_by( 'name', $token, 'product_cat' );
@@ -286,10 +286,10 @@ function vr_hero_categories(): array {
 			$out[ $term->term_id ] = $term;
 		}
 	}
-	if ( count( $out ) < 2 ) {
+	if ( ! $wanted || count( $out ) < 2 ) { // nothing chosen: show all categories.
 		foreach ( vr_top_categories() as $term ) {
 			$out[ $term->term_id ] = $term;
 		}
 	}
-	return array_slice( array_values( $out ), 0, 5 );
+	return array_slice( array_values( $out ), 0, 12 );
 }
