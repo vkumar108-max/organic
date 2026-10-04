@@ -752,3 +752,9 @@
   .vr-gate-alt { margin: 1rem 0 0; font-size: .92rem; color: var(--color-ink-soft); }
 }
 @media (prefers-reduced-motion: reduce) { .vr-gate[open] { animation: none; } }
+
+/* v1.0.33 footer: soft curve along the top edge */
+@layer components {
+  .vr-footer { position: relative; }
+  .vr-footer::before { content: ""; position: absolute; inset: -1px 0 auto 0; height: clamp(1.5rem, 4vw, 3.25rem); background: #fff; border-radius: 0 0 50% 50% / 0 0 100% 100%; pointer-events: none; }
+}

@@ -21,7 +21,7 @@ $vr_cols    = array(
 ?>
 </main>
 
-<footer class="mt-16 bg-brand-900 pb-20 text-brand-100 md:pb-0">
+<footer class="vr-footer mt-16 bg-brand-900 pb-20 text-brand-100 md:pb-0">
 	<div class="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
 		<div class="sm:col-span-2 lg:col-span-1">
 			<?php echo vr_logo( true ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
