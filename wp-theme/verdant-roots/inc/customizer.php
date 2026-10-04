@@ -20,7 +20,7 @@ add_action(
 			'hero_cats'     => array( __( 'Hero 3D slider — categories (up to 5, comma-separated slugs or names)', 'verdant-roots' ), 'text', 'fruit-powder, leaf-powder, vegetable-powder, dry-vegetables, tablets' ),
 			'trust_items'   => array( __( 'Trust strip (advanced, optional) — one per line: Label | (ignored) | Logo URL. Easier: use Customize → Trust logos strip and upload logos there.', 'verdant-roots' ), 'textarea', '' ),
 			'wellness_title' => array( __( 'Herbal & Wellness section — heading', 'verdant-roots' ), 'text', 'Herbal & Wellness' ),
-			'wellness_cats'  => array( __( 'Herbal & Wellness section — categories (up to 4, comma-separated slugs, in order)', 'verdant-roots' ), 'text', 'herbal-powder, superfood-powder, immunity-products, nutrition-products' ),
+			'wellness_cats'  => array( __( 'Herbal & Wellness section — categories (up to 4, comma-separated slugs, in order)', 'verdant-roots' ), 'text', 'herbal-powder, superfood-powder, seeds, dry-fruits' ),
 			'featured_title' => array( __( 'Featured products section — heading', 'verdant-roots' ), 'text', 'Our Featured Products' ),
 			'section_2'     => array( __( 'Home section 2 — product category slug', 'verdant-roots' ), 'text', 'leaf-powder' ),
 			'section_3'     => array( __( 'Home section 3 — product category slug', 'verdant-roots' ), 'text', 'vegetable-powder' ),

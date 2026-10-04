@@ -74,7 +74,7 @@ products instead; "See all" opens the best-seller tag page. With **no published 
 but logged-in admins see a dashed preview with instructions (products must be *Published*, not Draft).
 
 ### Herbal & Wellness (four category cards)
-Under Best Selling Products: a heading plus four tinted cards — **Herbal Powder, Superfood Powder, Immunity Products, Nutrition Products** —
+Under Best Selling Products: a heading plus four tinted cards — **Herbal Powder, Superfood Powder, Seeds, Dry Fruits** —
 each with a short text, an Explore button and the category image (placeholder art until you set one). The four are created **once**
 as normal WooCommerce product categories the first time an admin opens wp-admin after installing the theme (Products → Categories), so you can
 assign products to them straight away; rename/delete/re-describe them freely — they are not re-created. Set images in
@@ -129,7 +129,7 @@ Six neutral starter answers ship with the theme (placing an order, payment, coup
 Matching FAQ structured data (schema.org FAQPage) is printed from the same visible text. The section hides itself if every question is cleared.
 
 ### Bulk Order page + mobile menu changes
-* **Mobile menu (hamburger):** under the logo there are now **4 round category icons** (default: Herbal Powder, Superfood Powder, Immunity Products, Nutrition Products — change the
+* **Mobile menu (hamburger):** under the logo there are now **4 round category icons** (default: Herbal Powder, Superfood Powder, Seeds, Dry Fruits — change the
   slugs in *Customize → Bulk order form → "Mobile menu"*; missing ones are topped up with your first categories; the icon is the category image). **Wishlist is replaced by "Bulk Order"** at the bottom
   of the drawer (the Wishlist page and the desktop header heart still exist).
 * **Bulk Order page** (`/bulk-order/`, created once the first time an admin opens wp-admin after the update; the shortcode is `[vr_bulk_order]`): three cards — *Tell us about your business*

@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VR_VERSION', '1.0.30' );
+define( 'VR_VERSION', '1.0.31' );
 define( 'VR_DIR', get_template_directory() );
 define( 'VR_URI', get_template_directory_uri() );
 

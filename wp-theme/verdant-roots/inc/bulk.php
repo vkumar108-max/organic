@@ -43,7 +43,7 @@ add_action(
 		$wp_customize->add_control( 'vr_bulk_email', array( 'label' => __( 'Send bulk enquiries to (empty = the site admin email)', 'verdant-roots' ), 'section' => 'vr_bulk', 'type' => 'email' ) );
 		$wp_customize->add_setting( 'vr_bulk_types', array( 'default' => vr_bulk_default_types(), 'sanitize_callback' => 'sanitize_textarea_field' ) );
 		$wp_customize->add_control( 'vr_bulk_types', array( 'label' => __( 'Event / requirement types (one per line)', 'verdant-roots' ), 'section' => 'vr_bulk', 'type' => 'textarea' ) );
-		$wp_customize->add_setting( 'vr_menu_icons', array( 'default' => 'herbal-powder, superfood-powder, immunity-products, nutrition-products', 'sanitize_callback' => 'sanitize_text_field' ) );
+		$wp_customize->add_setting( 'vr_menu_icons', array( 'default' => 'herbal-powder, superfood-powder, seeds, dry-fruits', 'sanitize_callback' => 'sanitize_text_field' ) );
 		$wp_customize->add_control( 'vr_menu_icons', array( 'label' => __( 'Mobile menu: 4 category icons under the logo (comma-separated category slugs)', 'verdant-roots' ), 'section' => 'vr_bulk', 'type' => 'text' ) );
 	}
 );
@@ -56,7 +56,7 @@ function vr_menu_tile_cats(): array {
 		return array();
 	}
 	$terms = array();
-	foreach ( array_slice( array_filter( array_map( 'sanitize_title', explode( ',', (string) vr_opt( 'menu_icons', 'herbal-powder, superfood-powder, immunity-products, nutrition-products' ) ) ) ), 0, 4 ) as $slug ) {
+	foreach ( array_slice( array_filter( array_map( 'sanitize_title', explode( ',', (string) vr_opt( 'menu_icons', 'herbal-powder, superfood-powder, seeds, dry-fruits' ) ) ) ), 0, 4 ) as $slug ) {
 		$t = get_term_by( 'slug', $slug, 'product_cat' );
 		if ( $t instanceof WP_Term ) {
 			$terms[ $t->term_id ] = $t;

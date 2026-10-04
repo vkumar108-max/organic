@@ -143,6 +143,8 @@ function vr_tone_for_slug( string $slug ): string {
 		'superfood-powder'   => 'vegetable',
 		'immunity-products'  => 'dry',
 		'nutrition-products' => 'tablet',
+		'seeds'              => 'leaf',
+		'dry-fruits'         => 'dry',
 	);
 	return $map[ $slug ] ?? 'leaf';
 }
