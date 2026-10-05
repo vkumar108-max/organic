@@ -30,6 +30,6 @@ export const saveSettings = createAction({
         metadata: { before: (before?.value ?? def.defaults) as object, after: parsed.data },
       }, tx);
     });
-    return `${def.title} settings saved.`;
+    return `${def.title}: changes saved.`;
   },
 });
